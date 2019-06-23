@@ -12,6 +12,7 @@ namespace Instituto_Britanico.Controlador
     public class MateriaController
     {
         private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "materia";
+
         public static async Task<Materia> Get(Materia pMateria)
         {
             string url = $"{ MateriaController.Url }/getbyid/{ pMateria.ID }";
@@ -26,7 +27,8 @@ namespace Instituto_Britanico.Controlador
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    string error = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(error);
                 }
             }
         }
@@ -48,7 +50,8 @@ namespace Instituto_Britanico.Controlador
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    string error = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(error);
                 }
             }
         }
@@ -65,9 +68,9 @@ namespace Instituto_Britanico.Controlador
                     materia.Sucursal.ID = materia.SucursalID;
                     return materia;
                 }
-                else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    string error = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(error);
                 }
             }
         }

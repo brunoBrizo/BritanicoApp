@@ -132,6 +132,9 @@
     <Compile Include="Utilidad\Parametro.cs" />
     <Compile Include="Utilidad\Persistencia.cs" />
     <Compile Include="Utilidad\ValidacionException.cs" />
+    <Compile Include="Vistas\BorrarBoton.xaml.cs">
+      <DependentUpon>BorrarBoton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\MantenemeestaBORRAR.xaml.cs">
       <DependentUpon>MantenemeestaBORRAR.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Vistas\BorrarBoton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\MantenemeestaBORRAR.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

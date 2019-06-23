@@ -11,10 +11,10 @@ namespace Instituto_Britanico.Controlador
 {
     public class ControladorAPI
     {
-        List<Grupo> Grupos { get; set; }
-        List<Sucursal> Sucursales { get; set; }
-        List<Materia> Materias { get; set; }
-        List<Funcionario> Funcionarios { get; set; }
+        public List<Grupo> lstGrupos { get; set; }
+        public List<Sucursal> lstSucursales { get; set; }
+        public List<Materia> lstMaterias { get; set; }
+        public List<Funcionario> lstFuncionarios { get; set; }
 
 
         List<Libro> Libros { get; set; }
@@ -29,7 +29,7 @@ namespace Instituto_Britanico.Controlador
         internal List<Funcionario> GetProfesoresTotal()
         {
             List<Funcionario> lista = new List<Funcionario>();
-            foreach (Funcionario f in Funcionarios)
+            foreach (Funcionario f in lstFuncionarios)
             {
                 if (f.TipoFuncionario == FuncionarioTipo.Profesor)
                 {
@@ -51,12 +51,12 @@ namespace Instituto_Britanico.Controlador
         private async void CargarListas()
         {
             DateTime InicioDeIngresos = DateTime.Now;
-            Materias = new List<Materia>();
+            lstMaterias = new List<Materia>();
             Libros = new List<Libro>();
-            Grupos = new List<Grupo>();
+            lstGrupos = new List<Grupo>();
             Estudiantes = new List<Estudiante>();
-            Sucursales = new List<Sucursal>();
-            Funcionarios = new List<Funcionario>();
+            lstSucursales = new List<Sucursal>();
+            lstFuncionarios = new List<Funcionario>();
             Examenes = new List<Examen>();
             Pagos = new List<Pago>();
             Matriculas = new List<Matricula>();
@@ -69,9 +69,9 @@ namespace Instituto_Britanico.Controlador
             Sucursal sb = new Sucursal("Rivera Chico", "Nepomuseno Cabrera 3232", "425", "Nepomuseno@InstitutoBritanicoDeRiveraAlNorteDeUruguay.com", "Rivera", "Jacinto");
             Sucursal sc = new Sucursal("Maldonado", "Aristobulo Gimenez 1211", "421", "Aristobuloo@InstitutoBritanicoDeRiveraAlNorteDeUruguay.com", "Rivera", "Florencio");
 
-            Sucursales.Add(sa);
-            Sucursales.Add(sb);
-            Sucursales.Add(sc);
+            lstSucursales.Add(sa);
+            lstSucursales.Add(sb);
+            lstSucursales.Add(sc);
             #endregion
 
             #region ingreso de Matriculas
@@ -102,22 +102,22 @@ namespace Instituto_Britanico.Controlador
             Materia mp = new Materia() { ID = 16, Nombre = "Children 1", Sucursal = sb };
 
 
-            Materias.Add(ma);
-            Materias.Add(mb);
-            Materias.Add(mc);
-            Materias.Add(md);
-            Materias.Add(me);
-            Materias.Add(mf);
-            Materias.Add(mg);
-            Materias.Add(mh);
-            Materias.Add(mi);
-            Materias.Add(mj);
-            Materias.Add(mk);
-            Materias.Add(ml);
-            Materias.Add(mm);
-            Materias.Add(mn);
-            Materias.Add(mo);
-            Materias.Add(mp);
+            lstMaterias.Add(ma);
+            lstMaterias.Add(mb);
+            lstMaterias.Add(mc);
+            lstMaterias.Add(md);
+            lstMaterias.Add(me);
+            lstMaterias.Add(mf);
+            lstMaterias.Add(mg);
+            lstMaterias.Add(mh);
+            lstMaterias.Add(mi);
+            lstMaterias.Add(mj);
+            lstMaterias.Add(mk);
+            lstMaterias.Add(ml);
+            lstMaterias.Add(mm);
+            lstMaterias.Add(mn);
+            lstMaterias.Add(mo);
+            lstMaterias.Add(mp);
 
             //this.Materias = await MateriaController.GetAll();
 
@@ -140,19 +140,19 @@ namespace Instituto_Britanico.Controlador
             Grupo gl = new Grupo() { ID = 10, Materia = ml, Sucursal = sb };
             Grupo gm = new Grupo() { ID = 10, Materia = mm, Sucursal = sb };
 
-            Grupos.Add(ga);
-            Grupos.Add(gb);
-            Grupos.Add(gc);
-            Grupos.Add(gd);
-            Grupos.Add(ge);
-            Grupos.Add(gf);
-            Grupos.Add(gg);
-            Grupos.Add(gh);
-            Grupos.Add(gi);
-            Grupos.Add(gj);
-            Grupos.Add(gk);
-            Grupos.Add(gl);
-            Grupos.Add(gm);
+            lstGrupos.Add(ga);
+            lstGrupos.Add(gb);
+            lstGrupos.Add(gc);
+            lstGrupos.Add(gd);
+            lstGrupos.Add(ge);
+            lstGrupos.Add(gf);
+            lstGrupos.Add(gg);
+            lstGrupos.Add(gh);
+            lstGrupos.Add(gi);
+            lstGrupos.Add(gj);
+            lstGrupos.Add(gk);
+            lstGrupos.Add(gl);
+            lstGrupos.Add(gm);
 
             ga.LstEstudiantes = new List<Estudiante>();
             gb.LstEstudiantes = new List<Estudiante>();
@@ -267,19 +267,19 @@ namespace Instituto_Britanico.Controlador
             fue.TipoFuncionario = FuncionarioTipo.Profesor;
             fuj.TipoFuncionario = FuncionarioTipo.Profesor;
             fuk.TipoFuncionario = FuncionarioTipo.Profesor;
-            Funcionarios.Add(fua);
-            Funcionarios.Add(fub);
-            Funcionarios.Add(fuc);
-            Funcionarios.Add(fud);
-            Funcionarios.Add(fue);
-            Funcionarios.Add(fuf);
-            Funcionarios.Add(fug);
-            Funcionarios.Add(fuh);
-            Funcionarios.Add(fui);
-            Funcionarios.Add(fuj);
-            Funcionarios.Add(fuk);
-            Funcionarios.Add(ful);
-            Funcionarios.Add(fum);
+            lstFuncionarios.Add(fua);
+            lstFuncionarios.Add(fub);
+            lstFuncionarios.Add(fuc);
+            lstFuncionarios.Add(fud);
+            lstFuncionarios.Add(fue);
+            lstFuncionarios.Add(fuf);
+            lstFuncionarios.Add(fug);
+            lstFuncionarios.Add(fuh);
+            lstFuncionarios.Add(fui);
+            lstFuncionarios.Add(fuj);
+            lstFuncionarios.Add(fuk);
+            lstFuncionarios.Add(ful);
+            lstFuncionarios.Add(fum);
             #endregion
 
             #region ingreso estudiantes
@@ -875,11 +875,11 @@ namespace Instituto_Britanico.Controlador
             #region Orden de listas
             Libros = Libros.OrderBy(l => l.Nombre).ToList();
             Estudiantes = Estudiantes.OrderBy(es => es.Nombre).ToList();
-            Grupos = Grupos.OrderBy(g => g.ID).ToList();
-            Materias = Materias.OrderBy(m => m.Nombre).ToList();
-            Funcionarios = Funcionarios.OrderBy(func => func.Nombre).ToList();
+            lstGrupos = lstGrupos.OrderBy(g => g.ID).ToList();
+            lstMaterias = lstMaterias.OrderBy(m => m.Nombre).ToList();
+            lstFuncionarios = lstFuncionarios.OrderBy(func => func.Nombre).ToList();
             Examenes = Examenes.OrderByDescending(exam => exam.FechaHora).ToList();
-            Sucursales = Sucursales.OrderBy(sucu => sucu.Nombre).ToList();
+            lstSucursales = lstSucursales.OrderBy(sucu => sucu.Nombre).ToList();
             Pagos = Pagos.OrderBy(p => p.FechaHora).ToList();
 
             #endregion
@@ -942,7 +942,7 @@ namespace Instituto_Britanico.Controlador
         internal List<Grupo> GetGruposPorNombre(string text)
         {
             List<Grupo> lista = new List<Grupo>();
-            foreach (Grupo g in Grupos)
+            foreach (Grupo g in lstGrupos)
             {
                 if (g.Nombre.ToLower().Contains(text)) lista.Add(g);
             }
@@ -978,7 +978,7 @@ namespace Instituto_Britanico.Controlador
         internal List<Funcionario> GetFuncionariosActivos()
         {
             List<Funcionario> func = new List<Funcionario>();
-            foreach (Funcionario f in Funcionarios)
+            foreach (Funcionario f in lstFuncionarios)
             {
                 if (f.Activo)
                 {
@@ -992,7 +992,7 @@ namespace Instituto_Britanico.Controlador
         internal List<Funcionario> GetFuncionariosNoActivos()
         {
             List<Funcionario> func = new List<Funcionario>();
-            foreach (Funcionario f in Funcionarios)
+            foreach (Funcionario f in lstFuncionarios)
             {
                 if (!f.Activo)
                 {
@@ -1016,12 +1016,12 @@ namespace Instituto_Britanico.Controlador
 
         internal List<Grupo> GetGruposTotalb()
         {
-            return this.Grupos;
+            return this.lstGrupos;
         }
 
         internal List<Funcionario> GetFuncionariosTotal()
         {
-            return Funcionarios;
+            return lstFuncionarios;
         }
 
         internal List<Pago> GetPagosPorFiltros(string concepto, Sucursal suc, decimal montoMinimo, decimal montoMaximo, DateTime fechaMinima, DateTime fechaMaxima, Funcionario func)
@@ -1095,12 +1095,12 @@ namespace Instituto_Britanico.Controlador
             int i = 0;
             bool encontrado = false;
             List<Estudiante> lista = new List<Estudiante>();
-            while (i < Grupos.Count && !encontrado)
+            while (i < lstGrupos.Count && !encontrado)
             {
-                if (Grupos[i].ID == g.ID)
+                if (lstGrupos[i].ID == g.ID)
                 {
                     encontrado = true;
-                    lista = Grupos[i].LstEstudiantes;
+                    lista = lstGrupos[i].LstEstudiantes;
                 }
                 i++;
             }
@@ -1110,12 +1110,12 @@ namespace Instituto_Britanico.Controlador
 
         internal List<Materia> GetMateriasTotal()
         {
-            return Materias;
+            return lstMaterias;
         }
 
         internal List<Sucursal> GetSucursalesTotal()
         {
-            return Sucursales;
+            return lstSucursales;
         }
 
 

@@ -13,6 +13,6 @@ namespace Instituto_Britanico
     /// </summary>
     public partial class App : Application
     {
-        string hola = "";
+        string bug = "";
     }
 }
