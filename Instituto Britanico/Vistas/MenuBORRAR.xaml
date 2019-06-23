@@ -1,0 +1,28 @@
+﻿<Window x:Class="Instituto_Britanico.Vistas.MenuBORRAR"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+        mc:Ignorable="d"
+        Title="MenuBORRAR" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Width="600">
+            <StackPanel Orientation="Vertical" Background="LightGray" Width="200">
+                <Menu>
+                    <MenuItem>
+                        <TextBlock>Hola</TextBlock>
+                        <Menu>
+                            <MenuItem>
+                                <TextBlock>Hola1</TextBlock>
+                                <TextBlock>Hola2</TextBlock>
+                                <TextBlock>Hola3</TextBlock>
+                            </MenuItem></Menu>
+                    </MenuItem>
+                </Menu>
+                
+                
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

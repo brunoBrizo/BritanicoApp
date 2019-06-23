@@ -1,0 +1,81 @@
+﻿<Window x:Class="Instituto_Britanico.Vistas.VentanaMatricula"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+     WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Height="550" Width="800">
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Label FontSize="50" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5">Matricula Estudiante</Label>
+        <Label FontSize="20" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" >Estudiante</Label>
+        <TextBox x:Name="txtCedula" Background="White" BorderBrush="Gray" BorderThickness="1" Grid.Row="2" Grid.Column="2" />
+        <Button Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Margin="10,0,0,0" x:Name="btnAgregar"
+                Click="BtnAgregar_Click"
+                
+  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+  ToolTip="MaterialDesignFloatingActionMiniLightButton">
+            <materialDesign:PackIcon
+    Kind="plus"
+    Height="24"
+    Width="24" />
+        </Button>
+
+
+        <Label FontSize="20" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right">Año</Label>
+        <TextBox  x:Name="txtAnio" Background="White" BorderBrush="Gray" BorderThickness="1" Grid.Row="4" Grid.Column="2" />
+        <Label FontSize="20" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right">Sucursal</Label>
+        <ComboBox x:Name="cbSucursal" Height="40" Background="White" BorderBrush="Gray" BorderThickness="1" Grid.Row="6" Grid.Column="2"/>
+        <Label FontSize="20" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right">Grupo</Label>
+        <ComboBox x:Name="cbGrupo" Height="40" Background="White" BorderBrush="Gray" BorderThickness="1" Grid.Row="8" Grid.Column="2" />
+        <Label FontSize="20" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Right">Funcionario</Label>
+        <ComboBox x:Name="cbFuncionario" Height="40" Background="White" BorderBrush="Gray" BorderThickness="1" Grid.Row="10" Grid.Column="2" />
+        <Label FontSize="20" Grid.Row="12" Grid.Column="1" HorizontalAlignment="Right">Descuento</Label>
+        <TextBox x:Name="txtDescuento" Background="White" BorderBrush="Gray" BorderThickness="1" Grid.Row="12" Grid.Column="2" />
+        <Label FontSize="20" Grid.Row="14" Grid.Column="1" HorizontalAlignment="Right">Precio</Label>
+        <TextBlock x:Name="txtPrecio" Background="White"  Grid.Row="14" Grid.Column="2" IsEnabled="False"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="6">
+            <Button x:Name="btnGuardar" Margin="10" Width="100" Content="Guardar"/>
+            <Button x:Name="btnEditar" Margin="10"  Width="100" Content="Editar"/>
+            <Button x:Name="btnCancelar" Margin="10"  Width="100" Content="Cancelar"/>
+        </StackPanel>
+        <Button Grid.Row="0" Click="CerrarVentana" Background="Transparent" Width="auto" BorderBrush="Transparent" BorderThickness="0" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="6">
+            <materialDesign:PackIcon Kind="Close" />
+        </Button>
+
+
+
+    </Grid>
+</Window>

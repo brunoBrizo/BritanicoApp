@@ -1,0 +1,66 @@
+﻿<Window x:Class="Instituto_Britanico.Vistas.VentanaConvenio"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="550" Width="800">
+    
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" FontSize="20">Nombre Convenio</Label>
+        <Label Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" FontSize="20">Nombre Asociado</Label>
+        <Label Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" FontSize="20">Telefono</Label>
+        <Label Grid.Row="10" Grid.Column="1" HorizontalAlignment="Right" FontSize="20">Direccion</Label>
+        <Label Grid.Row="12" Grid.Column="1" HorizontalAlignment="Right" FontSize="20">Correo electronico</Label>
+        <Label Grid.Row="14" Grid.Column="1" HorizontalAlignment="Right" FontSize="20">Descuento</Label>
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="3" FontSize="60">Convenios</Label>
+        <TextBox x:Name="txtNombre" Grid.Row="4" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <TextBox x:Name="txtAsociadoNombre" Grid.Row="6" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <TextBox x:Name="txtAsociadoTel" Grid.Row="8" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <TextBox x:Name="txtAsociadoDireccion" Grid.Row="10" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <TextBox x:Name="txtAsociadoMail" Grid.Row="12" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <TextBox x:Name="txtDescuento" Grid.Row="14" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <TextBox x:Name="textBox" Grid.Row="4" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1" TextWrapping="Wrap"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="16" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="6">
+            <Button x:Name="btnGuardar" Margin="10" Width="100" Content="Guardar"/>
+            <Button x:Name="btnEditar" Margin="10"  Width="100" Content="Editar"/>
+            <Button x:Name="btnCancelar" Margin="10"  Width="100" Content="Cancelar"/>
+        </StackPanel>
+        <Button Grid.Row="0" Click="CerrarVentana" Background="Transparent" Width="auto" BorderBrush="Transparent" BorderThickness="0" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="6">
+            <materialDesign:PackIcon Kind="Close" />
+        </Button>
+    </Grid>
+</Window>

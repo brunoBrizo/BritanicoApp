@@ -1,0 +1,26 @@
+﻿<Window x:Class="Instituto_Britanico.Vistas.PopUpVentana"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+         mc:Ignorable="d"
+        WindowStyle="None"  AllowsTransparency="True"
+               BorderBrush="Transparent"
+        Background="Transparent"
+        Width="260" Height="120"
+        WindowStartupLocation="Manual"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Name="ventanaPrincipal" >
+    <Grid Background="Transparent">
+        <materialDesign:TransitioningContent x:Name="Slider" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromRight, Duration=0:0:0.8}">
+
+            <Border Background="LightGreen" x:Name="bordePopUp" Width="250" Height="100" CornerRadius="20">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon x:Name="icono" VerticalAlignment="Center" Margin="10,0" Width="60" Height="60"/>
+                    <TextBlock Background="Transparent" TextWrapping="Wrap" Width="160" Height="80" x:Name="txtInfo"></TextBlock>
+                </StackPanel>
+            </Border>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</Window>

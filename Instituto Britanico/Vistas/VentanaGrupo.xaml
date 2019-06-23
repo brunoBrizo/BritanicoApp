@@ -1,0 +1,335 @@
+﻿<Window
+    x:Class="Instituto_Britanico.Vistas.VentanaGrupo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="630"
+    Height="580"
+    AllowsTransparency="True"
+    Background="Transparent"
+    KeyDown="TeclaEnVentana"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop, Duration=0:0:0.8}">
+        <Border
+            Background="LightGray"
+            BorderBrush="#FF404040"
+            BorderThickness="5"
+            CornerRadius="20">
+            <Grid
+                Width="600"
+                Height="550"
+                Background="LightGray">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="118*" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="106*" />
+                    <ColumnDefinition Width="170*" />
+                    <ColumnDefinition Width="133*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="5"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="btnGuardar"
+                        Click="BtnGuardar_Click"
+                        Content="Guardar" />
+                    <Button
+                        x:Name="btnEditar"
+                        Margin="10,0,0,0"
+                        Click="BtnEditar_Click"
+                        Content="Editar" />
+                    <Button
+                        x:Name="btnCancelar"
+                        Margin="10,0,0,0"
+                        Click="BtnCancelar_Click"
+                        Content="Cancelar" />
+                    <Button
+                        x:Name="btnBorrar"
+                        Margin="40,0,0,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="BtnBorrar_Click">
+
+                        <materialDesign:PackIcon Foreground="Red" Kind="delete" />
+                    </Button>
+                </StackPanel>
+                <Label
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Left"
+                    FontSize="50">
+                    Grupo
+                </Label>
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="76"
+                    HorizontalAlignment="Right"
+                    FontSize="20">
+                    Materia
+                </Label>
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10" />
+                <Border
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10" />
+                <Border
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Width="70"
+                    HorizontalAlignment="Right"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10" />
+                <Border
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Width="70"
+                    HorizontalAlignment="Left"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10" />
+                <Border
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10" />
+                <Border
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10" />
+                <ComboBox
+                    x:Name="cbMaterias"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Height="40"
+                    Margin="5"
+                    VerticalContentAlignment="Center"
+                    Background="White"
+                    SelectionChanged="CambioDatos" />
+
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    FontSize="20">
+                    Profesor
+                </Label>
+                <ComboBox
+                    x:Name="cbProfesor"
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Height="40"
+                    Margin="5"
+                    VerticalContentAlignment="Center"
+                    Background="White"
+                    SelectionChanged="CambioDatos" />
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    FontSize="20">
+                    Horario
+                </Label>
+                <TextBox
+                    x:Name="txtHoraInicio"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Width="50"
+                    Height="30"
+                    Margin="10,5,5,0"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    Background="White"
+                    TextChanged="CambioDatosTexto" />
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    FontSize="20">
+                    a
+                </Label>
+                <TextBox
+                    x:Name="txtHoraFin"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Width="60"
+                    Height="30"
+                    Margin="10,5,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalContentAlignment="Center"
+                    Background="White"
+                    TextChanged="CambioDatosTexto" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    FontSize="20">
+                    Sucursal
+                </Label>
+                <ComboBox
+                    x:Name="cbSucursal"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Height="40"
+                    Margin="5"
+                    VerticalContentAlignment="Center"
+                    Background="White"
+                    SelectionChanged="CambioDatos" />
+
+                <Label
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    FontSize="20">
+                    Precio
+                </Label>
+                <TextBox
+                    x:Name="txtPrecio"
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Margin="5"
+                    Background="White"
+                    TextChanged="CambioDatosTexto" />
+                <Label
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Width="65"
+                    Height="40"
+                    Margin="3"
+                    HorizontalAlignment="Right"
+                    FontSize="20">
+                    Activo
+                </Label>
+                <CheckBox
+                    x:Name="chkActivo"
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Background="White"
+                    Click="cambioDatosCheck"
+                    FontSize="20"
+                    IsChecked="true" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Width="65"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    VerticalContentAlignment="Top"
+                    FontSize="20">
+                    Dias
+                </Label>
+                <StackPanel
+                    x:Name="stackDias"
+                    Grid.Row="2"
+                    Grid.RowSpan="7"
+                    Grid.Column="4"
+                    Orientation="Vertical">
+                    <StackPanel
+                        x:Name="stackCheck"
+                        Margin="0,10"
+                        Orientation="Vertical">
+
+                        <CheckBox
+                            x:Name="chkLunes"
+                            Click="cambioDatosCheck"
+                            Content="Lunes"
+                            FontSize="20" />
+                        <CheckBox
+                            x:Name="chkMartes"
+                            Click="cambioDatosCheck"
+                            Content="Martes"
+                            FontSize="20" />
+                        <CheckBox
+                            x:Name="chkMiercoles"
+                            Click="cambioDatosCheck"
+                            Content="Miercoles"
+                            FontSize="20" />
+                        <CheckBox
+                            x:Name="chkJueves"
+                            Click="cambioDatosCheck"
+                            Content="Jueves"
+                            FontSize="20" />
+                        <CheckBox
+                            x:Name="chkViernes"
+                            Click="cambioDatosCheck"
+                            Content="Viernes"
+                            FontSize="20" />
+                        <CheckBox
+                            x:Name="chkSabado"
+                            Click="cambioDatosCheck"
+                            Content="Sabado"
+                            FontSize="20" />
+                        <CheckBox
+                            x:Name="chkDomingo"
+                            Click="cambioDatosCheck"
+                            Content="Domingo"
+                            FontSize="20" />
+                    </StackPanel>
+                    <TextBlock
+                        x:Name="txtInfoDias"
+                        Width="95"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FontSize="20"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    Width="auto"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Click="CerrarVentana"
+                    Foreground="Red">
+                    <materialDesign:PackIcon Kind="CloseBox" />
+                </Button>
+            </Grid>
+        </Border>
+    </materialDesign:TransitioningContent>
+</Window>

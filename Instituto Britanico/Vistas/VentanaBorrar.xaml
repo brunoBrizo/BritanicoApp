@@ -1,0 +1,38 @@
+﻿<Window x:Class="Instituto_Britanico.Vistas.VentanaBorrar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+        mc:Ignorable="d"
+        Title="VentanaBorrar" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="28*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="112*"/>
+            <ColumnDefinition Width="138*"/>
+            <ColumnDefinition Width="166*"/>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="289*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="lbPruebas" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <CheckBox Name="checkBox" Content="{Binding Nombre}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+
+        </ListBox>
+        <Button Click="Button_Click" x:Name="button" Content="Button" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Grid.Column="2" Grid.ColumnSpan="1"/>
+        <TextBlock x:Name="txtInfo"  Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="4">hola</TextBlock>
+    </Grid>
+</Window>

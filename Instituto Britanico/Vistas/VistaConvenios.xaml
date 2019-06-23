@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="Instituto_Britanico.Vistas.VistaConvenios"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    >
+    <Grid x:Name="grillaConvenios" VerticalAlignment="Top" Background="White" Margin="10,10"  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border x:Name="borde" Margin="10,10" BorderBrush="Black" BorderThickness="1"
+                CornerRadius="5"
+                >
+
+            <Grid Margin="10,10">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" Name="Columna0"/>
+                    <ColumnDefinition Width="100" Name="Columna1"/>
+                    <ColumnDefinition Width="70" Name="Columna2"/>
+                    <ColumnDefinition Width="100" Name="Columna3"/>
+                    <ColumnDefinition Width="100" Name="Columna4"/>
+                    <ColumnDefinition Width="*" Name="Columna5"/>
+                    <ColumnDefinition Width="*" Name="Columna6"/>
+                </Grid.ColumnDefinitions>
+
+                <Label VerticalAlignment="Center"  Margin="5,0"  HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" >Nombre</Label>
+                <TextBox x:Name="txtNombre" Width= "100" BorderBrush="Black" Height="30" BorderThickness="1"  HorizontalAlignment="Left"  Grid.Row="0"  Grid.Column="1" AcceptsReturn="false" Background="White"/>
+                <Label VerticalAlignment="Center"  Margin="5,0" HorizontalAlignment="Left"  Grid.Row="0"  Grid.Column="2"  >Empresa</Label>
+                <TextBox MinWidth="50" BorderBrush="Black" Height="30" BorderThickness="1"  HorizontalAlignment="Left"  Grid.Row="0" Grid.Column="3" Width= "100"  x:Name="txtEmpresa" AcceptsReturn="false" Background="White"/>
+
+                <Button x:Name="btnIngresarConvenio" Click="BtnIngresarConvenio_Click" Content="Nuevo" FontSize="12" Background="Blue" Grid.Row="1" Grid.ColumnSpan="1" Grid.Column="0"  Margin="5,0,0,0"/>
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3"  BorderBrush="Gray" CornerRadius="5" BorderThickness="1">
+
+                    <DataGrid Margin="10,10"
+                                     ScrollViewer.CanContentScroll="True" 
+      ScrollViewer.VerticalScrollBarVisibility="Auto"          
+            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="3"
+                    x:Name="dgConvenios"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="true"
+                    KeyDown="teclaApretada"
+                    MouseDoubleClick="dobleClick" >
+                        <DataGrid.Resources>
+                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="Blue" />
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn x:Name="dgColumnaEditar" Width="35">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="ClickEnEditar" Width="50" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent">
+                                            <materialDesign:PackIcon Foreground="Black" FontSize="20" Kind="Edit" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="Año " Background="Transparent" Foreground="White" />
+                                </DataGridTemplateColumn.Header>
+
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="20" Text="{Binding Anio}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock  Text="Empresa" Background="Transparent" Foreground="White" />
+                                </DataGridTemplateColumn.Header>
+
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  FontSize="20" Text="{Binding AsociadoNombre}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="Nombre " Background="Transparent" Foreground="White" />
+                                </DataGridTemplateColumn.Header>
+
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="20" Text="{Binding Nombre}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                           
+                            <DataGridTemplateColumn Width="auto">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="Descuento" Background="Transparent" Foreground="White" />
+                                </DataGridTemplateColumn.Header>
+
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="20" Text="{Binding Nombre}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

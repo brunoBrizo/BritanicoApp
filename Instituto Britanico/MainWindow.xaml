@@ -1,0 +1,285 @@
+﻿<Window
+    x:Class="Instituto_Britanico.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Instituto_Britanico"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="PantallaPrincipal"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Grid x:Name="gridMainWindow">
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel
+                    x:Name="stackMenuPrincipal"
+                    Width="190"
+                    HorizontalAlignment="Left"
+                    Background="Black"
+                    Orientation="Vertical">
+                    <Image
+                        Width="160"
+                        Height="160"
+                        Source="Resources\logo.png" />
+
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="HumanMaleFemale" />
+                        <Button
+                            x:Name="btnEstudiantes"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Aquamarine"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnEstudiantes_Click"
+                            Content="Estudiantes"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="AccountMultipleOutline" />
+                        <Button
+                            x:Name="btnGrupos"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnGrupos_Click"
+                            Content="Grupos"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="AccountMultipleOutline" />
+                        <Button
+                            x:Name="btnMaterias"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnMaterias_Click"
+                            Content="Materias"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="ChequeBook" />
+                        <Button
+                            x:Name="btnExamenes"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnExamenes_Click"
+                            Content="Examenes"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="BookOpen" />
+                        <Button
+                            x:Name="btnLibros"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnLibros_Click"
+                            Content="Libros"
+                            FontSize="20" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="AccountStar" />
+                        <Button
+                            x:Name="btnFuncionarios"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnFuncionarios_Click"
+                            Content="Funcionarios"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="CashUsd" />
+                        <Button
+                            x:Name="btnPagos"
+                            Width="150"
+                            Height="40"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnPagos_Click"
+                            Content="Pagos"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="CashUsd" />
+
+                        <Button
+                            x:Name="btnCobros"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnCobros_Click"
+                            Content="Cobros"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="Email" />
+
+                        <Button
+                            x:Name="btnMails"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="Correos"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="Email" />
+
+                        <Button
+                            x:Name="btnMatricula"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnMatricula_Click"
+                            Content="Matriculas"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="Email" />
+
+                        <Button
+                            x:Name="btnMatricularEstudiante"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnMatricularEstudiante_Click"
+                            Content="Matricular Estudiante"
+                            FontSize="20" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="40"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="White"
+                            Kind="Email" />
+
+                        <Button
+                            x:Name="btnConvenios"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnConvenios_Click"
+                            Content="Convenios"
+                            FontSize="20" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel
+                    x:Name="stackContenido"
+                    Background="Gray"
+                    Orientation="Vertical" />
+            </StackPanel>
+        </StackPanel>
+        <Button
+            x:Name="btnCerrar"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            Click="BtnCerrar_Click"
+            Foreground="Red">
+            <materialDesign:PackIcon Kind="CloseBox" />
+        </Button>
+    </Grid>
+</Window>
