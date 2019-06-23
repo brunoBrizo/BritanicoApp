@@ -87,7 +87,8 @@
     </ApplicationDefinition>
     <Compile Include="Controlador\ApiHelper.cs" />
     <Compile Include="Controlador\ControladorAPI.cs" />
-    <Compile Include="Controlador\MateriaController.cs" />
+    <Compile Include="Controlador\Controladores\ConvenioController.cs" />
+    <Compile Include="Controlador\Controladores\MateriaController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\AperturaVentanas.cs" />
     <Compile Include="Interfaces\IBrillo.cs" />

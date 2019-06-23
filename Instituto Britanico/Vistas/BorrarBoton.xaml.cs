@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using Instituto_Britanico.Controlador;
 using Instituto_Britanico.Modelo;
 using System;
@@ -33,20 +34,14 @@ namespace Instituto_Britanico.Vistas
         {
             try
             {
-                Materia materia = new Materia
-                {
-                    ID = 0,
-                    SucursalID = 1,
-                    Nombre = "Materia prueba1234",
-                    Precio = 6500
-                };
-                materia = await MateriaController.Crear(materia);
+                bool res = await fachada.EliminarMateria(50);
+                txtResultado.Text = "Se elimino: " + res.ToString();
             }
             catch (Exception ex)
             {
-                string error = ex.Message;
+                txtResultado.Text = Herramientas.QuitarComillasDobles(ex.Message);
             }
-            txtResultado.Text = " aqui iria el contenido si son varias lineas, separalas por \n  linea 1\n linea2";
+            
         }
     }
 }

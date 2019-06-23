@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using Instituto_Britanico.Controlador.Controladores;
 using Instituto_Britanico.Vistas;
 using System;
 using System.Collections;
@@ -889,7 +890,152 @@ namespace Instituto_Britanico.Controlador
             string tiempo = tiempoTotal.TotalMilliseconds + " milisegundos";
         }
 
-       
+
+
+        #region MetodosLlamadaAPI
+
+
+
+        #region Materia
+
+        public List<Materia> GetListaMaterias()
+        {
+            return this.lstMaterias;
+        }
+
+        public async Task<Materia> CrearMateria(Materia pMateria)
+        {
+            try
+            {
+                pMateria = await MateriaController.Crear(pMateria);
+                return pMateria;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMateria(Materia pMateria)
+        {
+            try
+            {
+                bool res = await MateriaController.Modificar(pMateria);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMateria(Materia pMateria)
+        {
+            try
+            {
+                bool res = await MateriaController.Eliminar(pMateria);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+
+        #region Convenio
+
+
+        public async Task<Convenio> GetConvenio(Convenio pConvenio)
+        {
+            try
+            {
+                pConvenio = await ConvenioController.Get(pConvenio);
+                return pConvenio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Convenio>> GetListaConvenios()
+        {
+            try
+            {
+                return await ConvenioController.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Convenio> CrearConvenio(Convenio pConvenio)
+        {
+            try
+            {
+                pConvenio = await ConvenioController.Crear(pConvenio);
+                return pConvenio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarConvenio(Convenio pConvenio)
+        {
+            try
+            {
+                bool res = await ConvenioController.Modificar(pConvenio);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarConvenio(Convenio pConvenio)
+        {
+            try
+            {
+                bool res = await ConvenioController.Eliminar(pConvenio);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
 
         internal bool EliminarLibro(int iD)
         {

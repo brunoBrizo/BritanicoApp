@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="PantallaPrincipal"
     ResizeMode="NoResize"
-    WindowState="Maximized"
-    WindowStyle="None"
+    
+    
     mc:Ignorable="d">
 
     <Grid x:Name="gridMainWindow">
@@ -281,5 +281,18 @@
             Foreground="Red">
             <materialDesign:PackIcon Kind="CloseBox" />
         </Button>
+        <Button
+            x:Name="btnMinimiza"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Margin="20,0"
+            BorderThickness="0"
+            Click="BtnMinimiza_Click"
+            Foreground="Red">
+            <materialDesign:PackIcon Kind="Delete" />
+        </Button>
+
     </Grid>
 </Window>

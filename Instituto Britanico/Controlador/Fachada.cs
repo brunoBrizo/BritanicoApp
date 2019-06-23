@@ -15,7 +15,7 @@ namespace Instituto_Britanico.Modelo
     {
 
         private static Fachada instancia = null;
-        ControladorAPI ca = new ControladorAPI();
+        private ControladorAPI cApi = new ControladorAPI();
         public Size Tamano { get; set; }
 
 
@@ -25,7 +25,7 @@ namespace Instituto_Britanico.Modelo
             if (instancia == null)
             {
                 instancia = new Fachada();
-        
+
             }
             return instancia;
         }
@@ -34,15 +34,202 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.GetProfesoresTotal();
-            }catch(Exception ex)
+                return cApi.GetProfesoresTotal();
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
 
+
+        #region MetodosParaAPI
+
+
         #region Materia
+
+
+        public List<Materia> GetMaterias()
+        {
+            try
+            {
+                return cApi.GetListaMaterias();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Materia> CrearMateria(int sucursalID, string nombre, decimal precio)
+        {
+            try
+            {
+                Materia materia = new Materia
+                {
+                    ID = 0,
+                    SucursalID = sucursalID,
+                    Nombre = nombre,
+                    Precio = precio
+                };
+                materia = await cApi.CrearMateria(materia);
+                return materia;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Materia> GetMateriasTotal()
+        {
+            return cApi.GetMateriasTotal();
+        }
+
+        public async Task<bool> ModificarMateria(int id, int sucursalID, string nombre, decimal precio)
+        {
+            try
+            {
+                Materia materia = new Materia
+                {
+                    ID = id,
+                    SucursalID = sucursalID,
+                    Nombre = nombre,
+                    Precio = precio
+                };
+                bool res = await cApi.ModificarMateria(materia);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMateria(int id)
+        {
+            try
+            {
+                Materia materia = new Materia
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarMateria(materia);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Convenio
+
+
+        public async Task<Convenio> GetConvenio(int id)
+        {
+            try
+            {
+                Convenio convenio = new Convenio
+                {
+                    ID = id
+                };
+                convenio = await cApi.GetConvenio(convenio);
+                return convenio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Convenio>> GetConvenios()
+        {
+            try
+            {
+                return await cApi.GetListaConvenios();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Convenio> CrearMateria(string nombre, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
+        {
+            try
+            {
+                Convenio convenio = new Convenio
+                {
+                    ID = 0,
+                    Nombre = nombre,
+                    FechaHora = DateTime.Now,
+                    Anio = anio,
+                    AsociadoNombre = asociadoNombre,
+                    AsociadoMail = asociadoMail,
+                    AsociadoDireccion = asociadoDireccion,
+                    AsociadoTel = asociadoTel,
+                    Descuento = descuento
+                };
+                convenio = await cApi.CrearConvenio(convenio);
+                return convenio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMateria(int id, string nombre, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
+        {
+            try
+            {
+                Convenio convenio = new Convenio
+                {
+                    ID = id,
+                    Nombre = nombre,
+                    FechaHora = DateTime.Now,
+                    Anio = anio,
+                    AsociadoNombre = asociadoNombre,
+                    AsociadoMail = asociadoMail,
+                    AsociadoDireccion = asociadoDireccion,
+                    AsociadoTel = asociadoTel,
+                    Descuento = descuento
+                };
+                bool res = await cApi.ModificarConvenio(convenio);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarConvenio(int id)
+        {
+            try
+            {
+                Convenio convenio = new Convenio
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarConvenio(convenio);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
 
 
 
@@ -53,14 +240,19 @@ namespace Instituto_Britanico.Modelo
         #endregion
 
 
+
+
+
+
+
         public List<Estudiante> GetEstudiantesTotal()
         {
-            return ca.GetEstudiantesTotal();
+            return cApi.GetEstudiantesTotal();
         }
 
         public List<Libro> GetLibrosTotal()
         {
-            return ca.GetLibrosTotal();
+            return cApi.GetLibrosTotal();
         }
 
         internal void SetResolucion(Size tamano)
@@ -70,81 +262,77 @@ namespace Instituto_Britanico.Modelo
 
         internal List<Convenio> GetConveniosTotal()
         {
-            return ca.GetConveniosTotal();
+            return cApi.GetConveniosTotal();
         }
 
         internal List<Matricula> GetMatriculas()
         {
-            return ca.GetMatriculas();  
+            return cApi.GetMatriculas();
         }
 
         public List<Pago> GetPagosTotal()
         {
-            return ca.GetPagosTotal();
+            return cApi.GetPagosTotal();
         }
 
         public List<Sucursal> GetSucursalesTotal()
         {
-            return ca.GetSucursalesTotal();
+            return cApi.GetSucursalesTotal();
         }
 
-        public List<Materia> GetMateriasTotal()
-        {
-            return ca.GetMateriasTotal();
-        }
 
         internal List<Examen> GetExamenesTotal()
         {
-            return ca.GetExamenesTotal();
+            return cApi.GetExamenesTotal();
         }
 
         internal List<Grupo> GetGruposTotalb()
         {
-            return ca.GetGruposTotalb();
+            return cApi.GetGruposTotalb();
         }
 
         internal List<Funcionario> GetFuncionariosTotal()
         {
-            return ca.GetFuncionariosTotal();
+            return cApi.GetFuncionariosTotal();
         }
 
         public List<Estudiante> GetEstudiantesPorGrupo(Grupo g)
         {
-            return ca.GetEstudiantesPorGrupo(g);
+            return cApi.GetEstudiantesPorGrupo(g);
         }
 
         internal List<Estudiante> GetEstudiantesPorNombre(string texto)
         {
-            return ca.GetEstudiantesPorNombre(texto);
+            return cApi.GetEstudiantesPorNombre(texto);
         }
-    
+
         internal List<Estudiante> GetEstudiantesPorCedula(string cedula)
         {
-            return ca.GetEstudiantesPorCedula(cedula);
+            return cApi.GetEstudiantesPorCedula(cedula);
         }
 
         internal List<Funcionario> GetFuncionariosActivos()
         {
-            return ca.GetFuncionariosActivos();
+            return cApi.GetFuncionariosActivos();
         }
 
         internal List<Funcionario> GetFuncionariosNoActivos()
         {
-            return ca.GetFuncionariosNoActivos();
+            return cApi.GetFuncionariosNoActivos();
         }
 
-      
+
 
         internal List<Pago> GetPagosPorFiltro(string concepto, Sucursal suc, decimal minimo, decimal maximo, DateTime fechaInicial, DateTime fechaFinal)
         {
-            return ca.GetPagosPorFiltros(concepto, suc, minimo, maximo, fechaInicial, fechaFinal, null);
+            return cApi.GetPagosPorFiltros(concepto, suc, minimo, maximo, fechaInicial, fechaFinal, null);
         }
 
         internal List<Grupo> GetGruposPorNombre(string text)
         {
             try
             {
-                return ca.GetGruposPorNombre(text);
+                return cApi.GetGruposPorNombre(text);
             }
             catch (Exception ex)
             {
@@ -156,21 +344,22 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.AltaEstudiante(nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
+                return cApi.AltaEstudiante(nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
         }
 
         internal Libro AltaLibro(string titulo, Materia materia, decimal precio, string autor, string editorial)
         {
             try
             {
-                return ca.AltaLibro(titulo, materia, precio, autor, editorial);
-            }catch(Exception ex)
+                return cApi.AltaLibro(titulo, materia, precio, autor, editorial);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -180,12 +369,13 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.ModificarEstudiante(ID, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
-            }catch(Exception ex)
+                return cApi.ModificarEstudiante(ID, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
 
         }
 
@@ -193,8 +383,9 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.ModificarLibro(ID, titulo, materia, precio, autor, editorial);
-            }catch(Exception ex)
+                return cApi.ModificarLibro(ID, titulo, materia, precio, autor, editorial);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -204,9 +395,9 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.EliminarEstudiante(iD);
-            }       
-            catch(Exception ex)
+                return cApi.EliminarEstudiante(iD);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -216,9 +407,9 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.AltaGrupo(listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                return cApi.AltaGrupo(listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -228,9 +419,9 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.ModificarGrupo(ID, listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                return cApi.ModificarGrupo(ID, listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -241,9 +432,9 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.EliminarGrupo(ID);
+                return cApi.EliminarGrupo(ID);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -253,7 +444,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return ca.EliminarLibro(ID);
+                return cApi.EliminarLibro(ID);
             }
             catch (Exception ex)
             {

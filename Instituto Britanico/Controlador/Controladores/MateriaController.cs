@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Net.Http;
 
-namespace Instituto_Britanico.Controlador
+namespace Instituto_Britanico.Controlador.Controladores
 {
     public class MateriaController
     {
@@ -92,7 +92,8 @@ namespace Instituto_Britanico.Controlador
                     }
                     else
                     {
-                        throw new Exception(response.ReasonPhrase);
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        throw new Exception(error);
                     }
                 }
             }
@@ -109,7 +110,15 @@ namespace Instituto_Britanico.Controlador
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    if (response.ReasonPhrase.Equals(String.Empty))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        throw new Exception(error);
+                    }
                 }
             }
         }

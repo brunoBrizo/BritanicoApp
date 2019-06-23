@@ -150,5 +150,10 @@ namespace BibliotecaBritanico.Utilidad
                 throw ex;
             }
         }
+
+        public static string QuitarComillasDobles(string input)
+        {
+            return input.Replace("\"", "");
+        }
     }
 }
