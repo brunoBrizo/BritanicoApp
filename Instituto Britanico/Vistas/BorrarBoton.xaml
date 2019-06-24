@@ -12,9 +12,10 @@
             <StackPanel Orientation="Horizontal">
                 <Label>Ponele el nombre que quieras</Label>
                 <TextBox x:Name="txtDato" Width="150" Background="White"></TextBox>
-                <Button x:Name="botonQueHaceCosas" Content="Apretame" Click="BotonQueHaceCosas_Click"/>
+                <Button x:Name="botonQueHaceCosas" Content="Enviar" Click="BotonQueHaceCosas_Click"/>
             </StackPanel>
-            <TextBox x:Name="txtResultado" Width="200" Height="300" Background="White"/>
+            <Button x:Name="botonLimpiar" Content="Limpiar" Click="botonLimpiar_Click" Margin="0,0,505,0"/>
+            <TextBox x:Name="txtResultado" Height="266" Background="White" Margin="10,0,28,0"/>
         </StackPanel>
     </Grid>
 </Window>

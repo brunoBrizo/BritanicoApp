@@ -34,14 +34,20 @@ namespace Instituto_Britanico.Vistas
         {
             try
             {
-                bool res = await fachada.EliminarConvenio(3);
-                txtResultado.Text = "Se elimino el conv: " + res.ToString();
+                
+                List<Libro> lstLibros = await fachada.GetLibros();
+                txtResultado.Text = "ok";
             }
             catch (Exception ex)
             {
                 txtResultado.Text = Herramientas.QuitarComillasDobles(ex.Message);
             }
             
+        }
+
+        private void botonLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            txtResultado.Text = "";
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +27,14 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar convenio | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -43,8 +51,14 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar convenios | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -59,9 +73,16 @@ namespace Instituto_Britanico.Controlador.Controladores
                     Convenio convenio = await response.Content.ReadAsAsync<Convenio>();
                     return convenio;
                 }
+                else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Crear convenio | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -77,14 +98,20 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    if (response.ReasonPhrase.Equals(String.Empty))
+                    if (response.ReasonPhrase.Equals(String.Empty) && response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return false;
                     }
                     else
                     {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        throw new Exception(error);
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                            throw new Exception("Modificar convenio | No se encuentra la Url: " + url);
+                        else
+                        {
+                            string error = response.Content.ReadAsStringAsync().Result;
+                            error = Herramientas.QuitarComillasDobles(error);
+                            throw new Exception(error);
+                        }
                     }
                 }
             }
@@ -101,14 +128,20 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    if (response.ReasonPhrase.Equals(String.Empty))
+                    if (response.ReasonPhrase.Equals(String.Empty) && response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return false;
                     }
                     else
                     {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        throw new Exception(error);
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                            throw new Exception("Eliminar convenio | No se encuentra la Url: " + url);
+                        else
+                        {
+                            string error = response.Content.ReadAsStringAsync().Result;
+                            error = Herramientas.QuitarComillasDobles(error);
+                            throw new Exception(error);
+                        }
                     }
                 }
             }

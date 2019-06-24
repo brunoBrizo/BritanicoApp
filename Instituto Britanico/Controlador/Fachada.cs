@@ -52,6 +52,10 @@ namespace Instituto_Britanico.Modelo
 
         #region Materia
 
+        public Materia GetMateriaByID(int id)
+        {
+            return cApi.GetMateriaByID(id);
+        }
 
         public List<Materia> GetMaterias()
         {
@@ -345,7 +349,6 @@ namespace Instituto_Britanico.Modelo
         #endregion
 
 
-
         #region Parametro
 
 
@@ -437,6 +440,233 @@ namespace Instituto_Britanico.Modelo
         #endregion
 
 
+        #region Libro
+
+
+        public async Task<Libro> GetLibro(int id, Materia materia)
+        {
+            try
+            {
+                Libro libro = new Libro
+                {
+                    ID = id,
+                    Materia = materia
+                };
+                libro = await cApi.GetLibro(libro);
+                return libro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Libro>> GetLibros()
+        {
+            try
+            {
+                return await cApi.GetListaLibros();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Libro> CrearLibro(string nombre, Materia materia, decimal precio, string autor, string editorial)
+        {
+            try
+            {
+                Libro libro = new Libro
+                {
+                    ID = 0,
+                    Nombre = nombre,
+                    Materia = materia,
+                    Precio = precio,
+                    Autor = autor,
+                    Editorial = editorial
+                };
+                libro = await cApi.CrearLibro(libro);
+                return libro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarLibro(int id, string nombre, Materia materia, string autor, string editorial, decimal precio)
+        {
+            try
+            {
+                Libro libro = new Libro
+                {
+                    ID = id,
+                    Nombre = nombre,
+                    Materia = materia,
+                    Precio = precio,
+                    Autor = autor,
+                    Editorial = editorial
+                };
+                bool res = await cApi.ModificarLibro(libro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarLibro(int id, Materia materia)
+        {
+            try
+            {
+                Libro libro = new Libro
+                {
+                    ID = id,
+                    Materia = materia
+                };
+                bool res = await cApi.EliminarLibro(libro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Funcionario
+
+
+        public async Task<Funcionario> LoginFuncionario(string ci, string password)
+        {
+            try
+            {
+                Funcionario funcionario = new Funcionario
+                {
+                    CI = ci,
+                    Clave = password
+                };
+                funcionario = await cApi.LoginFuncionario(funcionario);
+                return funcionario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Funcionario> GetFuncionario(int id)
+        {
+            try
+            {
+                Funcionario funcionario = new Funcionario
+                {
+                    ID = id
+                };
+                funcionario = await cApi.GetFuncionario(funcionario);
+                return funcionario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Funcionario>> GetFuncionarios()
+        {
+            try
+            {
+                return await cApi.GetListaFuncionarios();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //seguir apartir de aca
+        //public async Task<Convenio> CrearFuncionario(int sucursalID, string nombre, string ci, string email, string telefono, string telefonoAux, 
+        //    string direccion, DateTime fechaNac, string clave, bool activo, FuncionarioTipo tipo)
+        //{
+        //    try
+        //    {
+        //        Convenio convenio = new Convenio
+        //        {
+        //            ID = 0,
+        //            Nombre = nombre,
+        //            FechaHora = DateTime.Now,
+        //            Anio = anio,
+        //            AsociadoNombre = asociadoNombre,
+        //            AsociadoMail = asociadoMail,
+        //            AsociadoDireccion = asociadoDireccion,
+        //            AsociadoTel = asociadoTel,
+        //            Descuento = descuento
+        //        };
+        //        convenio = await cApi.CrearConvenio(convenio);
+        //        return convenio;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        //public async Task<bool> ModificarFuncionario(int id, string nombre, DateTime fechaHora, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
+        //{
+        //    try
+        //    {
+        //        Convenio convenio = new Convenio
+        //        {
+        //            ID = id,
+        //            Nombre = nombre,
+        //            FechaHora = fechaHora,
+        //            Anio = anio,
+        //            AsociadoNombre = asociadoNombre,
+        //            AsociadoMail = asociadoMail,
+        //            AsociadoDireccion = asociadoDireccion,
+        //            AsociadoTel = asociadoTel,
+        //            Descuento = descuento
+        //        };
+        //        bool res = await cApi.ModificarConvenio(convenio);
+        //        return res;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        //public async Task<bool> EliminarFuncionario(int id)
+        //{
+        //    try
+        //    {
+        //        Convenio convenio = new Convenio
+        //        {
+        //            ID = id
+        //        };
+        //        bool res = await cApi.EliminarConvenio(convenio);
+        //        return res;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+
+
+
+
+
+
+
+
+
+        #endregion
 
 
 

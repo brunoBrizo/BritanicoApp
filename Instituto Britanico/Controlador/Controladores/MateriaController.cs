@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Net.Http;
+using System.Net;
+using BibliotecaBritanico.Utilidad;
 
 namespace Instituto_Britanico.Controlador.Controladores
 {
@@ -27,8 +29,14 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar materia | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -50,8 +58,14 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar materias | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -68,9 +82,16 @@ namespace Instituto_Britanico.Controlador.Controladores
                     materia.Sucursal.ID = materia.SucursalID;
                     return materia;
                 }
+                else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Crear materia | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -86,14 +107,20 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    if (response.ReasonPhrase.Equals(String.Empty))
+                    if (response.ReasonPhrase.Equals(String.Empty) && response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return false;
                     }
                     else
                     {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        throw new Exception(error);
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                            throw new Exception("Modificar materia | No se encuentra la Url: " + url);
+                        else
+                        {
+                            string error = response.Content.ReadAsStringAsync().Result;
+                            error = Herramientas.QuitarComillasDobles(error);
+                            throw new Exception(error);
+                        }
                     }
                 }
             }
@@ -110,14 +137,20 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    if (response.ReasonPhrase.Equals(String.Empty))
+                    if (response.ReasonPhrase.Equals(String.Empty) && response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return false;
                     }
                     else
                     {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        throw new Exception(error);
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                            throw new Exception("Eliminar materia | No se encuentra la Url: " + url);
+                        else
+                        {
+                            string error = response.Content.ReadAsStringAsync().Result;
+                            error = Herramientas.QuitarComillasDobles(error);
+                            throw new Exception(error);
+                        }
                     }
                 }
             }

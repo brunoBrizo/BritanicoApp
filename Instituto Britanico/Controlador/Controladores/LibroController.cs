@@ -11,24 +11,24 @@ using System.Threading.Tasks;
 
 namespace Instituto_Britanico.Controlador.Controladores
 {
-    public class EmailController
+    public class LibroController
     {
-        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "email";
+        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "libro";
 
-        public static async Task<Email> Get(Email pEmail)
+        public static async Task<Libro> Get(Libro pLibro)
         {
-            string url = $"{ EmailController.Url }/getbyid/{ pEmail.ID }";
+            string url = $"{ LibroController.Url }/getbyid/{ pLibro.ID },{ pLibro.Materia.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Email email = await response.Content.ReadAsAsync<Email>();
-                    return email;
+                    Libro libro = await response.Content.ReadAsAsync<Libro>();
+                    return libro;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar email | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar libro | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -39,20 +39,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<List<Email>> GetAll()
+        public static async Task<List<Libro>> GetAll()
         {
-            string url = $"{ EmailController.Url }/getall";
+            string url = $"{ LibroController.Url }/getall";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    List<Email> lstEmails = await response.Content.ReadAsAsync<List<Email>>();
-                    return lstEmails;
+                    List<Libro> lstLibros = await response.Content.ReadAsAsync<List<Libro>>();
+                    return lstLibros;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar emails | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar libros | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -63,66 +63,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<List<Email>> GetEntreFechas(DateTime desde, DateTime hasta)
+        public static async Task<Libro> Crear(Libro pLibro)
         {
-            string url = $"{ EmailController.Url }/getentrefechas/{ desde },{ hasta }";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            string url = $"{ LibroController.Url }/crear";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pLibro))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    List<Email> lstEmails = await response.Content.ReadAsAsync<List<Email>>();
-                    return lstEmails;
-                }
-                {
-                    if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar emails entre fechas | No se encuentra la Url: " + url);
-                    else
-                    {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        error = Herramientas.QuitarComillasDobles(error);
-                        throw new Exception(error);
-                    }
-                }
-            }
-        }
-
-        public static async Task<Email> Crear(Email pEmail)
-        {
-            string url = $"{ EmailController.Url }/crear";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pEmail))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    Email email = await response.Content.ReadAsAsync<Email>();
-                    return email;
-                }
-                {
-                    if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Crear email | No se encuentra la Url: " + url);
-                    else
-                    {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        error = Herramientas.QuitarComillasDobles(error);
-                        throw new Exception(error);
-                    }
-                }
-            }
-        }
-
-        public static async Task<bool> EnviarPendientes()
-        {
-            string url = $"{ EmailController.Url }/enviarpendientes";
-            var httpContent = new StringContent("");
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsync(url, httpContent))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
+                    Libro libro = await response.Content.ReadAsAsync<Libro>();
+                    return libro;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Enviar emails pendientes | No se encuentra la Url: " + url);
+                        throw new Exception("Crear libro | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -133,10 +87,10 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Modificar(Email pEmail)
+        public static async Task<bool> Modificar(Libro pLibro)
         {
-            string url = $"{ EmailController.Url }/modificar";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pEmail))
+            string url = $"{ LibroController.Url }/modificar";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pLibro))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -151,7 +105,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Modificar email | No se encuentra la Url: " + url);
+                            throw new Exception("Modificar libro | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;
@@ -163,9 +117,9 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Eliminar(Email pEmail)
+        public static async Task<bool> Eliminar(Libro pLibro)
         {
-            string url = $"{ EmailController.Url }/eliminar/{ pEmail.ID }";
+            string url = $"{ LibroController.Url }/eliminar/{ pLibro.ID },{ pLibro.Materia.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -181,7 +135,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Eliminar email | No se encuentra la Url: " + url);
+                            throw new Exception("Eliminar libro | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;

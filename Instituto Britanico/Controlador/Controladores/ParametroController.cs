@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +26,14 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar parametro | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -43,8 +50,14 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar parametros | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -59,9 +72,16 @@ namespace Instituto_Britanico.Controlador.Controladores
                     Parametro materia = await response.Content.ReadAsAsync<Parametro>();
                     return materia;
                 }
+                else
                 {
-                    string error = response.Content.ReadAsStringAsync().Result;
-                    throw new Exception(error);
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Crear parametro | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
                 }
             }
         }
@@ -77,14 +97,20 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    if (response.ReasonPhrase.Equals(String.Empty))
+                    if (response.ReasonPhrase.Equals(String.Empty) && response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return false;
                     }
                     else
                     {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        throw new Exception(error);
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                            throw new Exception("Modificar parametro | No se encuentra la Url: " + url);
+                        else
+                        {
+                            string error = response.Content.ReadAsStringAsync().Result;
+                            error = Herramientas.QuitarComillasDobles(error);
+                            throw new Exception(error);
+                        }
                     }
                 }
             }
@@ -101,14 +127,20 @@ namespace Instituto_Britanico.Controlador.Controladores
                 }
                 else
                 {
-                    if (response.ReasonPhrase.Equals(String.Empty))
+                    if (response.ReasonPhrase.Equals(String.Empty) && response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         return false;
                     }
                     else
                     {
-                        string error = response.Content.ReadAsStringAsync().Result;
-                        throw new Exception(error);
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                            throw new Exception("Eliminar parametro | No se encuentra la Url: " + url);
+                        else
+                        {
+                            string error = response.Content.ReadAsStringAsync().Result;
+                            error = Herramientas.QuitarComillasDobles(error);
+                            throw new Exception(error);
+                        }
                     }
                 }
             }

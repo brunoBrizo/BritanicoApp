@@ -89,6 +89,8 @@
     <Compile Include="Controlador\ControladorAPI.cs" />
     <Compile Include="Controlador\Controladores\ConvenioController.cs" />
     <Compile Include="Controlador\Controladores\EmailController.cs" />
+    <Compile Include="Controlador\Controladores\FuncionarioController.cs" />
+    <Compile Include="Controlador\Controladores\LibroController.cs" />
     <Compile Include="Controlador\Controladores\MateriaController.cs" />
     <Compile Include="Controlador\Controladores\ParametroController.cs" />
     <Compile Include="GlobalSuppressions.cs" />

@@ -892,6 +892,35 @@ namespace Instituto_Britanico.Controlador
         }
 
 
+        public Materia GetMateriaByID(int id)
+        {
+            if (id > 0)
+            {
+                foreach (Materia materia in this.lstMaterias)
+                {
+                    if (materia.ID.Equals(id))
+                    {
+                        return materia;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Sucursal GetSucursalByID(int id)
+        {
+            if (id > 0)
+            {
+                foreach (Sucursal sucursal in this.lstSucursales)
+                {
+                    if (sucursal.ID.Equals(id))
+                    {
+                        return sucursal;
+                    }
+                }
+            }
+            return null;
+        }
 
         #region MetodosLlamadaAPI
 
@@ -1168,7 +1197,178 @@ namespace Instituto_Britanico.Controlador
                 throw ex;
             }
         }
-                     
+
+
+        #endregion
+
+
+        #region Libro
+
+
+        public async Task<Libro> GetLibro(Libro pLibro)
+        {
+            try
+            {
+                pLibro = await LibroController.Get(pLibro);
+                pLibro.Materia = this.GetMateriaByID(pLibro.Materia.ID);
+                return pLibro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Libro>> GetListaLibros()
+        {
+            try
+            {
+                List<Libro> lstLibros = await LibroController.GetAll();
+                foreach (Libro libro in lstLibros)
+                {
+                    libro.Materia = this.GetMateriaByID(libro.Materia.ID);
+                }
+                return lstLibros;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Libro> CrearLibro(Libro pLibro)
+        {
+            try
+            {
+                pLibro = await LibroController.Crear(pLibro);
+                pLibro.Materia = this.GetMateriaByID(pLibro.Materia.ID);
+                return pLibro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarLibro(Libro pLibro)
+        {
+            try
+            {
+                bool res = await LibroController.Modificar(pLibro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarLibro(Libro pLibro)
+        {
+            try
+            {
+                bool res = await LibroController.Eliminar(pLibro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Funcionario
+
+
+        public async Task<Funcionario> LoginFuncionario(Funcionario pFuncionario)
+        {
+            try
+            {
+                pFuncionario = await FuncionarioController.Login(pFuncionario);
+                pFuncionario.Sucursal = this.GetSucursalByID(pFuncionario.SucursalID);
+                return pFuncionario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Funcionario> GetFuncionario(Funcionario pFuncionario)
+        {
+            try
+            {
+                pFuncionario = await FuncionarioController.Get(pFuncionario);
+                pFuncionario.Sucursal = this.GetSucursalByID(pFuncionario.SucursalID);
+                return pFuncionario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Funcionario>> GetListaFuncionarios()
+        {
+            try
+            {
+                List<Funcionario> lstFuncionarios = await FuncionarioController.GetAll();
+                foreach(Funcionario funcionario in lstFuncionarios)
+                {
+                    funcionario.Sucursal = this.GetSucursalByID(funcionario.SucursalID);
+                }
+                return lstFuncionarios;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Funcionario> CrearFuncionario(Funcionario pFuncionario)
+        {
+            try
+            {
+                pFuncionario = await FuncionarioController.Crear(pFuncionario);
+                pFuncionario.Sucursal = this.GetSucursalByID(pFuncionario.SucursalID);
+                return pFuncionario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarFuncionario(Funcionario pFuncionario)
+        {
+            try
+            {
+                bool res = await FuncionarioController.Modificar(pFuncionario);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarFuncionario(Funcionario pFuncionario)
+        {
+            try
+            {
+                bool res = await FuncionarioController.Eliminar(pFuncionario);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
         #endregion
 
