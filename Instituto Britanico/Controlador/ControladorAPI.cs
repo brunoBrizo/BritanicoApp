@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using Instituto_Britanico.Controlador.Controladores;
 using Instituto_Britanico.Vistas;
 using System;
@@ -1011,12 +1012,165 @@ namespace Instituto_Britanico.Controlador
                 throw ex;
             }
         }
-        
+
 
         #endregion
 
 
+        #region Email
 
+        public async Task<Email> GetEmail(Email pEmail)
+        {
+            try
+            {
+                pEmail = await EmailController.Get(pEmail);
+                return pEmail;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Email>> GetListaEmails()
+        {
+            try
+            {
+                return await EmailController.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Email>> GetListaEmailsEntreFechas(DateTime desde, DateTime hasta)
+        {
+            try
+            {
+                return await EmailController.GetEntreFechas(desde, hasta);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Email> CrearEmail(Email pEmail)
+        {
+            try
+            {
+                pEmail = await EmailController.Crear(pEmail);
+                return pEmail;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarEmail(Email pEmail)
+        {
+            try
+            {
+                bool res = await EmailController.Modificar(pEmail);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarEmail(Email pEmail)
+        {
+            try
+            {
+                bool res = await EmailController.Eliminar(pEmail);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
+
+        #endregion
+
+
+        #region Parametro
+
+
+        public async Task<Parametro> GetParametro(Parametro pParametro)
+        {
+            try
+            {
+                pParametro = await ParametroController.Get(pParametro);
+                return pParametro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Parametro>> GetListaParametros()
+        {
+            try
+            {
+                return await ParametroController.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Parametro> CrearParametro(Parametro pParametro)
+        {
+            try
+            {
+                pParametro = await ParametroController.Crear(pParametro);
+                return pParametro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarParametro(Parametro pParametro)
+        {
+            try
+            {
+                bool res = await ParametroController.Modificar(pParametro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarParametro(Parametro pParametro)
+        {
+            try
+            {
+                bool res = await ParametroController.Eliminar(pParametro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+                     
+
+        #endregion
 
 
 

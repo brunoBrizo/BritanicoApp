@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using Instituto_Britanico.Controlador;
 using Instituto_Britanico.Vistas;
 using System;
@@ -13,7 +14,6 @@ namespace Instituto_Britanico.Modelo
 {
     public class Fachada
     {
-
         private static Fachada instancia = null;
         private ControladorAPI cApi = new ControladorAPI();
         public Size Tamano { get; set; }
@@ -45,6 +45,9 @@ namespace Instituto_Britanico.Modelo
 
 
         #region MetodosParaAPI
+
+
+
 
 
         #region Materia
@@ -160,7 +163,7 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<Convenio> CrearMateria(string nombre, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
+        public async Task<Convenio> CrearConvenio(string nombre, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
         {
             try
             {
@@ -185,7 +188,7 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<bool> ModificarMateria(int id, string nombre, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
+        public async Task<bool> ModificarConvenio(int id, string nombre, DateTime fechaHora, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
         {
             try
             {
@@ -193,7 +196,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id,
                     Nombre = nombre,
-                    FechaHora = DateTime.Now,
+                    FechaHora = fechaHora,
                     Anio = anio,
                     AsociadoNombre = asociadoNombre,
                     AsociadoMail = asociadoMail,
@@ -229,6 +232,210 @@ namespace Instituto_Britanico.Modelo
 
 
         #endregion
+
+
+        #region Email
+
+
+        public async Task<Email> GetEmail(int id)
+        {
+            try
+            {
+                Email email = new Email
+                {
+                    ID = id
+                };
+                email = await cApi.GetEmail(email);
+                return email;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Email>> GetEmails()
+        {
+            try
+            {
+                return await cApi.GetListaEmails();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Email>> GetEmailsEntreFechas(DateTime desde, DateTime hasta)
+        {
+            try
+            {
+                return await cApi.GetListaEmailsEntreFechas(desde, hasta);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Email> CrearEmail(string destinatarioMail, string destinatarioNombre, string asunto, string cuerpoHTML)
+        {
+            try
+            {
+                Email email = new Email
+                {
+                    ID = 0,
+                    DestinatarioNombre = destinatarioNombre,
+                    DestinatarioEmail = destinatarioMail,
+                    Asunto = asunto,
+                    CuerpoHTML = cuerpoHTML,
+                    FechaHora = DateTime.Now,
+                    Enviado = false
+                };
+                email = await cApi.CrearEmail(email);
+                return email;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarEmail(int id, string destinatarioMail, string destinatarioNombre, string asunto, string cuerpoHTML, bool enviado, DateTime fechaHora)
+        {
+            try
+            {
+                Email email = new Email
+                {
+                    ID = id,
+                    DestinatarioNombre = destinatarioNombre,
+                    DestinatarioEmail = destinatarioMail,
+                    Asunto = asunto,
+                    CuerpoHTML = cuerpoHTML,
+                    FechaHora = fechaHora,
+                    Enviado = enviado
+                };
+                bool res = await cApi.ModificarEmail(email);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarEmail(int id)
+        {
+            try
+            {
+                Email email = new Email
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarEmail(email);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+
+        #region Parametro
+
+
+        public async Task<Parametro> GetParametro(int id)
+        {
+            try
+            {
+                Parametro parametro = new Parametro
+                {
+                    ID = id
+                };
+                parametro = await cApi.GetParametro(parametro);
+                return parametro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Parametro>> GetParametros()
+        {
+            try
+            {
+                return await cApi.GetListaParametros();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Parametro> CrearParametro(int id, string nombre, string valor)
+        {
+            try
+            {
+                Parametro parametro = new Parametro
+                {
+                    ID = id,
+                    Nombre = nombre,
+                    Valor = valor
+                };
+                parametro = await cApi.CrearParametro(parametro);
+                return parametro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarParametro(int id, string nombre, string valor)
+        {
+            try
+            {
+                Parametro parametro = new Parametro
+                {
+                    ID = id,
+                    Nombre = nombre,
+                    Valor = valor
+                };
+                bool res = await cApi.ModificarParametro(parametro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarParametro(int id)
+        {
+            try
+            {
+                Parametro parametro = new Parametro
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarParametro(parametro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
 
 
 

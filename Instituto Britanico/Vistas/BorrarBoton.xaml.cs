@@ -34,8 +34,8 @@ namespace Instituto_Britanico.Vistas
         {
             try
             {
-                bool res = await fachada.EliminarMateria(50);
-                txtResultado.Text = "Se elimino: " + res.ToString();
+                bool res = await fachada.EliminarConvenio(3);
+                txtResultado.Text = "Se elimino el conv: " + res.ToString();
             }
             catch (Exception ex)
             {
