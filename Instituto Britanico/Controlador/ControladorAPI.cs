@@ -891,6 +891,7 @@ namespace Instituto_Britanico.Controlador
             string tiempo = tiempoTotal.TotalMilliseconds + " milisegundos";
         }
 
+        // ---------- Busquedas en listas locales ----------//
 
         public Materia GetMateriaByID(int id)
         {
@@ -921,6 +922,25 @@ namespace Instituto_Britanico.Controlador
             }
             return null;
         }
+
+        public Funcionario GetFuncionarioByID(int id)
+        {
+            if (id > 0)
+            {
+                foreach (Funcionario funcionario in this.lstFuncionarios)
+                {
+                    if (funcionario.ID.Equals(id))
+                    {
+                        return funcionario;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // ---------- Busquedas en listas locales ----------//
+
+
 
         #region MetodosLlamadaAPI
 
@@ -1316,7 +1336,7 @@ namespace Instituto_Britanico.Controlador
             try
             {
                 List<Funcionario> lstFuncionarios = await FuncionarioController.GetAll();
-                foreach(Funcionario funcionario in lstFuncionarios)
+                foreach (Funcionario funcionario in lstFuncionarios)
                 {
                     funcionario.Sucursal = this.GetSucursalByID(funcionario.SucursalID);
                 }
@@ -1368,6 +1388,239 @@ namespace Instituto_Britanico.Controlador
             }
         }
 
+
+
+        #endregion
+
+
+        #region Matricula
+
+
+        public async Task<Matricula> GetMatricula(Matricula pMatricula)
+        {
+            try
+            {
+                pMatricula = await MatriculaController.Get(pMatricula);
+                pMatricula.Sucursal = this.GetSucursalByID(pMatricula.SucursalID);
+                return pMatricula;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Matricula>> GetListaMatriculas()
+        {
+            try
+            {
+                List<Matricula> lstMatriculas = await MatriculaController.GetAll();
+                foreach (Matricula matricula in lstMatriculas)
+                {
+                    matricula.Sucursal = this.GetSucursalByID(matricula.SucursalID);
+                }
+                return lstMatriculas;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Matricula> CrearMatricula(Matricula pMatricula)
+        {
+            try
+            {
+                pMatricula = await MatriculaController.Crear(pMatricula);
+                pMatricula.Sucursal = this.GetSucursalByID(pMatricula.SucursalID);
+                return pMatricula;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMatricula(Matricula pMatricula)
+        {
+            try
+            {
+                bool res = await MatriculaController.Modificar(pMatricula);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMatricula(Matricula pMatricula)
+        {
+            try
+            {
+                bool res = await MatriculaController.Eliminar(pMatricula);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Empresa
+
+
+        public async Task<Empresa> GetEmpresa(Empresa pEmpresa)
+        {
+            try
+            {
+                if (pEmpresa.ID > 0)
+                    pEmpresa = await EmpresaController.Get(pEmpresa);
+                else
+                    pEmpresa = await EmpresaController.GetByRut(pEmpresa);
+                return pEmpresa;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Empresa>> GetListaEmpresas()
+        {
+            try
+            {
+                return await EmpresaController.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Empresa> CrearEmpresa(Empresa pEmpresa)
+        {
+            try
+            {
+                pEmpresa = await EmpresaController.Crear(pEmpresa);
+                return pEmpresa;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarEmpresa(Empresa pEmpresa)
+        {
+            try
+            {
+                bool res = await EmpresaController.Modificar(pEmpresa);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarEmpresa(Empresa pEmpresa)
+        {
+            try
+            {
+                bool res = await EmpresaController.Eliminar(pEmpresa);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Pago
+
+
+        public async Task<Pago> GetPago(Pago pPago)
+        {
+            try
+            {
+                pPago = await PagoController.Get(pPago);
+                pPago.Sucursal = this.GetSucursalByID(pPago.SucursalID);
+                pPago.Funcionario = this.GetFuncionarioByID(pPago.FuncionarioID);
+                return pPago;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        public async Task<List<Pago>> GetListaPagos()
+        {
+            try
+            {
+                List<Pago> lstPagos = await PagoController.GetAll();
+                foreach (Pago pago in lstPagos)
+                {
+                    pago.Sucursal = this.GetSucursalByID(pago.SucursalID);
+                    pago.Funcionario = this.GetFuncionarioByID(pago.FuncionarioID);
+                }
+                return lstPagos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Pago> CrearPago(Pago pPago)
+        {
+            try
+            {
+                pPago = await PagoController.Crear(pPago);
+                pPago.Sucursal = this.GetSucursalByID(pPago.SucursalID);
+                pPago.Funcionario = this.GetFuncionarioByID(pPago.FuncionarioID);
+                return pPago;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarPago(Pago pPago)
+        {
+            try
+            {
+                bool res = await PagoController.Modificar(pPago);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarPago(Pago pPago)
+        {
+            try
+            {
+                bool res = await PagoController.Eliminar(pPago);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         #endregion

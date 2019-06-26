@@ -48,11 +48,9 @@ namespace Instituto_Britanico.Modelo
 
 
 
-
-
         #region Materia
 
-        public Materia GetMateriaByID(int id)
+        public Materia GetMateria(int id)
         {
             return cApi.GetMateriaByID(id);
         }
@@ -588,85 +586,383 @@ namespace Instituto_Britanico.Modelo
                 throw ex;
             }
         }
-        //seguir apartir de aca
-        //public async Task<Convenio> CrearFuncionario(int sucursalID, string nombre, string ci, string email, string telefono, string telefonoAux, 
-        //    string direccion, DateTime fechaNac, string clave, bool activo, FuncionarioTipo tipo)
-        //{
-        //    try
-        //    {
-        //        Convenio convenio = new Convenio
-        //        {
-        //            ID = 0,
-        //            Nombre = nombre,
-        //            FechaHora = DateTime.Now,
-        //            Anio = anio,
-        //            AsociadoNombre = asociadoNombre,
-        //            AsociadoMail = asociadoMail,
-        //            AsociadoDireccion = asociadoDireccion,
-        //            AsociadoTel = asociadoTel,
-        //            Descuento = descuento
-        //        };
-        //        convenio = await cApi.CrearConvenio(convenio);
-        //        return convenio;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
 
-        //public async Task<bool> ModificarFuncionario(int id, string nombre, DateTime fechaHora, int anio, string asociadoNombre, string asociadoTel, string asociadoMail, string asociadoDireccion, decimal descuento)
-        //{
-        //    try
-        //    {
-        //        Convenio convenio = new Convenio
-        //        {
-        //            ID = id,
-        //            Nombre = nombre,
-        //            FechaHora = fechaHora,
-        //            Anio = anio,
-        //            AsociadoNombre = asociadoNombre,
-        //            AsociadoMail = asociadoMail,
-        //            AsociadoDireccion = asociadoDireccion,
-        //            AsociadoTel = asociadoTel,
-        //            Descuento = descuento
-        //        };
-        //        bool res = await cApi.ModificarConvenio(convenio);
-        //        return res;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public async Task<Funcionario> CrearFuncionario(int sucursalID, string nombre, string ci, string email, string telefono, string telefonoAux,
+            string direccion, DateTime fechaNac, string clave, bool activo, FuncionarioTipo tipo)
+        {
+            try
+            {
+                Funcionario funcionario = new Funcionario
+                {
+                    ID = 0,
+                    SucursalID = sucursalID,
+                    CI = ci,
+                    Email = email,
+                    Nombre = nombre,
+                    Telefono = telefono,
+                    TelefonoAux = telefonoAux,
+                    Direccion = direccion,
+                    FechaNac = fechaNac,
+                    Clave = clave,
+                    Activo = activo,
+                    TipoFuncionario = tipo
+                };
+                funcionario = await cApi.CrearFuncionario(funcionario);
+                return funcionario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        //public async Task<bool> EliminarFuncionario(int id)
-        //{
-        //    try
-        //    {
-        //        Convenio convenio = new Convenio
-        //        {
-        //            ID = id
-        //        };
-        //        bool res = await cApi.EliminarConvenio(convenio);
-        //        return res;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public async Task<bool> ModificarFuncionario(int id, int sucursalID, string nombre, string ci, string email, string telefono, string telefonoAux,
+            string direccion, DateTime fechaNac, string clave, bool activo, FuncionarioTipo tipo)
+        {
+            try
+            {
+                Funcionario funcionario = new Funcionario
+                {
+                    ID = id,
+                    SucursalID = sucursalID,
+                    CI = ci,
+                    Email = email,
+                    Nombre = nombre,
+                    Telefono = telefono,
+                    TelefonoAux = telefonoAux,
+                    Direccion = direccion,
+                    FechaNac = fechaNac,
+                    Clave = clave,
+                    Activo = activo,
+                    TipoFuncionario = tipo
+                };
+                bool res = await cApi.ModificarFuncionario(funcionario);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-
-
-
-
-
-
-
+        public async Task<bool> EliminarFuncionario(int id)
+        {
+            try
+            {
+                Funcionario funcionario = new Funcionario
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarFuncionario(funcionario);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         #endregion
+
+
+        #region Matricula
+
+
+        public async Task<Matricula> GetMatricula(int id)
+        {
+            try
+            {
+                Matricula matricula = new Matricula
+                {
+                    ID = id
+                };
+                matricula = await cApi.GetMatricula(matricula);
+                return matricula;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Matricula>> GetMatriculas()
+        {
+            try
+            {
+                return await cApi.GetListaMatriculas();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Matricula> CrearMatricula(int sucursalID, int anio, decimal precio)
+        {
+            try
+            {
+                Matricula matricula = new Matricula
+                {
+                    ID = 0,
+                    SucursalID = sucursalID,
+                    Anio = anio,
+                    FechaHora = DateTime.Now,
+                    Precio = precio
+                };
+                matricula = await cApi.CrearMatricula(matricula);
+                return matricula;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMatricula(int id, int sucursalID, int anio, decimal precio, DateTime fechaHora)
+        {
+            try
+            {
+                Matricula matricula = new Matricula
+                {
+                    ID = id,
+                    SucursalID = sucursalID,
+                    Anio = anio,
+                    FechaHora = fechaHora,
+                    Precio = precio
+                };
+                bool res = await cApi.ModificarMatricula(matricula);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMatricula(int id)
+        {
+            try
+            {
+                Matricula matricula = new Matricula
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarMatricula(matricula);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Empresa
+
+
+        public async Task<Empresa> GetEmpresa(int id, string rut)
+        {
+            try
+            {
+                Empresa empresa = new Empresa();
+                if (id > 0)
+                    empresa.ID = id;
+                else
+                    empresa.Rut = rut;
+                empresa = await cApi.GetEmpresa(empresa);
+                return empresa;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Empresa>> GetEmpresas()
+        {
+            try
+            {
+                return await cApi.GetListaEmpresas();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Empresa> CrearEmpresa(string rut, string razonSoc, string nombre, string email, string direccion, string tel, string logo, string logoImagen)
+        {
+            try
+            {
+                Empresa empresa = new Empresa
+                {
+                    ID = 0,
+                    Rut = rut,
+                    RazonSoc = razonSoc,
+                    Nombre = nombre,
+                    Email = email,
+                    Direccion = direccion,
+                    Tel = tel,
+                    Logo = logo,
+                    LogoImagen = logoImagen
+                };
+                empresa = await cApi.CrearEmpresa(empresa);
+                return empresa;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarEmpresa(int id, string rut, string razonSoc, string nombre, string email, string direccion, string tel, string logo, string logoImagen)
+        {
+            try
+            {
+                Empresa empresa = new Empresa
+                {
+                    ID = id,
+                    Rut = rut,
+                    RazonSoc = razonSoc,
+                    Nombre = nombre,
+                    Email = email,
+                    Direccion = direccion,
+                    Tel = tel,
+                    Logo = logo,
+                    LogoImagen = logoImagen
+                };
+                bool res = await cApi.ModificarEmpresa(empresa);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarEmpresa(int id)
+        {
+            try
+            {
+                Empresa empresa = new Empresa
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarEmpresa(empresa);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Pago
+
+
+        public async Task<Pago> GetPago(int id)
+        {
+            try
+            {
+                Pago pago = new Pago
+                {
+                    ID = id
+                };
+                pago = await cApi.GetPago(pago);
+                return pago;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Pago>> GetPagos()
+        {
+            try
+            {
+                return await cApi.GetListaPagos();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Pago> CrearPago(int sucursalID, string concepto, decimal monto, int funcionarioID, string observacion)
+        {
+            try
+            {
+                Pago pago = new Pago
+                {
+                    ID = 0,
+                    FechaHora = DateTime.Now,
+                    SucursalID = sucursalID,
+                    Concepto = concepto,
+                    Monto = monto,
+                    FuncionarioID = funcionarioID,
+                    Observacion = observacion
+                };
+                pago = await cApi.CrearPago(pago);
+                return pago;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarPago(int id, int sucursalID, string concepto, decimal monto, int funcionarioID, string observacion, DateTime fechaHora)
+        {
+            try
+            {
+                Pago pago = new Pago
+                {
+                    ID = id,
+                    FechaHora = fechaHora,
+                    SucursalID = sucursalID,
+                    Concepto = concepto,
+                    Monto = monto,
+                    FuncionarioID = funcionarioID,
+                    Observacion = observacion
+                };
+                bool res = await cApi.ModificarPago(pago);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarPago(int id)
+        {
+            try
+            {
+                Pago pago = new Pago
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarPago(pago);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
 
 
 
@@ -702,10 +998,6 @@ namespace Instituto_Britanico.Modelo
             return cApi.GetConveniosTotal();
         }
 
-        internal List<Matricula> GetMatriculas()
-        {
-            return cApi.GetMatriculas();
-        }
 
         public List<Pago> GetPagosTotal()
         {
