@@ -964,6 +964,104 @@ namespace Instituto_Britanico.Modelo
         #endregion
 
 
+        #region Empresa
+
+
+        public async Task<Sucursal> GetSucursal(int id)
+        {
+            try
+            {
+                Sucursal sucursal = new Sucursal
+                {
+                    ID = id
+                };
+                sucursal = await cApi.GetSucursal(sucursal);
+                return sucursal;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Sucursal>> GetSucursales()
+        {
+            try
+            {
+                return await cApi.GetListaSucursales();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Sucursal> CrearSucursal(string nombre, string email, string direccion, string tel, string ciudad, string encargado)
+        {
+            try
+            {
+                Sucursal sucursal = new Sucursal
+                {
+                    ID = 0,
+                    Nombre = nombre,
+                    Email = email,
+                    Direccion = direccion,
+                    Tel = tel,
+                    Ciudad = ciudad,
+                    Encargado = encargado
+                };
+                sucursal = await cApi.CrearSucursal(sucursal);
+                return sucursal;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarSucursal(int id, string nombre, string email, string direccion, string tel, string ciudad, string encargado)
+        {
+            try
+            {
+                Sucursal sucursal = new Sucursal
+                {
+                    ID = id,
+                    Nombre = nombre,
+                    Email = email,
+                    Direccion = direccion,
+                    Tel = tel,
+                    Ciudad = ciudad,
+                    Encargado = encargado
+                };
+                bool res = await cApi.ModificarSucursal(sucursal);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarSucursal(int id)
+        {
+            try
+            {
+                Sucursal sucursal = new Sucursal
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarSucursal(sucursal);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
 
 
 

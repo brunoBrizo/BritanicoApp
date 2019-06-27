@@ -1562,7 +1562,7 @@ namespace Instituto_Britanico.Controlador
                 throw ex;
             }
         }
-        
+
         public async Task<List<Pago>> GetListaPagos()
         {
             try
@@ -1625,6 +1625,76 @@ namespace Instituto_Britanico.Controlador
 
         #endregion
 
+
+        #region Sucursal
+
+
+        public async Task<Sucursal> GetSucursal(Sucursal pSucursal)
+        {
+            try
+            {
+                pSucursal = await SucursalController.Get(pSucursal);
+                return pSucursal;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Sucursal>> GetListaSucursales()
+        {
+            try
+            {
+                return await SucursalController.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Sucursal> CrearSucursal(Sucursal pSucursal)
+        {
+            try
+            {
+                pSucursal = await SucursalController.Crear(pSucursal);
+                return pSucursal;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarSucursal(Sucursal pSucursal)
+        {
+            try
+            {
+                bool res = await SucursalController.Modificar(pSucursal);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarSucursal(Sucursal pSucursal)
+        {
+            try
+            {
+                bool res = await SucursalController.Eliminar(pSucursal);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
 
 
 

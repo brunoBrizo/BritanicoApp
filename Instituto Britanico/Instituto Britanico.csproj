@@ -96,6 +96,7 @@
     <Compile Include="Controlador\Controladores\MatriculaController.cs" />
     <Compile Include="Controlador\Controladores\PagoController.cs" />
     <Compile Include="Controlador\Controladores\ParametroController.cs" />
+    <Compile Include="Controlador\Controladores\SucursalController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\AperturaVentanas.cs" />
     <Compile Include="Interfaces\IBrillo.cs" />
