@@ -1,5 +1,4 @@
-﻿using BibliotecaBritanico.Modelo;
-using Instituto_Britanico.Modelo;
+﻿using Instituto_Britanico.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +35,7 @@ namespace Instituto_Britanico.Vistas
 
         private void CargarDatos()
         {
-            //List<Matricula> lista = fachada.GetVMMatriculas();
-            //dgMatriculas.ItemsSource = lista;
+         
         }
 
         private void BtnIngresarMatricula_Click(object sender, RoutedEventArgs e)

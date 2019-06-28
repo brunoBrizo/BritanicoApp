@@ -129,7 +129,7 @@
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock FontSize="20" ToolTip="{Binding Email}" Text="{Binding DiasDeLaSemana}" />
+                                        <TextBlock FontSize="20" Text="{Binding DiasDeLaSemana}" />
 
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

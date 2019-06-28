@@ -45,27 +45,38 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="40*"/>
         </Grid.ColumnDefinitions>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="4" Grid.Column="2"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="6" Grid.Column="2"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="8" Grid.Column="2"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="10" Grid.Column="2"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="12" Grid.Column="2"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="4" Grid.Column="5"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="6" Grid.Column="5"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="8" Grid.Column="5"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="10" Grid.Column="5"/>
+        <Border Background="White" CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Grid.Row="12" Grid.Column="5"/>
+
         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="5" FontSize="40">Funcionario</Label>
         <Label Grid.Row="4" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Nombre"/>
-        <TextBox Grid.Row="4" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox Width="180" Grid.Row="4" Grid.Column="2" Background="White" x:Name="txtNombre" />
         <Label Grid.Row="4" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Cedula"/>
-        <TextBox Grid.Row="4" Grid.Column="5" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox Width="180"  Grid.Row="4" Grid.Column="5" Background="White" x:Name="txtDocumento" />
         <Label Grid.Row="6" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Telefono"/>
-        <TextBox Grid.Row="6" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox Width="180"  Grid.Row="6" Grid.Column="2" Background="White" x:Name="txtTelefonoUno"/>
         <Label Grid.Row="6" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Telefono 2"/>
-        <TextBox Grid.Row="6" Grid.Column="5" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox Width="180"  Grid.Row="6" Grid.Column="5" Background="White" x:Name="txtTelefonoDos" />
         <Label Grid.Row="8" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Direccion"/>
-        <TextBox Grid.Row="8" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox  Width="180" Grid.Row="8" Grid.Column="2" Background="White" x:Name="txtDireccion"/>
         <Label Grid.Row="8" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Correo"/>
-        <TextBox Grid.Row="8" Grid.Column="5" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox  Width="180" Grid.Row="8" Grid.Column="5" Background="White" x:Name="txtCorreo"/>
         <Label Grid.Row="10" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Fecha Nac."/>
-        <DatePicker Height="40" Grid.Row="10" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <DatePicker  Width="180" Height="40" Grid.Row="10" Grid.Column="2" Background="White" x:Name="dpFechaNac" />
         <Label Grid.Row="12" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Clave"/>
-        <ComboBox x:Name="cbSucursal" Height="40" Grid.Row="12" Grid.Column="5" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <ComboBox Width="180"  x:Name="cbSucursal" Height="40" Grid.Row="12" Grid.Column="5" Background="White" />
         <Label Grid.Row="12" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Sucursal"/>
-        <TextBox Grid.Row="12" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <TextBox  Width="180" Grid.Row="12" Grid.Column="2" Background="White" x:Name="txtClave" />
         <Label Grid.Row="10" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Tipo Func."/>
-        <ComboBox x:Name="cbTipoFunc" Height="40" Grid.Row="10" Grid.Column="5" Background="White" BorderBrush="Gray" BorderThickness="1"/>
+        <ComboBox  Width="180" x:Name="cbTipoFunc" Height="40" Grid.Row="10" Grid.Column="5" Background="White" />
         <Label Grid.Row="14" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Activo"/>
         <CheckBox x:Name="chkActivo" HorizontalAlignment="Left" Grid.Row="14" Grid.Column="2" Background="White"/>
         <Button Click="BtnGuardar_Click" x:Name="btnGuardar" Grid.Row="16" Grid.Column="1" Width="100"  Content="Guardar"></Button>
@@ -74,6 +85,7 @@
         <Button Grid.Row="0" Click="CerrarVentana" Background="Transparent" Width="auto" BorderBrush="Transparent" BorderThickness="0" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="6">
             <materialDesign:PackIcon Kind="Close" />
         </Button>
+        
 
 
 

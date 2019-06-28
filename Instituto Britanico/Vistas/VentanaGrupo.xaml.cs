@@ -92,6 +92,8 @@ namespace Instituto_Britanico.Vistas
             {
                 if (tt == TipoTransferencia.Mostrar) DesHabilitarCamposYBotones();
                 if (tt == TipoTransferencia.Edicion) HabilitarCamposYBotones();
+
+
                 foreach (GrupoDia s in grupo.LstDias)
                 {
                     if (s.Dia.ToLower().Equals("lunes")) chkLunes.IsChecked = true;
@@ -130,7 +132,7 @@ namespace Instituto_Britanico.Vistas
                     while (i < cbProfesor.Items.Count && !encontrado)
                     {
 
-                        if (grupo.Funcionario.ID == ((Grupo)cbProfesor.Items[i]).ID)
+                        if (grupo.Funcionario.ID == ((Funcionario)cbProfesor.Items[i]).ID)
                         {
                             cbProfesor.SelectedIndex = i;
                             encontrado = true;

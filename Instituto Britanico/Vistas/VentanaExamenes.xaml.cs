@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using Instituto_Britanico.Interfaces;
 using Instituto_Britanico.Modelo;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,70 @@ namespace Instituto_Britanico.Vistas
 
         Fachada fachada;
         Window ventana;
+        Examen examen;
+        TipoTransferencia tt;
+        TransferenciaObjeto to;
 
-        public VentanaExamenes(Window v)
+        public VentanaExamenes(Window v, Examen ex, TipoTransferencia tt, TransferenciaObjeto to)
         {
             InitializeComponent();
             ventana = v;
+            examen = ex;
+            this.tt = tt;
+
             fachada = Fachada.getInstancia();
             CargarComboBox();
+            if (this.examen != null) CargarDatosExamen();
+        }
+
+        private void CargarDatosExamen()
+        {
+            txtAnio.Text = examen.AnioAsociado + "";
+            txtPrecio.Text = examen.Precio + "";
+            dpFecha.Text = examen.FechaHora.ToShortDateString();
+            int i = 0;
+            bool encontrado = false;
+            while(i<cbGrupos.Items.Count && !encontrado)
+            {
+                if (((Grupo)cbGrupos.Items[i]).ID == examen.Grupo.ID)
+                {
+                    encontrado = true;
+                    cbGrupos.SelectedIndex = i;
+                }
+                i++;
+            }
+
+            txtNotaMinima.Text = examen.NotaMinima + "";
+            txtHora.Text = examen.FechaHora.Hour + ":" + examen.FechaHora.Minute;
+            if (tt == TipoTransferencia.Mostrar) DeshabilitarBotonesYCampos();
+            else if (tt == TipoTransferencia.Edicion) HabilitarBotonesYCampos();
+        }
+
+        private void DeshabilitarBotonesYCampos()
+        {
+            txtAnio.IsEnabled = false;
+            txtHora.IsEnabled = false;
+            txtNotaMinima.IsEnabled = false;
+            txtPrecio.IsEnabled = false;
+            dpFecha.IsEnabled = false;
+            cbGrupos.IsEnabled = false;
+            btnCancelar.Visibility = Visibility.Collapsed;
+            btnGuardar.Visibility = Visibility.Collapsed;
+            btnEditar.Visibility = Visibility.Visible;
+
+        }
+
+        private void HabilitarBotonesYCampos()
+        {
+            txtAnio.IsEnabled = true;
+            txtHora.IsEnabled = true;
+            txtNotaMinima.IsEnabled = true;
+            txtPrecio.IsEnabled = true;
+            dpFecha.IsEnabled = true;
+            cbGrupos.IsEnabled = true;
+            btnCancelar.Visibility = Visibility.Visible;
+            btnGuardar.Visibility = Visibility.Visible;
+            btnEditar.Visibility = Visibility.Collapsed;
         }
 
         private void CargarComboBox()
@@ -42,8 +100,23 @@ namespace Instituto_Britanico.Vistas
 
         private void CerrarVentana(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            this.Close();
           
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnEditar_Click(object sender, RoutedEventArgs e)
+        {
+            HabilitarBotonesYCampos();
+        }
+
+        private void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            //aqui va la logica de si es un ingreso nuevo, una edicion, o sea si es un alta o modificacion
         }
     }
 }

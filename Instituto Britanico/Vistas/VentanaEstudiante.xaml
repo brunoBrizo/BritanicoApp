@@ -30,8 +30,8 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="160" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
@@ -112,6 +112,10 @@
                 <Border
                     Grid.Row="2"
                     Grid.Column="4"
+                    Grid.ColumnSpan="2"
+                    Width="130"
+                    Margin="140,2"
+                    HorizontalAlignment="Left"
                     Background="White"
                     BorderBrush="Gray"
                     BorderThickness="1"
@@ -165,20 +169,47 @@
                     Background="White"
                     TextChanged="CambioDatos" />
 
+
                 <Label
                     Grid.Row="2"
                     Grid.Column="3"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     FontSize="15">
-                    CI
+                    Tipo Doc.
+                </Label>
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Width="110"
+                    HorizontalAlignment="Left"
+                    Background="White"
+                    CornerRadius="5" />
+                <ComboBox
+                    x:Name="cbTipoDocumento"
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Width="100"
+                    Height="35"
+                    Margin="8,0"
+                    HorizontalAlignment="Left"
+                    Background="White" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Margin="110,0"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center">
+                    Nro.
                 </Label>
                 <TextBox
                     x:Name="txtCI"
                     Grid.Row="2"
                     Grid.Column="4"
-                    Width="250"
-                    Margin="2"
+                    Grid.ColumnSpan="2"
+                    Width="150"
+                    Height="33"
+                    Margin="145,2"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
                     Background="White"

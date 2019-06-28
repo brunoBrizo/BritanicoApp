@@ -24,12 +24,64 @@ namespace Instituto_Britanico.Vistas
 
         Fachada fachada;
         Window ventana;
-        public VentanaFuncionario(Window v)
+        Funcionario func;
+        TipoTransferencia tt;
+        public VentanaFuncionario(Window v, Funcionario f, TipoTransferencia tt)
         {
             InitializeComponent();
             fachada = Fachada.getInstancia();
             ventana = v;
+            func = f;
+            this.tt = tt;
             CargarComboBox();
+            if (func != null)
+            {
+                CargarDatosFuncionario();
+            }
+        }
+
+        private void CargarDatosFuncionario()
+        {
+            if (func != null)
+            {
+                txtNombre.Text = func.Nombre;
+                txtTelefonoUno.Text = func.Telefono;
+                txtTelefonoDos.Text = func.TelefonoAux;
+                txtDireccion.Text = func.Direccion;
+                txtCorreo.Text = func.Email;
+                txtDocumento.Text = func.CI;
+                txtClave.Text = func.Clave;
+                dpFechaNac.Text = func.FechaNac.ToShortDateString();
+                int i = 0;
+                bool encontrado = false;
+                while (i < cbTipoFunc.Items.Count && !encontrado)
+                {
+                    FuncionarioTipo ft;
+                    Enum.TryParse<FuncionarioTipo>(cbTipoFunc.Items[i].ToString(), out ft);
+                    if (ft == func.TipoFuncionario)
+                    {
+                        encontrado = true;
+                        cbTipoFunc.SelectedIndex = i;
+                    }
+                    i++;
+                }
+                encontrado = false;
+                i = 0;
+                if (func.Sucursal != null)
+                {
+                    while (i < cbSucursal.Items.Count && !encontrado)
+                    {
+                        if (((Sucursal)cbSucursal.Items[i]).ID == func.Sucursal.ID)
+                        {
+                            encontrado = true;
+                            cbSucursal.SelectedIndex = i;
+                        }
+                        i++;
+                    }
+                }
+                if (func.Activo) chkActivo.IsChecked = true;
+                else chkActivo.IsChecked = false;
+            }
         }
 
         private void CargarComboBox()

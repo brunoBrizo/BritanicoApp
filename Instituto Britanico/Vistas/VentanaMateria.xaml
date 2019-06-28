@@ -1,62 +1,255 @@
-﻿<Window x:Class="Instituto_Britanico.Vistas.VentanaMateria"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
-        
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="VentanaMateria" Height="500" Width="800">
-    <Grid Background="LightGray">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+﻿<Window
+    x:Class="Instituto_Britanico.Vistas.VentanaMateria"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="770"
+    Height="650"
+    AllowsTransparency="True"
+    Background="Transparent"
+    KeyDown="TeclaEnVentana"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop, Duration=0:0:0.8}">
+        <Border
+            Background="LightGray"
+            BorderBrush="#FF404040"
+            BorderThickness="5"
+            CornerRadius="20">
+            <Grid
+                x:Name="grillaPrincipal"
+                Width="750"
+                Height="630"
+                Background="LightGray">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="400" Orientation="Vertical">
+                            <Label Content="Materia" FontSize="50" />
+                            <StackPanel Orientation="Horizontal">
 
-        <Label Width="auto" Grid.Row="2" Grid.Column="1"  FontSize="20" HorizontalAlignment="Right">Nombre</Label>
-        <TextBox x:Name="txtNombre"  Grid.Row="2" Grid.Column="2" Background="White" BorderBrush="Gray" BorderThickness="1"></TextBox>
-        <Label Width="auto" Grid.Row="3" Grid.Column="1"   FontSize="20" HorizontalAlignment="Right" >Sucursal</Label>
-        <ComboBox   Grid.Row="3" Grid.Column="2" Background="White" x:Name="cbSucursal"></ComboBox>
-        <Label Width="auto" Grid.Row="4" Grid.Column="1"   FontSize="20" HorizontalAlignment="Right" >Precio</Label>
-        <TextBox x:Name="txtPrecio"  Grid.Row="4" Grid.Column="2"  Background="White" BorderBrush="Gray" BorderThickness="1"></TextBox>
-        <Label Width="auto" Grid.Row="5" Grid.Column="1"  FontSize="20" HorizontalAlignment="Right" >Libros</Label>
-        <ListBox x:Name="lbLibros" Background="White" Grid.RowSpan="5"  Grid.Row="5" Grid.Column="2"  ScrollViewer.VerticalScrollBarVisibility="auto" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <CheckBox Click="AgregarLibro" x:Name="chkLibro" Content="{Binding Nombre}"/>
+                                <Label Width="90" FontSize="20">
+                                    Nombre
+                                </Label>
+                                <Border
+                                    Width="250"
+                                    Margin="0,3"
+                                    Background="White"
+                                    CornerRadius="10">
+                                    <TextBox
+                                        TextChanged="CambioTexto"
+                                        HorizontalContentAlignment="Center"
+                                        x:Name="txtNombre"
+                                        Width="250"
+                                        Height="38"
+                                        Margin="10,2"
+                                        Background="White" />
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label
+                                    Width="90"
+                                    HorizontalAlignment="Right"
+                                    FontSize="20">
+                                    Sucursal
+                                </Label>
+                                <Border
+                                    Width="250"
+                                    Margin="0,3"
+                                    Background="White"
+                                    CornerRadius="10">
+                                    <ComboBox
+                                        SelectionChanged="CambioComboBox"
+                                        x:Name="cbSucursal"
+                                        Width="230"
+                                        Height="38"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Background="White" />
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label
+                                    Width="90"
+                                    HorizontalAlignment="Right"
+                                    FontSize="20">
+                                    Precio
+                                </Label>
+                                <Border
+                                    Width="250"
+                                    Margin="0,3"
+                                    Background="White"
+                                    CornerRadius="10">
+                                    <TextBox
+                                        x:Name="txtPrecio"
+                                        TextChanged="CambioTexto"
+                                        Width="150"
+                                        Height="38"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Background="White" />
+                                </Border>
+                            </StackPanel>
+                            <StackPanel x:Name="panelGrillaLibros" Orientation="Vertical">
+                                <Label
+                                    Width="auto"
+                                    HorizontalAlignment="Center"
+                                    FontSize="20">
+                                    Libros disponibles
+                                </Label>
+                                <Border
+                                    Background="White"
+                                    BorderBrush="Gray"
+                                    BorderThickness="1"
+                                    CornerRadius="10">
+                                    <DataGrid
+                                        x:Name="dgLibros"
+                                        Width="380"
+                                        Height="300"
+                                        Margin="0,5"
+                                        AutoGenerateColumns="False"
+                                        Background="White"
+                                        MouseDoubleClick="AgregarLibro"
+                                        ScrollViewer.VerticalScrollBarVisibility="auto">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Nombre}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                        </DataGrid.Columns>
+                                       
+                                    </DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel
+                                x:Name="panelLibrosAsignados"
+                                Width="300"
+                                Margin="20,60"
+                                Orientation="Vertical">
+                                <Label Content="Libros asignados " FontSize="18" />
+                                <Border
+                                    Width="300"
+                                    Height="250"
+                                    Background="White"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1"
+                                    CornerRadius="10">
+                                    <DataGrid
+                                        x:Name="dgLibrosAsignados"
+                                        Width="290"
+                                        Height="240"
+                                        Margin="0,5"
+                                           AutoGenerateColumns="False"
+                        IsReadOnly="true"
+                                        Background="White"
+                                        ScrollViewer.VerticalScrollBarVisibility="auto">
+                                        <DataGrid.Resources>
+                                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                                <Setter Property="Background" Value="Blue" />
+                                            </Style>
+                                        </DataGrid.Resources>
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Width="220">
+                                               
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock FontSize="14" Text="{Binding Nombre}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn  Width="50" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                            Width="50"
+                                                            Height="22"
+                                            HorizontalAlignment="Center"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Click="ClickEnBorrarLibroDeLista">
+                                                            <materialDesign:PackIcon
+                                                                
+                                                FontSize="14"
+                                                Foreground="Black"
+                                                Kind="Delete" />
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button x:Name="btnGuardar" Content="Guardar" Width="100" Grid.Column="2"  Grid.Row="10" Grid.RowSpan="3"/>
-        <Button x:Name="btnEditar" Content="Editar" Width="100" Grid.Column="3" Grid.Row="10" Grid.RowSpan="3"/>
-        <Button x:Name="btnCancelar" Content="Cancelar" Width="100" Grid.Column="4"  Grid.Row="10" Grid.RowSpan="3"/>
-        <TextBlock x:Name="txtInfo" Grid.Row="3" Grid.Column="4" Grid.RowSpan="6" Background="White" ></TextBlock>
-        <Button Grid.Row="0" Click="CerrarVentana" Background="Transparent" Width="auto" BorderBrush="Transparent" BorderThickness="0" Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="6">
-            <materialDesign:PackIcon Kind="Close" />
-        </Button>
+
+                    <StackPanel
+                        x:Name="panelBotones"
+                        Width="470"
+                        Height="40"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Button
+                            x:Name="btnGuardar"
+                            Width="100"
+                            Margin="20,0"
+                            Content="Guardar" />
+                        <Button
+                            x:Name="btnEditar"
+                            Width="100"
+                            Margin="20,0"
+                            Click="BtnEditar_Click"
+                            Content="Editar" />
+                        <Button
+                            Click="BtnCancelar_Click"
+                            x:Name="btnCancelar"
+                            Width="100"
+                            Margin="20,0"
+                            Content="Cancelar" />
+                        <Button x:Name="btnEliminar" Width="60" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="BtnEliminar_Click">
+                            <materialDesign:PackIcon Kind="Delete" Width="30" Height="30" Foreground="red"/>
+                        </Button>
+                    </StackPanel>
+
+                </StackPanel>
 
 
-    </Grid>
+
+
+
+
+
+
+                <Button
+                    x:Name="btnCerrar"
+                    Width="80"
+                    Height="50"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Click="CerrarVentana"
+                    Foreground="Red">
+                    <materialDesign:PackIcon
+                        Width="40"
+                        Height="40"
+                        Kind="CloseBox" />
+                </Button>
+
+
+            </Grid>
+        </Border>
+    </materialDesign:TransitioningContent>
 </Window>

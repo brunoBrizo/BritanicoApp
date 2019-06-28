@@ -1,0 +1,176 @@
+﻿<Window
+    x:Class="Instituto_Britanico.Vistas.VentanaVentaLibro"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  
+    Width="820"
+    Height="620"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    AllowsTransparency="True"
+    Background="Transparent"
+    KeyDown="TeclaEnVentana"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop, Duration=0:0:0.8}">
+        <Border
+            Background="LightGray"
+            BorderBrush="#FF404040"
+            BorderThickness="5"
+            CornerRadius="20">
+            <Grid
+                Width="800"
+                Height="600"
+                Background="LightGray">
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Venta de Libros" FontSize="50" />
+                    <StackPanel Margin="0,10" Orientation="Horizontal">
+                        <Label
+                            Width="70"
+                            HorizontalContentAlignment="Right"
+                            Content="Cedula"
+                            FontSize="15" />
+                        <Border
+                            Width="120"
+                            Background="White"
+                            CornerRadius="10">
+                            <TextBox
+                                x:Name="txtCedula"
+                                Width="100"
+                                GotFocus="FocoCedula"
+                                KeyDown="TeclaEnCedula"
+                                HorizontalContentAlignment="Center"
+                                Background="White" />
+                        </Border>
+
+                        <Label
+                            Width="70"
+                            HorizontalContentAlignment="Right"
+                            Content="Nombre"
+                            FontSize="15" />
+                        <Border
+                            Width="220"
+                            Background="White"
+                            CornerRadius="10">
+                            <TextBox
+                                x:Name="txtNombre"
+                                KeyDown="TeclaEnNombre"
+                                GotFocus="FocoNombre"
+                                Width="200"
+                                HorizontalContentAlignment="Center"
+                                Background="White" />
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Border CornerRadius="10" Width="500" BorderBrush="Gray" BorderThickness="2" Margin="15,0,0,5">
+                        <Label Content="Estudiante : " x:Name="lblEstudiante" FontSize="15"/>
+                        </Border>
+
+                    </StackPanel>
+                    <StackPanel
+                        Height="35"
+                       
+                        Orientation="Horizontal">
+                        <Label
+                            Width="70"
+                            HorizontalContentAlignment="Right"
+                            Content="Libro"
+                            FontSize="15" />
+                        <Border
+                            Width="320"
+                            Height="35"
+                            Background="White"
+                            CornerRadius="10">
+                            <TextBlock
+                                x:Name="txtLibro"
+                                Width="300"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TextAlignment="Center"
+                                FontSize="15"
+                                Height="20"
+                                Background="White"
+
+                                
+                                />
+                        </Border>
+                        <Button
+                            Width="100"
+                            Margin="50,0"
+                            Content="Pagar" 
+                            Click="ClickEnPagar"/>
+                    </StackPanel>
+                    <StackPanel>
+
+                        <Border
+                            Margin="0,10,0,0"
+                            Width="750"
+                            Height="385"
+                            BorderBrush="Gray" BorderThickness="2"
+                            Background="White"
+                            CornerRadius="10">
+                            <DataGrid
+                                AutoGenerateColumns="False"
+                                x:Name="grillaLibros"
+                                Width="730"
+                                Background="White"
+                                MouseDoubleClick="DobleClickEnLibro"
+                                Height="365">
+
+                                <DataGrid.Columns>
+
+
+                                    <DataGridTemplateColumn Width="350">
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock
+                                                Width="340"
+                                                Background="Transparent"
+                                                Foreground="Black"
+                                                Text="Titulo" />
+                                        </DataGridTemplateColumn.Header>
+
+
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Width="340" Height="19" FontSize="14" Text="{Binding Nombre}" />
+
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Width="350">
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock
+                                               HorizontalAlignment="Right"
+                                                
+                                                Background="Transparent"
+                                                Foreground="Black"
+                                                Text="Materia" />
+                                        </DataGridTemplateColumn.Header>
+
+
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock  Height="19" FontSize="14" Text="{Binding Materia}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Click="BtnCerrar_Click"  Background="Transparent" BorderBrush="Transparent" x:Name="btnCerrar"  Height="50" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <materialDesign:PackIcon Kind="CloseBox" Foreground="Red" Width="40" Height="40"/>
+                </Button>
+            </Grid>
+        </Border>
+    </materialDesign:TransitioningContent>
+</Window>

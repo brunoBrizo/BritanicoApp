@@ -132,7 +132,11 @@ namespace Instituto_Britanico.Vistas
 
         private void BtnVentaLibro_Click(object sender, RoutedEventArgs e)
         {
-
+            VentanaVentaLibro vvl = new VentanaVentaLibro(ventana);
+            vvl.Owner = ventana;
+            brillo.Oscurecer();
+            vvl.Closed += AclararBrillo;
+            vvl.ShowDialog();
         }
 
         public void Oscurecer()

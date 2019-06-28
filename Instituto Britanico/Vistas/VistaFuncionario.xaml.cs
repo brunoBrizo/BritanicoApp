@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using Instituto_Britanico.Interfaces;
 using Instituto_Britanico.Modelo;
 using System;
 using System.Collections.Generic;
@@ -27,12 +28,14 @@ namespace Instituto_Britanico.Vistas
         int Alto { get; set; }
         int Ancho { get; set; }
         Window Ventana;
+        IBrillo brillo;
 
         public VistaFuncionario(Window v)
         {
             InitializeComponent();
             fachada = Fachada.getInstancia();
             Loaded += VistaFuncionario_Loaded;
+            brillo = (IBrillo)v;
             CargarLista();
             this.Ventana = v;
         }
@@ -49,8 +52,8 @@ namespace Instituto_Britanico.Vistas
         private void VistaFuncionario_Loaded(object sender, RoutedEventArgs e)
         {
             Ancho = (int)fachada.Tamano.Width;
-            Alto = (int)fachada.Tamano.Height - 20;
-            borde.Height = Alto - 20;
+            Alto = (int)fachada.Tamano.Height;
+            borde.Height = Alto-20 ;
         }
 
         private void CbSucursal_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -60,8 +63,16 @@ namespace Instituto_Britanico.Vistas
 
         private void BtnIngresarFuncionario_Click(object sender, RoutedEventArgs e)
         {
-            VentanaFuncionario vf = new VentanaFuncionario(Ventana);
+            VentanaFuncionario vf = new VentanaFuncionario(Ventana, null, TipoTransferencia.Nuevo);
+            vf.Owner = Ventana;
+            brillo.Oscurecer();
+            vf.Closed += Vf_Closed;
             vf.ShowDialog();
+        }
+
+        private void Vf_Closed(object sender, EventArgs e)
+        {
+            brillo.Aclarar();
         }
 
         private void teclaApretada(object sender, KeyEventArgs e)
@@ -71,17 +82,33 @@ namespace Instituto_Britanico.Vistas
 
         private void dobleClick(object sender, MouseButtonEventArgs e)
         {
+            Funcionario f = (Funcionario)dgFuncionarios.SelectedItems[0];
+            VentanaFuncionario vf = new VentanaFuncionario(Ventana, f, TipoTransferencia.Mostrar);
+            vf.Owner = Ventana;
+            brillo.Oscurecer();
+            vf.Closed += Vf_Closed;
+            vf.ShowDialog();
 
         }
 
         private void ClickEnEditar(object sender, RoutedEventArgs e)
         {
-
+            Funcionario f = (Funcionario)dgFuncionarios.SelectedItems[0];
+            VentanaFuncionario vf = new VentanaFuncionario(Ventana, f, TipoTransferencia.Edicion);
+            vf.Owner = Ventana;
+            brillo.Oscurecer();
+            vf.Closed += Vf_Closed;
+            vf.ShowDialog();
         }
 
         private void ClickEnVerLupa(object sender, RoutedEventArgs e)
         {
-
+            Funcionario f = (Funcionario)dgFuncionarios.SelectedItems[0];
+            VentanaFuncionario vf = new VentanaFuncionario(Ventana, f, TipoTransferencia.Mostrar);
+            vf.Owner = Ventana;
+            brillo.Oscurecer();
+            vf.Closed += Vf_Closed;
+            vf.ShowDialog();
         }
 
         private void ClickEnCorreo(object sender, RoutedEventArgs e)

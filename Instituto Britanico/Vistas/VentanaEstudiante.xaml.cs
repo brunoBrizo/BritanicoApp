@@ -35,6 +35,7 @@ namespace Instituto_Britanico.Vistas
             InitializeComponent();
             fachada = Fachada.getInstancia();
             CargarConvenios();
+            CargarTiposDocumento();
             this.tt = tt;
             if (est != null)
             {
@@ -42,6 +43,13 @@ namespace Instituto_Britanico.Vistas
                 CargarDatosEstudiante();
             }
             this.ie = ie;
+        }
+
+        private void CargarTiposDocumento()
+        {
+
+            cbTipoDocumento.ItemsSource = Enum.GetValues(typeof(TipoDocumento));
+            cbTipoDocumento.SelectedIndex = 0;
         }
 
         private void CargarConvenios()
@@ -73,7 +81,7 @@ namespace Instituto_Britanico.Vistas
             chkAlergias.IsEnabled = true;
             cbConvenio.IsEnabled = true;
             chkConvenio.IsEnabled = true;
-            btnEditar.Visibility = Visibility.Hidden;
+            btnEditar.Visibility = Visibility.Collapsed;
             btnGuardar.Visibility = Visibility.Visible;
             btnCancelar.Visibility = Visibility.Visible;
         }
@@ -102,65 +110,80 @@ namespace Instituto_Britanico.Vistas
 
         private void CargarDatosEstudiante()
         {
-            if (estudiante.Alergico)
-            {
-                chkAlergias.IsChecked = true;
-                txtAlergias.IsEnabled = true;
-            }
-            else
-            {
-                chkAlergias.IsChecked = false;
-                txtAlergias.IsEnabled = false;
-            }
-
-            if (tt == TipoTransferencia.Mostrar)
+            if (estudiante != null)
             {
 
-                DeshabilitarCampos();
-                btnEditar.Visibility = Visibility.Visible;
-                btnGuardar.Visibility = Visibility.Hidden;
-                btnCancelar.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                HabilitarCampos();
+                if (estudiante.Alergico)
+                {
+                    chkAlergias.IsChecked = true;
+                    txtAlergias.IsEnabled = true;
+                }
+                else
+                {
+                    chkAlergias.IsChecked = false;
+                    txtAlergias.IsEnabled = false;
+                }
 
-                btnEditar.Visibility = Visibility.Hidden;
-                btnGuardar.Visibility = Visibility.Visible;
-                btnCancelar.Visibility = Visibility.Visible;
-            }
-            txtNombre.Text = estudiante.Nombre;
-            txtCI.Text = estudiante.CI;
-            txtTelefono.Text = estudiante.Tel;
-            txtDireccion.Text = estudiante.Direccion;
-            txtFechaNac.Text = estudiante.FechaNac.ToShortDateString();
-            txtCorreo.Text = estudiante.Email;
-            txtAlergias.Text = estudiante.Alergias;
-            txtContacto1.Text = estudiante.ContactoAlternativoUno;
-            txtContacto1Tel.Text = estudiante.ContactoAlternativoUnoTel;
-            txtContacto2.Text = estudiante.ContactoAlternativoDos;
-            txtContacto2Tel.Text = estudiante.ContactoAlternativoDosTel;
-            if (estudiante.Convenio != null)
-            {
-                chkConvenio.IsChecked = true;
+                if (tt == TipoTransferencia.Mostrar)
+                {
+
+                    DeshabilitarCampos();
+                    btnEditar.Visibility = Visibility.Visible;
+                    btnGuardar.Visibility = Visibility.Hidden;
+                    btnCancelar.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    HabilitarCampos();
+
+                    btnEditar.Visibility = Visibility.Collapsed;
+                    btnGuardar.Visibility = Visibility.Visible;
+                    btnCancelar.Visibility = Visibility.Visible;
+                }
+                txtNombre.Text = estudiante.Nombre;
+                txtCI.Text = estudiante.CI;
+                txtTelefono.Text = estudiante.Tel;
+                txtDireccion.Text = estudiante.Direccion;
+                txtFechaNac.Text = estudiante.FechaNac.ToShortDateString();
+                txtCorreo.Text = estudiante.Email;
+                txtAlergias.Text = estudiante.Alergias;
+                txtContacto1.Text = estudiante.ContactoAlternativoUno;
+                txtContacto1Tel.Text = estudiante.ContactoAlternativoUnoTel;
+                txtContacto2.Text = estudiante.ContactoAlternativoDos;
+                txtContacto2Tel.Text = estudiante.ContactoAlternativoDosTel;
+                if (estudiante.Convenio != null)
+                {
+                    chkConvenio.IsChecked = true;
+                    int a = 0;
+                    bool elEncontrado = false;
+                    while (a < cbConvenio.Items.Count && !elEncontrado)
+                    {
+                        if (((Convenio)cbConvenio.Items[a]).Equals(estudiante.Convenio))
+                        {
+                            cbConvenio.SelectedIndex = a;
+                            elEncontrado = true;
+                        }
+                        a++;
+                    }
+                    cbConvenio.IsEnabled = true;
+                }
+                else
+                {
+                    chkConvenio.IsChecked = false;
+                    cbConvenio.IsEnabled = false;
+                    cbConvenio.SelectedIndex = -1;
+                }
                 int i = 0;
                 bool encontrado = false;
-                while (i < cbConvenio.Items.Count && !encontrado)
+                while(i<cbTipoDocumento.Items.Count && !encontrado)
                 {
-                    if (((Convenio)cbConvenio.Items[i]).Equals(estudiante.Convenio))
+                    if (((TipoDocumento)cbTipoDocumento.Items[i]) == estudiante.TipoDocumento)
                     {
-                        cbConvenio.SelectedIndex = i;
+                        cbTipoDocumento.SelectedIndex = i;
                         encontrado = true;
                     }
                     i++;
                 }
-                cbConvenio.IsEnabled = true;
-            }
-            else
-            {
-                chkConvenio.IsChecked = false;
-                cbConvenio.IsEnabled = false;
-                cbConvenio.SelectedIndex = -1;
             }
             cambioDatos = false;
         }
@@ -176,6 +199,7 @@ namespace Instituto_Britanico.Vistas
             string contactoDos = txtContacto2.Text;
             string contactoUnoTel = txtContacto1Tel.Text;
             string contactoDosTel = txtContacto2Tel.Text;
+            TipoDocumento td = (TipoDocumento)cbTipoDocumento.SelectedItem;
             string direccion = txtDireccion.Text;
             string correo = txtCorreo.Text;
             DateTime fechaNac = DateTime.MinValue;
@@ -188,7 +212,7 @@ namespace Instituto_Britanico.Vistas
             {
                 try
                 {
-                    bool guardado = fachada.AltaEstudiante(nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
+                    bool guardado = false;//fachada.AltaEstudiante(td, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
                     if (guardado) LevantarPopUp(TipoMensaje.Info, "Los datos del estudiante se guardararon correctamente");
                     else LevantarPopUp(TipoMensaje.Error, "Ocurrio un error al guardar los datos, no se guardaron");
 
@@ -203,7 +227,7 @@ namespace Instituto_Britanico.Vistas
             {
                 try
                 {
-                    bool modificado = fachada.ModificarEstudiante(estudiante.ID, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
+                    bool modificado = false;//fachada.ModificarEstudiante(estudiante.ID, td,  nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
                     if (modificado) LevantarPopUp(TipoMensaje.Info, "Los datos del estudiante se modificaron correctamente");
                     else LevantarPopUp(TipoMensaje.Error, "Ocurrio un error al guardar los datos, no se modificaron");
 

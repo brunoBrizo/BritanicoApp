@@ -1,0 +1,127 @@
+﻿<Window x:Class="Instituto_Britanico.Vistas.PickerEstudiante"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instituto_Britanico.Vistas"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Width="420"
+    Height="720"
+    AllowsTransparency="True"
+    Background="Transparent"
+    KeyDown="TeclaEnVentana"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop, Duration=0:0:0.8}">
+        <Border
+            
+            Background="LightGray"
+            BorderBrush="#FF404040"
+            BorderThickness="5"
+            CornerRadius="20">
+            <Grid
+                Width="400"
+                Height="700"
+                Background="LightGray">
+              
+                    <StackPanel>
+                        <StackPanel Height="140" Orientation="Vertical" x:Name="panelBotonesYTextbox">
+                            <StackPanel Background="LightGray" x:Name="stackCabecera">
+                                <TextBlock
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        Background="LightGray"
+                        FontSize="30">
+                        Selector Estudiante
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="stackBotones"
+                    Height="40" Width="400"
+                    Background="LightGray"
+                    Orientation="Horizontal">
+
+                                <Button
+                        
+                        x:Name="btnVolver"
+                        HorizontalAlignment="Stretch"
+                        Click="VolverEnBlanco"
+                                    Width="100"
+                                    Margin="20,0"
+                        Content="Volver" />
+                               
+                                <Button
+                      x:Name="btnSeleccionar" Margin="135,0"
+                                    Width="100"
+                        HorizontalAlignment="Right"
+                        Click="SeleccionarEstudiante"
+                        Content="Seleccionar" />
+                            </StackPanel>
+                            <StackPanel x:Name="stackTextBox" Background="LightGray">
+                                <Border Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Width="350">
+                                <TextBox
+                            x:Name="txtBusqueda"
+                            Height="40"
+                                    Width="330"
+                            VerticalAlignment="Top"
+                            materialDesign:HintAssist.Hint="Ingrese datos a filtrar"
+                            AcceptsReturn="false"
+                            Background="White"
+                            
+                            TextChanged="CambioTextoFiltro"
+                            TextWrapping="Wrap" />
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    <Border Background="White" Width="390" Height="560" CornerRadius="10" BorderBrush="Gray" BorderThickness="1">
+                        <DataGrid
+                                Height="540"
+                    x:Name="dgEstudiante"
+                    Background="White"
+                           AutoGenerateColumns="False"
+                                Foreground="White"
+                    IsReadOnly="true"
+                    KeyDown="teclaApretada"
+                    MouseDoubleClick="dobleClick" >
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Width="150">
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock   Foreground="Black" Text="Nombre" />
+                                        </DataGridTemplateColumn.Header>
+
+
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock  Foreground="Black"  Text="{Binding Nombre}" />
+
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn x:Name="columnaCedula">
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock   Foreground="Black" Text="Cedula" />
+                                        </DataGridTemplateColumn.Header>
+
+
+
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Foreground="Black" Text="{Binding CI}" />
+                                            </DataTemplate>
+
+                                        </DataGridTemplateColumn.CellTemplate>
+
+                                    </DataGridTemplateColumn>
+                                   
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </StackPanel>
+
+
+            </Grid>
+        </Border>
+    </materialDesign:TransitioningContent>
+</Window>

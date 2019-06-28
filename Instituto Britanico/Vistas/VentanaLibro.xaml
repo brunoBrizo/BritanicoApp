@@ -87,16 +87,17 @@
                     Grid.Row="0"
                     Grid.RowSpan="2"
                     Grid.Column="1"
-                    FontSize="50" Content="Libro">
+                    Content="Libro"
+                    FontSize="50">
                     <Label.Effect>
                         <DropShadowEffect
-      ShadowDepth="4"
-      Direction="320"
-      Color="Maroon"
-      Opacity="0.2"
-      BlurRadius="1.0" />
+                            BlurRadius="1.0"
+                            Direction="320"
+                            Opacity="0.2"
+                            ShadowDepth="4"
+                            Color="Maroon" />
                     </Label.Effect>
-                    
+
                 </Label>
                 <Label
                     Grid.Row="2"
@@ -107,17 +108,16 @@
                     VerticalAlignment="Center">
                     Titulo
                 </Label>
-                
+
                 <TextBox
-                    
                     x:Name="txtTitulo"
                     Grid.Row="2"
                     Grid.Column="2"
                     Margin="5"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     AcceptsReturn="false"
                     Background="White"
-                   HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
                     TextChanged="CambioDatos" />
                 <Label
                     Grid.Row="3"
@@ -134,9 +134,9 @@
                     Grid.Column="2"
                     Height="40"
                     Margin="5"
-                    Background="White"
-                   HorizontalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    Background="White"
                     SelectionChanged="CbMaterias_SelectionChanged" />
                 <Label
                     Grid.Row="4"
@@ -152,10 +152,10 @@
                     Grid.Row="4"
                     Grid.Column="2"
                     Margin="5"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     AcceptsReturn="false"
                     Background="White"
-                   HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
                     TextChanged="CambioDatos" />
                 <Label
                     Grid.Row="5"
@@ -171,10 +171,10 @@
                     Grid.Row="5"
                     Grid.Column="2"
                     Margin="5"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     AcceptsReturn="false"
                     Background="White"
-                   HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
                     TextChanged="CambioDatos" />
                 <Label
                     Grid.Row="6"
@@ -190,10 +190,10 @@
                     Grid.Row="6"
                     Grid.Column="2"
                     Margin="5"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     AcceptsReturn="false"
                     Background="White"
-                  HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
                     TextChanged="CambioDatos" />
                 <StackPanel
                     Grid.Row="7"

@@ -126,6 +126,7 @@
     <Compile Include="Modelo\Matricula.cs" />
     <Compile Include="Modelo\MatriculaEstudiante.cs" />
     <Compile Include="Modelo\Mensualidad.cs" />
+    <Compile Include="Modelo\Mes.cs" />
     <Compile Include="Modelo\Pago.cs" />
     <Compile Include="Modelo\Sucursal.cs" />
     <Compile Include="Modelo\TipoDocumento.cs" />
@@ -150,11 +151,20 @@
     <Compile Include="Vistas\MenuBORRAR.xaml.cs">
       <DependentUpon>MenuBORRAR.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\PickerEstudiante.xaml.cs">
+      <DependentUpon>PickerEstudiante.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\PopUpVentana.xaml.cs">
       <DependentUpon>PopUpVentana.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\SpinnerCargando.xaml.cs">
+      <DependentUpon>SpinnerCargando.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\VentanaBorrar.xaml.cs">
       <DependentUpon>VentanaBorrar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\VentanaCobros.xaml.cs">
+      <DependentUpon>VentanaCobros.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\VentanaConvenio.xaml.cs">
       <DependentUpon>VentanaConvenio.xaml</DependentUpon>
@@ -179,6 +189,12 @@
     </Compile>
     <Compile Include="Vistas\VentanaPagos.xaml.cs">
       <DependentUpon>VentanaPagos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\VentanaVentaLibro.xaml.cs">
+      <DependentUpon>VentanaVentaLibro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\VistaCobros.xaml.cs">
+      <DependentUpon>VistaCobros.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\VistaConvenios.xaml.cs">
       <DependentUpon>VistaConvenios.xaml</DependentUpon>
@@ -237,13 +253,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\PickerEstudiante.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Vistas\PopUpVentana.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\SpinnerCargando.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Vistas\VentanaBorrar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\VentanaCobros.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vistas\VentanaConvenio.xaml">
       <SubType>Designer</SubType>
@@ -276,6 +304,14 @@
     <Page Include="Vistas\VentanaPagos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\VentanaVentaLibro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vistas\VistaCobros.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vistas\VistaConvenios.xaml">
       <SubType>Designer</SubType>

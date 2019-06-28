@@ -18,6 +18,8 @@ namespace BibliotecaBritanico.Modelo
         public int SucursalID { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
+        [JsonIgnore]
+        public List<Libro> LstLibros { get; set; }
 
 
 
