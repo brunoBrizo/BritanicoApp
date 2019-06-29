@@ -908,6 +908,19 @@ namespace Instituto_Britanico.Controlador
             return null;
         }
 
+        public Grupo GetGrupoByID(int id, int materiaID)
+        {
+            if (id > 0 && materiaID > 0)
+            {
+                foreach (Grupo grupo in this.lstGrupos)
+                {
+                    if (grupo.ID.Equals(id) && grupo.Materia.ID.Equals(materiaID))
+                        return grupo;
+                }
+            }
+            return null;
+        }
+        
         public Sucursal GetSucursalByID(int id)
         {
             if (id > 0)
@@ -1695,6 +1708,332 @@ namespace Instituto_Britanico.Controlador
 
 
         #endregion
+
+
+        #region Estudiante
+
+
+        public async Task<Estudiante> GetEstudiante(Estudiante pEstudiante)
+        {
+            try
+            {
+                pEstudiante = await EstudianteController.Get(pEstudiante);
+                pEstudiante.Grupo = this.GetGrupoByID(pEstudiante.GrupoID, pEstudiante.MateriaID);
+                return pEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Estudiante>> GetListaEstudiantes()
+        {
+            try
+            {
+                List<Estudiante> lstEstudiantes = await EstudianteController.GetAll();
+                foreach(Estudiante estudiante in lstEstudiantes)
+                {
+                    estudiante.Grupo = this.GetGrupoByID(estudiante.GrupoID, estudiante.MateriaID);
+                }
+                return lstEstudiantes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Estudiante> CrearEstudiante(Estudiante pEstudiante)
+        {
+            try
+            {
+                pEstudiante = await EstudianteController.Crear(pEstudiante);
+                pEstudiante.Grupo = this.GetGrupoByID(pEstudiante.GrupoID, pEstudiante.MateriaID);
+                return pEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarEstudiante(Estudiante pEstudiante)
+        {
+            try
+            {
+                bool res = await EstudianteController.Modificar(pEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarEstudiante(Estudiante pEstudiante)
+        {
+            try
+            {
+                bool res = await EstudianteController.Eliminar(pEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Examen
+
+
+        public async Task<Examen> GetExamen(Examen pExamen)
+        {
+            try
+            {
+                pExamen = await ExamenController.Get(pExamen);
+                pExamen.Grupo = this.GetGrupoByID(pExamen.GrupoID, pExamen.MateriaID);
+                return pExamen;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Examen>> GetListaExamenes()
+        {
+            try
+            {
+                List<Examen> lstExamenes = await ExamenController.GetAll();
+                foreach(Examen examen in lstExamenes)
+                {
+                    examen.Grupo = this.GetGrupoByID(examen.GrupoID, examen.MateriaID);
+                }
+                return lstExamenes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Examen> CrearExamen(Examen pExamen)
+        {
+            try
+            {
+                pExamen = await ExamenController.Crear(pExamen);
+                pExamen.Grupo = this.GetGrupoByID(pExamen.GrupoID, pExamen.MateriaID);
+                return pExamen;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarExamen(Examen pExamen)
+        {
+            try
+            {
+                bool res = await ExamenController.Modificar(pExamen);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarExamen(Examen pExamen)
+        {
+            try
+            {
+                bool res = await ExamenController.Eliminar(pExamen);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Grupo
+
+
+        public async Task<Grupo> GetGrupo(Grupo pGrupo)
+        {
+            try
+            {
+                pGrupo = await GrupoController.Get(pGrupo);
+                pGrupo.Materia = this.GetMateriaByID(pGrupo.MateriaID);
+                pGrupo.Sucursal = this.GetSucursalByID(pGrupo.SucursalID);
+                pGrupo.Funcionario = this.GetFuncionarioByID(pGrupo.FuncionarioID);
+                return pGrupo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Grupo>> GetListaGrupos()
+        {
+            try
+            {
+                List<Grupo> lstGrupos = await GrupoController.GetAll();
+                foreach (Grupo grupo in lstGrupos)
+                {
+                    grupo.Materia = this.GetMateriaByID(grupo.MateriaID);
+                    grupo.Sucursal = this.GetSucursalByID(grupo.SucursalID);
+                    grupo.Funcionario = this.GetFuncionarioByID(grupo.FuncionarioID);
+                }
+                return lstGrupos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Grupo> CrearGrupo(Grupo pGrupo)
+        {
+            try
+            {
+                pGrupo = await GrupoController.Crear(pGrupo);
+                pGrupo.Materia = this.GetMateriaByID(pGrupo.MateriaID);
+                pGrupo.Sucursal = this.GetSucursalByID(pGrupo.SucursalID);
+                pGrupo.Funcionario = this.GetFuncionarioByID(pGrupo.FuncionarioID);
+                return pGrupo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarGrupo(Grupo pGrupo)
+        {
+            try
+            {
+                bool res = await GrupoController.Modificar(pGrupo);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarGrupo(Grupo pGrupo)
+        {
+            try
+            {
+                bool res = await GrupoController.Eliminar(pGrupo);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region MatriculaEstudiante
+
+
+        public async Task<MatriculaEstudiante> GetMatriculaEstudiante(MatriculaEstudiante pMatriculaEstudiante)
+        {
+            try
+            {
+                pMatriculaEstudiante = await MatriculaEstudianteController.Get(pMatriculaEstudiante);
+                pMatriculaEstudiante.Grupo = this.GetGrupoByID(pMatriculaEstudiante.GrupoID, pMatriculaEstudiante.MateriaID);
+                pMatriculaEstudiante.Sucursal = this.GetSucursalByID(pMatriculaEstudiante.SucursalID);
+                pMatriculaEstudiante.Funcionario = this.GetFuncionarioByID(pMatriculaEstudiante.FuncionarioID);
+                return pMatriculaEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<MatriculaEstudiante>> GetListaMatriculaEstudiante()
+        {
+            try
+            {
+                List<MatriculaEstudiante> lstMatriculaEstudiante = await MatriculaEstudianteController.GetAll();
+                foreach (MatriculaEstudiante matricula in lstMatriculaEstudiante)
+                {
+                    matricula.Grupo = this.GetGrupoByID(matricula.GrupoID, matricula.MateriaID);
+                    matricula.Sucursal = this.GetSucursalByID(matricula.SucursalID);
+                    matricula.Funcionario = this.GetFuncionarioByID(matricula.FuncionarioID);
+                }
+                return lstMatriculaEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<MatriculaEstudiante> CrearMatriculaEstudiante(MatriculaEstudiante pMatriculaEstudiante)
+        {
+            try
+            {
+                pMatriculaEstudiante = await MatriculaEstudianteController.Crear(pMatriculaEstudiante);
+                pMatriculaEstudiante.Grupo = this.GetGrupoByID(pMatriculaEstudiante.GrupoID, pMatriculaEstudiante.MateriaID);
+                pMatriculaEstudiante.Sucursal = this.GetSucursalByID(pMatriculaEstudiante.SucursalID);
+                pMatriculaEstudiante.Funcionario = this.GetFuncionarioByID(pMatriculaEstudiante.FuncionarioID);
+                return pMatriculaEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMatriculaEstudiante(MatriculaEstudiante pMatriculaEstudiante)
+        {
+            try
+            {
+                bool res = await MatriculaEstudianteController.Modificar(pMatriculaEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMatriculaEstudiante(MatriculaEstudiante pMatriculaEstudiante)
+        {
+            try
+            {
+                bool res = await MatriculaEstudianteController.Eliminar(pMatriculaEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
 
 
 

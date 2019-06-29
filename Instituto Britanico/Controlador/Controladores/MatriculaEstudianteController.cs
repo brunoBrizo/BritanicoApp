@@ -11,24 +11,24 @@ using System.Threading.Tasks;
 
 namespace Instituto_Britanico.Controlador.Controladores
 {
-    public class SucursalController
+    public class MatriculaEstudianteController
     {
-        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "sucursal";
+        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "matriculaestudiante";
 
-        public static async Task<Sucursal> Get(Sucursal pSucursal)
+        public static async Task<MatriculaEstudiante> Get(MatriculaEstudiante pMatriculaEstudiante)
         {
-            string url = $"{ SucursalController.Url }/getbyid/{ pSucursal.ID }";
+            string url = $"{ MatriculaEstudianteController.Url }/getbyid/{ pMatriculaEstudiante.ID },{ pMatriculaEstudiante.Matricula.ID },{ pMatriculaEstudiante.Estudiante.ID },{ pMatriculaEstudiante.Grupo.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Sucursal sucursal = await response.Content.ReadAsAsync<Sucursal>();
-                    return sucursal;
+                    MatriculaEstudiante matricula = await response.Content.ReadAsAsync<MatriculaEstudiante>();
+                    return matricula;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar sucursal | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar matricula del estudiante | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -39,20 +39,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<List<Sucursal>> GetAll()
+        public static async Task<List<MatriculaEstudiante>> GetAll()
         {
-            string url = $"{ SucursalController.Url }/getall";
+            string url = $"{ MatriculaEstudianteController.Url }/getall";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    List<Sucursal> lstSucursales = await response.Content.ReadAsAsync<List<Sucursal>>();
-                    return lstSucursales;
+                    List<MatriculaEstudiante> lstMatriculaEstudiante = await response.Content.ReadAsAsync<List<MatriculaEstudiante>>();
+                    return lstMatriculaEstudiante;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar sucursales | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar matriculas del estudiante | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -63,20 +63,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<Sucursal> Crear(Sucursal pSucursal)
+        public static async Task<MatriculaEstudiante> Crear(MatriculaEstudiante pMatriculaEstudiante)
         {
-            string url = $"{ SucursalController.Url }/crear";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pSucursal))
+            string url = $"{ MatriculaEstudianteController.Url }/crear";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pMatriculaEstudiante))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Sucursal sucursal = await response.Content.ReadAsAsync<Sucursal>();
-                    return sucursal;
+                    MatriculaEstudiante matricula = await response.Content.ReadAsAsync<MatriculaEstudiante>();
+                    return matricula;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Crear sucursal | No se encuentra la Url: " + url);
+                        throw new Exception("Crear matricula del estudiante | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -87,10 +87,10 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Modificar(Sucursal pSucursal)
+        public static async Task<bool> Modificar(MatriculaEstudiante pMatriculaEstudiante)
         {
-            string url = $"{ SucursalController.Url }/modificar";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pSucursal))
+            string url = $"{ MatriculaEstudianteController.Url }/modificar";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pMatriculaEstudiante))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -105,7 +105,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Modificar sucursal | No se encuentra la Url: " + url);
+                            throw new Exception("Modificar matricula del estudiante | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;
@@ -117,9 +117,9 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Eliminar(Sucursal pSucursal)
+        public static async Task<bool> Eliminar(MatriculaEstudiante pMatriculaEstudiante)
         {
-            string url = $"{ SucursalController.Url }/eliminar/{ pSucursal.ID }";
+            string url = $"{ MatriculaEstudianteController.Url }/eliminar/{ pMatriculaEstudiante.ID },{ pMatriculaEstudiante.Matricula.ID },{ pMatriculaEstudiante.Estudiante.ID },{ pMatriculaEstudiante.Grupo.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -135,7 +135,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Eliminar sucursal | No se encuentra la Url: " + url);
+                            throw new Exception("Eliminar matricula del estudiante | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;

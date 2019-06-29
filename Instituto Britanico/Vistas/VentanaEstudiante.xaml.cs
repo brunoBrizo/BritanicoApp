@@ -313,7 +313,7 @@ namespace Instituto_Britanico.Vistas
             {
                 try
                 {
-                    bool eliminado = fachada.EliminarEstudiante(estudiante.ID);
+                    bool eliminado = false;//fachada.EliminarEstudiante(estudiante.ID);
                     if (eliminado)
                     {
                         ie.RecibirEstudiante(estudiante, TipoTransferencia.Borrar);

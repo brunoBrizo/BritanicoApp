@@ -26,7 +26,14 @@ namespace BibliotecaBritanico.Modelo
         public decimal Descuento { get; set; }
         public decimal Precio { get; set; }
 
-        public MatriculaEstudiante() { }
+        public MatriculaEstudiante()
+        {
+            this.Matricula = new Matricula();
+            this.Sucursal = new Sucursal();
+            this.Estudiante = new Estudiante();
+            this.Grupo = new Grupo();
+            this.Funcionario = new Funcionario();
+        }
 
 
     }

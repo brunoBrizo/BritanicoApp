@@ -11,24 +11,24 @@ using System.Threading.Tasks;
 
 namespace Instituto_Britanico.Controlador.Controladores
 {
-    public class SucursalController
+    public class EstudianteController
     {
-        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "sucursal";
+        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "estudiante";
 
-        public static async Task<Sucursal> Get(Sucursal pSucursal)
+        public static async Task<Estudiante> Get(Estudiante pEstudiante)
         {
-            string url = $"{ SucursalController.Url }/getbyid/{ pSucursal.ID }";
+            string url = $"{ EstudianteController.Url }/getbyid/{ pEstudiante.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Sucursal sucursal = await response.Content.ReadAsAsync<Sucursal>();
-                    return sucursal;
+                    Estudiante estudiante = await response.Content.ReadAsAsync<Estudiante>();
+                    return estudiante;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar sucursal | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar estudiante | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -39,20 +39,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<List<Sucursal>> GetAll()
+        public static async Task<List<Estudiante>> GetAll()
         {
-            string url = $"{ SucursalController.Url }/getall";
+            string url = $"{ EstudianteController.Url }/getall";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    List<Sucursal> lstSucursales = await response.Content.ReadAsAsync<List<Sucursal>>();
-                    return lstSucursales;
+                    List<Estudiante> lstEstudiantes = await response.Content.ReadAsAsync<List<Estudiante>>();
+                    return lstEstudiantes;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar sucursales | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar estudiantes | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -63,20 +63,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<Sucursal> Crear(Sucursal pSucursal)
+        public static async Task<Estudiante> Crear(Estudiante pEstudiante)
         {
-            string url = $"{ SucursalController.Url }/crear";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pSucursal))
+            string url = $"{ EstudianteController.Url }/crear";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pEstudiante))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Sucursal sucursal = await response.Content.ReadAsAsync<Sucursal>();
-                    return sucursal;
+                    Estudiante estudiante = await response.Content.ReadAsAsync<Estudiante>();
+                    return estudiante;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Crear sucursal | No se encuentra la Url: " + url);
+                        throw new Exception("Crear estudiante | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -87,10 +87,10 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Modificar(Sucursal pSucursal)
+        public static async Task<bool> Modificar(Estudiante pEstudiante)
         {
-            string url = $"{ SucursalController.Url }/modificar";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pSucursal))
+            string url = $"{ EstudianteController.Url }/modificar";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pEstudiante))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -105,7 +105,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Modificar sucursal | No se encuentra la Url: " + url);
+                            throw new Exception("Modificar estudiante | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;
@@ -117,9 +117,9 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Eliminar(Sucursal pSucursal)
+        public static async Task<bool> Eliminar(Estudiante pEstudiante)
         {
-            string url = $"{ SucursalController.Url }/eliminar/{ pSucursal.ID }";
+            string url = $"{ EstudianteController.Url }/eliminar/{ pEstudiante.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -135,7 +135,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Eliminar sucursal | No se encuentra la Url: " + url);
+                            throw new Exception("Eliminar estudiante | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;

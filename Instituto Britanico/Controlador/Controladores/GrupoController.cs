@@ -11,24 +11,24 @@ using System.Threading.Tasks;
 
 namespace Instituto_Britanico.Controlador.Controladores
 {
-    public class SucursalController
-    {
-        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "sucursal";
+    public class GrupoController
+    { 
+        private static string Url { get; set; } = ConfigurationManager.AppSettings["UrlApi"].ToString() + "grupo";
 
-        public static async Task<Sucursal> Get(Sucursal pSucursal)
+        public static async Task<Grupo> Get(Grupo pGrupo)
         {
-            string url = $"{ SucursalController.Url }/getbyid/{ pSucursal.ID }";
+            string url = $"{ GrupoController.Url }/getbyid/{ pGrupo.ID },{ pGrupo.Materia.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Sucursal sucursal = await response.Content.ReadAsAsync<Sucursal>();
-                    return sucursal;
+                    Grupo grupo = await response.Content.ReadAsAsync<Grupo>();
+                    return grupo;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar sucursal | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar grupo | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -39,20 +39,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<List<Sucursal>> GetAll()
+        public static async Task<List<Grupo>> GetAll()
         {
-            string url = $"{ SucursalController.Url }/getall";
+            string url = $"{ GrupoController.Url }/getall";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    List<Sucursal> lstSucursales = await response.Content.ReadAsAsync<List<Sucursal>>();
-                    return lstSucursales;
+                    List<Grupo> lstGrupos = await response.Content.ReadAsAsync<List<Grupo>>();
+                    return lstGrupos;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Buscar sucursales | No se encuentra la Url: " + url);
+                        throw new Exception("Buscar grupos | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -63,20 +63,20 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<Sucursal> Crear(Sucursal pSucursal)
+        public static async Task<Grupo> Crear(Grupo pGrupo)
         {
-            string url = $"{ SucursalController.Url }/crear";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pSucursal))
+            string url = $"{ GrupoController.Url }/crear";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsJsonAsync(url, pGrupo))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    Sucursal sucursal = await response.Content.ReadAsAsync<Sucursal>();
-                    return sucursal;
+                    Grupo grupo = await response.Content.ReadAsAsync<Grupo>();
+                    return grupo;
                 }
                 else
                 {
                     if (response.StatusCode == HttpStatusCode.NotFound)
-                        throw new Exception("Crear sucursal | No se encuentra la Url: " + url);
+                        throw new Exception("Crear grupo | No se encuentra la Url: " + url);
                     else
                     {
                         string error = response.Content.ReadAsStringAsync().Result;
@@ -87,10 +87,10 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Modificar(Sucursal pSucursal)
+        public static async Task<bool> Modificar(Grupo pGrupo)
         {
-            string url = $"{ SucursalController.Url }/modificar";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pSucursal))
+            string url = $"{ GrupoController.Url }/modificar";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsJsonAsync(url, pGrupo))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -105,7 +105,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Modificar sucursal | No se encuentra la Url: " + url);
+                            throw new Exception("Modificar grupo | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;
@@ -117,9 +117,9 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
-        public static async Task<bool> Eliminar(Sucursal pSucursal)
+        public static async Task<bool> Eliminar(Grupo pGrupo)
         {
-            string url = $"{ SucursalController.Url }/eliminar/{ pSucursal.ID }";
+            string url = $"{ GrupoController.Url }/eliminar/{ pGrupo.ID },{ pGrupo.Materia.ID }";
             using (HttpResponseMessage response = await ApiHelper.ApiClient.DeleteAsync(url))
             {
                 if (response.IsSuccessStatusCode)
@@ -135,7 +135,7 @@ namespace Instituto_Britanico.Controlador.Controladores
                     else
                     {
                         if (response.StatusCode == HttpStatusCode.NotFound)
-                            throw new Exception("Eliminar sucursal | No se encuentra la Url: " + url);
+                            throw new Exception("Eliminar grupo | No se encuentra la Url: " + url);
                         else
                         {
                             string error = response.Content.ReadAsStringAsync().Result;

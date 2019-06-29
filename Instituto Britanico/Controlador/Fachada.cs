@@ -964,7 +964,7 @@ namespace Instituto_Britanico.Modelo
         #endregion
 
 
-        #region Empresa
+        #region Sucursal
 
 
         public async Task<Sucursal> GetSucursal(int id)
@@ -1051,6 +1051,476 @@ namespace Instituto_Britanico.Modelo
                     ID = id
                 };
                 bool res = await cApi.EliminarSucursal(sucursal);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Estudiante
+
+
+        public async Task<Estudiante> GetEstudiante(int id)
+        {
+            try
+            {
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = id
+                };
+                estudiante = await cApi.GetEstudiante(estudiante);
+                return estudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Estudiante>> GetEstudiantes()
+        {
+            try
+            {
+                return await cApi.GetListaEstudiantes();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Estudiante> CrearEstudiante(string nombre, TipoDocumento tipoDocumento, string ci, string tel, string email, string direccion, DateTime fechaNac,
+            bool alergico, string alergias, string contactoAlternativoUno, string contactoAlternativoUnoTel, string contactoAlternativoDos, string contactoAlternativoDosTel,
+            Convenio convenio, int grupoID, int materiaID)
+        {
+            try
+            {
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = 0,
+                    Nombre = nombre,
+                    TipoDocumento = tipoDocumento,
+                    CI = ci,
+                    Tel = tel,
+                    Email = email,
+                    Direccion = direccion,
+                    FechaNac = fechaNac,
+                    Alergico = alergico,
+                    Alergias = alergias,
+                    ContactoAlternativoUno = contactoAlternativoUno,
+                    ContactoAlternativoUnoTel = contactoAlternativoUnoTel,
+                    ContactoAlternativoDos = contactoAlternativoDos,
+                    ContactoAlternativoDosTel = contactoAlternativoDosTel,
+                    Convenio = convenio,
+                    GrupoID = grupoID,
+                    MateriaID = materiaID
+                };
+                estudiante = await cApi.CrearEstudiante(estudiante);
+                return estudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarEstudiante(int id, string nombre, TipoDocumento tipoDocumento, string ci, string tel, string email, string direccion, DateTime fechaNac,
+            bool alergico, string alergias, string contactoAlternativoUno, string contactoAlternativoUnoTel, string contactoAlternativoDos, string contactoAlternativoDosTel,
+            Convenio convenio, int grupoID, int materiaID)
+        {
+            try
+            {
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = 0,
+                    Nombre = nombre,
+                    TipoDocumento = tipoDocumento,
+                    CI = ci,
+                    Tel = tel,
+                    Email = email,
+                    Direccion = direccion,
+                    FechaNac = fechaNac,
+                    Alergico = alergico,
+                    Alergias = alergias,
+                    ContactoAlternativoUno = contactoAlternativoUno,
+                    ContactoAlternativoUnoTel = contactoAlternativoUnoTel,
+                    ContactoAlternativoDos = contactoAlternativoDos,
+                    ContactoAlternativoDosTel = contactoAlternativoDosTel,
+                    Convenio = convenio,
+                    GrupoID = grupoID,
+                    MateriaID = materiaID
+                };
+                bool res = await cApi.ModificarEstudiante(estudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarEstudiante(int id)
+        {
+            try
+            {
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = id
+                };
+                bool res = await cApi.EliminarEstudiante(estudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Examen
+
+
+        public async Task<Examen> GetExamen(int id, int grupoID)
+        {
+            try
+            {
+                Examen examen = new Examen
+                {
+                    ID = id,
+                    GrupoID = grupoID
+                };
+                examen = await cApi.GetExamen(examen);
+                return examen;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Examen>> GetExamenes()
+        {
+            try
+            {
+                return await cApi.GetListaExamenes();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Examen> CrearExamen(int grupoID, int materiaID, int anioAsociado, int notaMinima, decimal precio)
+        {
+            try
+            {
+                Examen examen = new Examen
+                {
+                    ID = 0,
+                    GrupoID = grupoID,
+                    MateriaID = materiaID,
+                    AnioAsociado = anioAsociado,
+                    NotaMinima = notaMinima,
+                    Precio = precio,
+                    FechaHora = DateTime.Now
+                };
+                examen = await cApi.CrearExamen(examen);
+                return examen;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarExamen(int id, int grupoID, int materiaID, int anioAsociado, int notaMinima, decimal precio, DateTime fechaHora)
+        {
+            try
+            {
+                Examen examen = new Examen
+                {
+                    ID = id,
+                    GrupoID = grupoID,
+                    MateriaID = materiaID,
+                    AnioAsociado = anioAsociado,
+                    NotaMinima = notaMinima,
+                    Precio = precio,
+                    FechaHora = fechaHora
+                };
+                bool res = await cApi.ModificarExamen(examen);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarExamen(int id, int grupoID)
+        {
+            try
+            {
+                Examen examen = new Examen
+                {
+                    ID = id,
+                    GrupoID = grupoID
+                };
+                bool res = await cApi.EliminarExamen(examen);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Grupo
+
+
+        public async Task<Grupo> GetGrupo(int id, int materiaID)
+        {
+            try
+            {
+                Grupo grupo = new Grupo
+                {
+                    ID = id,
+                    MateriaID = materiaID
+                };
+                grupo = await cApi.GetGrupo(grupo);
+                return grupo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Grupo>> GetGrupos()
+        {
+            try
+            {
+                return await cApi.GetListaGrupos();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Grupo> CrearGrupo(int materiaID, int sucursalID, int funcionarioID, string horaInicio, string horaFin, decimal precio, bool activo, List<GrupoDia> dias)
+        {
+            try
+            {
+                Grupo grupo = new Grupo
+                {
+                    ID = 0,
+                    MateriaID = materiaID,
+                    SucursalID = sucursalID,
+                    FuncionarioID = funcionarioID,
+                    HoraInicio = horaInicio,
+                    HoraFin = horaFin,
+                    Precio = precio,
+                    Activo = activo,
+                    LstDias = dias
+                };
+                grupo = await cApi.CrearGrupo(grupo);
+                return grupo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarGrupo(int id, int materiaID, int sucursalID, int funcionarioID, string horaInicio, string horaFin, decimal precio, bool activo, List<GrupoDia> dias)
+        {
+            try
+            {
+                Grupo grupo = new Grupo
+                {
+                    ID = id,
+                    MateriaID = materiaID,
+                    SucursalID = sucursalID,
+                    FuncionarioID = funcionarioID,
+                    HoraInicio = horaInicio,
+                    HoraFin = horaFin,
+                    Precio = precio,
+                    Activo = activo,
+                    LstDias = dias
+                };
+                bool res = await cApi.ModificarGrupo(grupo);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarGrupo(int id, int materiaID)
+        {
+            try
+            {
+                Grupo grupo = new Grupo
+                {
+                    ID = id,
+                    MateriaID = materiaID
+                };
+                bool res = await cApi.EliminarGrupo(grupo);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region MatriculaEstudiante
+
+
+        public async Task<MatriculaEstudiante> GetMatriculaEstudiante(int id, int matriculaID, int estudianteID, int grupoID)
+        {
+            try
+            {
+                MatriculaEstudiante matriculaEstudiante = new MatriculaEstudiante
+                {
+                    ID = id,
+                    GrupoID = grupoID
+                };
+                Matricula matricula = new Matricula
+                {
+                    ID = matriculaID
+                };
+                matriculaEstudiante.Matricula = matricula;
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = estudianteID
+                };
+                matriculaEstudiante.Estudiante = estudiante;
+                matriculaEstudiante = await cApi.GetMatriculaEstudiante(matriculaEstudiante);
+                return matriculaEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<MatriculaEstudiante>> GetListaMatriculaEstudiante()
+        {
+            try
+            {
+                return await cApi.GetListaMatriculaEstudiante();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<MatriculaEstudiante> CrearMatriculaEstudiante(int matriculaID, int estudianteID, int grupoID, int materiaID, int sucursalID, int funcionarioID, decimal descuento, decimal precio)
+        {
+            try
+            {
+                MatriculaEstudiante matriculaEstudiante = new MatriculaEstudiante
+                {
+                    ID = 0,
+                    GrupoID = grupoID,
+                    MateriaID = materiaID,
+                    SucursalID = sucursalID,
+                    FuncionarioID = funcionarioID,
+                    Descuento = descuento,
+                    Precio = precio
+                };
+                Matricula matricula = new Matricula
+                {
+                    ID = matriculaID
+                };
+                matriculaEstudiante.Matricula = matricula;
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = estudianteID
+                };
+                matriculaEstudiante.Estudiante = estudiante;
+                matriculaEstudiante = await cApi.CrearMatriculaEstudiante(matriculaEstudiante);
+                return matriculaEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMatriculaEstudiante(int id, int matriculaID, int estudianteID, int grupoID, int materiaID, int sucursalID, int funcionarioID, decimal descuento, decimal precio)
+        {
+            try
+            {
+                MatriculaEstudiante matriculaEstudiante = new MatriculaEstudiante
+                {
+                    ID = id,
+                    GrupoID = grupoID,
+                    MateriaID = materiaID,
+                    SucursalID = sucursalID,
+                    FuncionarioID = funcionarioID,
+                    Descuento = descuento,
+                    Precio = precio
+                };
+                Matricula matricula = new Matricula
+                {
+                    ID = matriculaID
+                };
+                matriculaEstudiante.Matricula = matricula;
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = estudianteID
+                };
+                matriculaEstudiante.Estudiante = estudiante;
+                bool res = await cApi.ModificarMatriculaEstudiante(matriculaEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMatriculaEstudiante(int id, int matriculaID, int estudianteID, int grupoID)
+        {
+            try
+            {
+                MatriculaEstudiante matriculaEstudiante = new MatriculaEstudiante
+                {
+                    ID = id,
+                    GrupoID = grupoID
+                };
+                Matricula matricula = new Matricula
+                {
+                    ID = matriculaID
+                };
+                matriculaEstudiante.Matricula = matricula;
+                Estudiante estudiante = new Estudiante
+                {
+                    ID = estudianteID
+                };
+                matriculaEstudiante.Estudiante = estudiante;
+                bool res = await cApi.EliminarMatriculaEstudiante(matriculaEstudiante);
                 return res;
             }
             catch (Exception ex)
@@ -1211,18 +1681,6 @@ namespace Instituto_Britanico.Modelo
             try
             {
                 return cApi.ModificarLibro(ID, titulo, materia, precio, autor, editorial);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        internal bool EliminarEstudiante(int iD)
-        {
-            try
-            {
-                return cApi.EliminarEstudiante(iD);
             }
             catch (Exception ex)
             {
