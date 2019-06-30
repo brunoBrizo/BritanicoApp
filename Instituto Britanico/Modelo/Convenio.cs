@@ -27,6 +27,60 @@ namespace BibliotecaBritanico.Modelo
 
         public Convenio() { }
 
+        public static bool ValidarConvenioInsert(Convenio convenio)
+        {
+            string errorMsg = String.Empty;
+            if (convenio.Nombre.Equals(String.Empty))
+            {
+                errorMsg = "Debe ingresar el nombre del Convenio \n";
+            }
+            if (convenio.Anio < 2010)
+            {
+                errorMsg += "Verifique el año del Convenio \n";
+            }
+            if (convenio.AsociadoNombre.Equals(String.Empty) || convenio.AsociadoTel.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar Nombre y Telefono del asociado \n";
+            }
+            if (!convenio.AsociadoMail.Equals(String.Empty) && !Herramientas.ValidarMail(convenio.AsociadoMail))
+            {
+                errorMsg += "Mail invalido \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarConvenioModificar(Convenio convenio)
+        {
+            string errorMsg = String.Empty;
+            if (convenio.Nombre.Equals(String.Empty))
+            {
+                errorMsg = "Debe ingresar el nombre del Convenio \n";
+            }
+            if (convenio.ID < 1)
+                errorMsg += "Debe asignar un ID al convenio \n";
+            if (convenio.Anio < 2010)
+            {
+                errorMsg += "Verifique el año del Convenio \n";
+            }
+            if (convenio.AsociadoNombre.Equals(String.Empty) || convenio.AsociadoTel.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar Nombre y Telefono del asociado \n";
+            }
+            if (!convenio.AsociadoMail.Equals(String.Empty) && !Herramientas.ValidarMail(convenio.AsociadoMail))
+            {
+                errorMsg += "Mail invalido \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+        
         public override string ToString()
         {
             return Nombre;

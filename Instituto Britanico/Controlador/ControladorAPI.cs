@@ -17,6 +17,7 @@ namespace Instituto_Britanico.Controlador
         public List<Sucursal> lstSucursales { get; set; }
         public List<Materia> lstMaterias { get; set; }
         public List<Funcionario> lstFuncionarios { get; set; }
+        public List<Matricula> lstMatriculas { get; set; } //es la matricula que corresponde al año, siempre es la misma
 
 
         List<Libro> Libros { get; set; }
@@ -47,18 +48,21 @@ namespace Instituto_Britanico.Controlador
 
         public ControladorAPI()
         {
-            CargarListas();
         }
 
-        private async void CargarListas()
+        public async Task CargarListas()
         {
             DateTime InicioDeIngresos = DateTime.Now;
-            lstMaterias = new List<Materia>();
-            Libros = new List<Libro>();
-            lstGrupos = new List<Grupo>();
+            lstMaterias = await MateriaController.GetAll();
+            lstSucursales = await this.GetListaSucursales();
+            lstFuncionarios = await this.GetListaFuncionarios();            
+            lstGrupos = await this.GetListaGrupos();
+            lstMatriculas = await this.GetListaMatriculasByAnio(DateTime.Today.Year);
+
+
             Estudiantes = new List<Estudiante>();
-            lstSucursales = new List<Sucursal>();
-            lstFuncionarios = new List<Funcionario>();
+            Libros = new List<Libro>();
+
             Examenes = new List<Examen>();
             Pagos = new List<Pago>();
             Matriculas = new List<Matricula>();
@@ -66,268 +70,8 @@ namespace Instituto_Britanico.Controlador
             Convenios = new List<Convenio>();
 
 
-            #region ingreso sucursales
-            Sucursal sa = new Sucursal("Centro", "Hermenegildo Riverense 2544", "424", "Hermenegildo@InstitutoBritanicoDeRiveraAlNorteDeUruguay.com", "Flores", "Alberto");
-            Sucursal sb = new Sucursal("Rivera Chico", "Nepomuseno Cabrera 3232", "425", "Nepomuseno@InstitutoBritanicoDeRiveraAlNorteDeUruguay.com", "Rivera", "Jacinto");
-            Sucursal sc = new Sucursal("Maldonado", "Aristobulo Gimenez 1211", "421", "Aristobuloo@InstitutoBritanicoDeRiveraAlNorteDeUruguay.com", "Rivera", "Florencio");
-
-            lstSucursales.Add(sa);
-            lstSucursales.Add(sb);
-            lstSucursales.Add(sc);
-            #endregion
-
-            #region ingreso de Matriculas
-            Matricula mata = new Matricula() { Anio = 2019, Sucursal = sa, FechaHora = new DateTime(2019, 1, 20), ID = 1, Precio = 5000 };
-            Matricula matb = new Matricula() { Anio = 2019, Sucursal = sb, FechaHora = new DateTime(2019, 1, 20), ID = 2, Precio = 4000 };
-            Matricula matc = new Matricula() { Anio = 2018, Sucursal = sa, FechaHora = new DateTime(2018, 1, 20), ID = 3, Precio = 4000 };
-            Matricula matd = new Matricula() { Anio = 2018, Sucursal = sb, FechaHora = new DateTime(2018, 1, 20), ID = 4, Precio = 3000 };
-            Matricula mate = new Matricula() { Anio = 2017, Sucursal = sa, FechaHora = new DateTime(2018, 1, 20), ID = 5, Precio = 3000 };
-            Matricula matf = new Matricula() { Anio = 2017, Sucursal = sb, FechaHora = new DateTime(2018, 1, 20), ID = 6, Precio = 2000 };
-            #endregion
-
-            #region ingreso materias
-            Materia ma = new Materia() { ID = 1, Nombre = "Kinder", Sucursal = sa };
-            Materia mb = new Materia() { ID = 2, Nombre = "Children 1", Sucursal = sa };
-            Materia mc = new Materia() { ID = 3, Nombre = "Children 2", Sucursal = sa };
-            Materia md = new Materia() { ID = 4, Nombre = "Pre First Certificate of English", Sucursal = sa };
-            Materia me = new Materia() { ID = 5, Nombre = "First Certificate of English", Sucursal = sa };
-            Materia mf = new Materia() { ID = 6, Nombre = "Cambridge Advanced English", Sucursal = sa };
-            Materia mg = new Materia() { ID = 7, Nombre = "Cambridge Proficiency English", Sucursal = sa };
-            Materia mh = new Materia() { ID = 8, Nombre = "J1", Sucursal = sa };
-            Materia mi = new Materia() { ID = 9, Nombre = "J2", Sucursal = sa };
-            Materia mj = new Materia() { ID = 10, Nombre = "J3", Sucursal = sa };
-            Materia mk = new Materia() { ID = 11, Nombre = "J4", Sucursal = sa };
-            Materia ml = new Materia() { ID = 12, Nombre = "J5", Sucursal = sa };
-            Materia mm = new Materia() { ID = 13, Nombre = "J6", Sucursal = sa };
-            Materia mn = new Materia() { ID = 14, Nombre = "Children 2", Sucursal = sb };
-            Materia mo = new Materia() { ID = 15, Nombre = "Cambridge Proficiency English", Sucursal = sb };
-            Materia mp = new Materia() { ID = 16, Nombre = "Children 1", Sucursal = sb };
-
-
-            lstMaterias.Add(ma);
-            lstMaterias.Add(mb);
-            lstMaterias.Add(mc);
-            lstMaterias.Add(md);
-            lstMaterias.Add(me);
-            lstMaterias.Add(mf);
-            lstMaterias.Add(mg);
-            lstMaterias.Add(mh);
-            lstMaterias.Add(mi);
-            lstMaterias.Add(mj);
-            lstMaterias.Add(mk);
-            lstMaterias.Add(ml);
-            lstMaterias.Add(mm);
-            lstMaterias.Add(mn);
-            lstMaterias.Add(mo);
-            lstMaterias.Add(mp);
-
-            //this.Materias = await MateriaController.GetAll();
-
-
-
-            #endregion
-
-            #region ingreso grupos
-            Grupo ga = new Grupo() { ID = 5, Materia = ma, Sucursal = sa };
-            Grupo gb = new Grupo() { ID = 6, Materia = mb, Sucursal = sb };
-            Grupo gc = new Grupo() { ID = 7, Materia = mc, Sucursal = sc };
-            Grupo gd = new Grupo() { ID = 8, Materia = md, Sucursal = sa };
-            Grupo ge = new Grupo() { ID = 9, Materia = me, Sucursal = sb };
-            Grupo gf = new Grupo() { ID = 10, Materia = mf, Sucursal = sb };
-            Grupo gg = new Grupo() { ID = 10, Materia = mg, Sucursal = sb };
-            Grupo gh = new Grupo() { ID = 10, Materia = mh, Sucursal = sb };
-            Grupo gi = new Grupo() { ID = 10, Materia = mi, Sucursal = sb };
-            Grupo gj = new Grupo() { ID = 10, Materia = mj, Sucursal = sb };
-            Grupo gk = new Grupo() { ID = 10, Materia = mk, Sucursal = sb };
-            Grupo gl = new Grupo() { ID = 10, Materia = ml, Sucursal = sb };
-            Grupo gm = new Grupo() { ID = 10, Materia = mm, Sucursal = sb };
-
-            lstGrupos.Add(ga);
-            lstGrupos.Add(gb);
-            lstGrupos.Add(gc);
-            lstGrupos.Add(gd);
-            lstGrupos.Add(ge);
-            lstGrupos.Add(gf);
-            lstGrupos.Add(gg);
-            lstGrupos.Add(gh);
-            lstGrupos.Add(gi);
-            lstGrupos.Add(gj);
-            lstGrupos.Add(gk);
-            lstGrupos.Add(gl);
-            lstGrupos.Add(gm);
-
-            ga.LstEstudiantes = new List<Estudiante>();
-            gb.LstEstudiantes = new List<Estudiante>();
-            gc.LstEstudiantes = new List<Estudiante>();
-            gd.LstEstudiantes = new List<Estudiante>();
-            ge.LstEstudiantes = new List<Estudiante>();
-            gf.LstEstudiantes = new List<Estudiante>();
-            gg.LstEstudiantes = new List<Estudiante>();
-            gh.LstEstudiantes = new List<Estudiante>();
-            gi.LstEstudiantes = new List<Estudiante>();
-            gj.LstEstudiantes = new List<Estudiante>();
-            gk.LstEstudiantes = new List<Estudiante>();
-            gl.LstEstudiantes = new List<Estudiante>();
-            gm.LstEstudiantes = new List<Estudiante>();
-            ga.LstDias = new List<GrupoDia>();
-            gb.LstDias = new List<GrupoDia>();
-            gc.LstDias = new List<GrupoDia>();
-            gd.LstDias = new List<GrupoDia>();
-            ge.LstDias = new List<GrupoDia>();
-            gf.LstDias = new List<GrupoDia>();
-            gg.LstDias = new List<GrupoDia>();
-            gh.LstDias = new List<GrupoDia>();
-            gi.LstDias = new List<GrupoDia>();
-            gj.LstDias = new List<GrupoDia>();
-            gk.LstDias = new List<GrupoDia>();
-            gl.LstDias = new List<GrupoDia>();
-            gm.LstDias = new List<GrupoDia>();
-            GrupoDia gda = new GrupoDia(1, "Lunes");
-            GrupoDia gdb = new GrupoDia(2, "Martes");
-            GrupoDia gdc = new GrupoDia(3, "Miercoles");
-            GrupoDia gdd = new GrupoDia(4, "Jueves");
-            GrupoDia gde = new GrupoDia(5, "Viernes");
-            GrupoDia gdf = new GrupoDia(6, "Sabado");
-            GrupoDia gdg = new GrupoDia(7, "Domingo");
-
-            ga.LstDias.Add(gda);
-            ga.LstDias.Add(gdc);
-            ga.HoraInicio = "19:00";
-            ga.HoraFin = "22:00";
-            gb.LstDias.Add(gdb);
-            gb.LstDias.Add(gdd);
-            gb.HoraInicio = "19:00";
-            gb.HoraFin = "22:00";
-            gc.LstDias.Add(gda);
-            gc.LstDias.Add(gdc);
-            gc.LstDias.Add(gde);
-            gc.HoraInicio = "18:00";
-            gc.HoraFin = "23:00";
-            gd.LstDias.Add(gda);
-            gd.LstDias.Add(gdc);
-            gd.HoraInicio = "07:00";
-            gd.HoraFin = "08:30";
-            ge.LstDias.Add(gda);
-            ge.LstDias.Add(gdb);
-            ge.HoraInicio = "15:00";
-            ge.HoraFin = "18:00";
-            gf.LstDias.Add(gdc);
-            gf.LstDias.Add(gde);
-            gf.HoraInicio = "13:00";
-            gf.HoraFin = "20:00";
-            gg.LstDias.Add(gda);
-            gg.LstDias.Add(gdc);
-            gg.LstDias.Add(gde);
-            gg.HoraInicio = "10:00";
-            gg.HoraFin = "22:00";
-            gh.LstDias.Add(gdc);
-            gh.LstDias.Add(gde);
-            gh.HoraInicio = "13:00";
-            gh.HoraFin = "20:00";
-            gi.LstDias.Add(gda);
-            gi.LstDias.Add(gdb);
-            gi.HoraInicio = "13:00";
-            gi.HoraFin = "20:00";
-            gj.LstDias.Add(gda);
-            gj.LstDias.Add(gdb);
-            gj.LstDias.Add(gde);
-            gj.HoraInicio = "13:00";
-            gj.HoraFin = "20:00";
-            gk.LstDias.Add(gda);
-            gk.LstDias.Add(gde);
-            gk.HoraInicio = "13:00";
-            gk.HoraFin = "20:00";
-            gl.LstDias.Add(gda);
-            gl.LstDias.Add(gde);
-            gl.HoraInicio = "13:00";
-            gl.HoraFin = "20:00";
-            gm.LstDias.Add(gdb);
-            gm.LstDias.Add(gdd);
-            gm.LstDias.Add(gde);
-            gm.HoraInicio = "13:00";
-            gm.HoraFin = "20:00";
-
-            #endregion
-
-            #region ingreso Funcionarios
-            Funcionario fua = new Funcionario(sa, "12843332", "Geronimo Paredes", "geronimo@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1970, 12, 1), true);
-            Funcionario fub = new Funcionario(sa, "22843332", "Anibal Gimenez", "Anibal@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1975, 12, 1), true);
-            Funcionario fuc = new Funcionario(sa, "32843332", "Alberto Beltran", "Alberto@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1978, 12, 1), true);
-            Funcionario fud = new Funcionario(sa, "42843332", "Guillermo Huerta", "Guillermo@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1980, 12, 1), true);
-            Funcionario fue = new Funcionario(sa, "52843332", "Esteban Martinez", "Esteban@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1982, 12, 1), true);
-            Funcionario fuf = new Funcionario(sc, "62843332", "Marta Sanchez", "Marta@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1985, 12, 1), true);
-            Funcionario fug = new Funcionario(sc, "72843332", "Veronica Castro", "Veronica@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1988, 12, 1), false);
-            Funcionario fuh = new Funcionario(sa, "82843332", "Lucia Perdomo", "Lucia@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1950, 12, 1), true);
-            Funcionario fui = new Funcionario(sb, "92843332", "Miguel Angel Gonzalez", "Miguel@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1970, 12, 1), true);
-            Funcionario fuj = new Funcionario(sc, "11843332", "Jose Torreon", "Jose@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1990, 12, 1), true);
-            Funcionario fuk = new Funcionario(sb, "13843332", "Camila De La Rosa", "Camila@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1992, 12, 1), true);
-            Funcionario ful = new Funcionario(sb, "12843332", "Patrica Marquez", "Patrica@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1939, 12, 1), true);
-            Funcionario fum = new Funcionario(sc, "14843332", "Lilian Rossi", "Lilian@institutobritanico.com", "claveGeronimo", "3242342", "Riverense 1232", "42342323", new DateTime(1962, 12, 1), false);
-            fua.TipoFuncionario = FuncionarioTipo.Profesor;
-            fuc.TipoFuncionario = FuncionarioTipo.Profesor;
-            fuf.TipoFuncionario = FuncionarioTipo.Profesor;
-            fue.TipoFuncionario = FuncionarioTipo.Profesor;
-            fuj.TipoFuncionario = FuncionarioTipo.Profesor;
-            fuk.TipoFuncionario = FuncionarioTipo.Profesor;
-            lstFuncionarios.Add(fua);
-            lstFuncionarios.Add(fub);
-            lstFuncionarios.Add(fuc);
-            lstFuncionarios.Add(fud);
-            lstFuncionarios.Add(fue);
-            lstFuncionarios.Add(fuf);
-            lstFuncionarios.Add(fug);
-            lstFuncionarios.Add(fuh);
-            lstFuncionarios.Add(fui);
-            lstFuncionarios.Add(fuj);
-            lstFuncionarios.Add(fuk);
-            lstFuncionarios.Add(ful);
-            lstFuncionarios.Add(fum);
-            #endregion
-
             #region ingreso estudiantes
-            Estudiantes.Add(new Estudiante() { CI = "10671312", Nombre = "Prudencio Hernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "11147443", Nombre = "Julio Pardo" });
-            Estudiantes.Add(new Estudiante() { CI = "11432894", Nombre = "Gualberto Paez" });
-            Estudiantes.Add(new Estudiante() { CI = "11522081", Nombre = "Juan Franco" });
-            Estudiantes.Add(new Estudiante() { CI = "11751375", Nombre = "Julio Anadon" });
-            Estudiantes.Add(new Estudiante() { CI = "11867459", Nombre = "daniel muñoz" });
-            Estudiantes.Add(new Estudiante() { CI = "11899848", Nombre = "Nidia Correa" });
-            Estudiantes.Add(new Estudiante() { CI = "11997290", Nombre = "Batriz Casal" });
-            Estudiantes.Add(new Estudiante() { CI = "12030968", Nombre = "Silvia Aufman" });
-            Estudiantes.Add(new Estudiante() { CI = "12092287", Nombre = "Federico Villaronga" });
-            Estudiantes.Add(new Estudiante() { CI = "12563373", Nombre = "Javier Lema" });
-            Estudiantes.Add(new Estudiante() { CI = "13109623", Nombre = "Javier Ruiz" });
-            Estudiantes.Add(new Estudiante() { CI = "13382968", Nombre = "Alberto Beiro" });
-            Estudiantes.Add(new Estudiante() { CI = "13432551", Nombre = "Rafael Barret" });
-            Estudiantes.Add(new Estudiante() { CI = "13434634", Nombre = "Silvio Fernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "13491931", Nombre = "Horacio Castro" });
-            Estudiantes.Add(new Estudiante() { CI = "13512795", Nombre = "Turi Rios" });
-            Estudiantes.Add(new Estudiante() { CI = "13546778", Nombre = "Angel Villafan" });
-            Estudiantes.Add(new Estudiante() { CI = "13554121", Nombre = "Juan Pedro Flores" });
-            Estudiantes.Add(new Estudiante() { CI = "13591949", Nombre = "Enrique Fleitas" });
-            Estudiantes.Add(new Estudiante() { CI = "13994416", Nombre = "Hector Silveira" });
-            Estudiantes.Add(new Estudiante() { CI = "14018900", Nombre = "Carmelo Umpierrez" });
-            Estudiantes.Add(new Estudiante() { CI = "14148688", Nombre = "José Camacho" });
-            Estudiantes.Add(new Estudiante() { CI = "14367628", Nombre = "Fernando Gonzalez" });
-            Estudiantes.Add(new Estudiante() { CI = "14449597", Nombre = "Hebert Viojo" });
-            Estudiantes.Add(new Estudiante() { CI = "14607347", Nombre = "Raul De María" });
-            Estudiantes.Add(new Estudiante() { CI = "14817106", Nombre = "Miriam Alonso" });
-            Estudiantes.Add(new Estudiante() { CI = "14850928", Nombre = "Sergio De Furia" });
-            Estudiantes.Add(new Estudiante() { CI = "14951526", Nombre = "Vicente Ubbriaco" });
-            Estudiantes.Add(new Estudiante() { CI = "15030278", Nombre = "Marcelo Fernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "15126986", Nombre = "Pedro Ferrer" });
-            Estudiantes.Add(new Estudiante() { CI = "15141437", Nombre = "Carlos Diaz" });
-            Estudiantes.Add(new Estudiante() { CI = "15237612", Nombre = "Ruben Olivera" });
-            Estudiantes.Add(new Estudiante() { CI = "15288445", Nombre = "Walter Perez" });
-            Estudiantes.Add(new Estudiante() { CI = "15561823", Nombre = "Yenny Bell" });
-            Estudiantes.Add(new Estudiante() { CI = "15670915", Nombre = "Ruben Schiavo" });
-            Estudiantes.Add(new Estudiante() { CI = "15760607", Nombre = "Sergio Romero" });
-            Estudiantes.Add(new Estudiante() { CI = "15821322", Nombre = "Luis Ferrer" });
-            Estudiantes.Add(new Estudiante() { CI = "15885837", Nombre = "Yoel Baruch" });
-            Estudiantes.Add(new Estudiante() { CI = "15950595", Nombre = "Beatriz Agarrayua" });
-            Estudiantes.Add(new Estudiante() { CI = "15954927", Nombre = "Ana Maria Cabrera" });
-            Estudiantes.Add(new Estudiante() { CI = "16463751", Nombre = "Andres Romero" });
-            Estudiantes.Add(new Estudiante() { CI = "16724840", Nombre = "Washington Peña" });
+
             Estudiantes.Add(new Estudiante() { CI = "16880678", Nombre = "Juan Santana" });
             Estudiantes.Add(new Estudiante() { CI = "17052569", Nombre = "Jorge Lopez" });
             Estudiantes.Add(new Estudiante() { CI = "17079814", Nombre = "Diego Camacho" });
@@ -457,80 +201,7 @@ namespace Instituto_Britanico.Controlador
             Estudiantes.Add(new Estudiante() { CI = "34072223", Nombre = "Homero Manzi" });
             Estudiantes.Add(new Estudiante() { CI = "34092229", Nombre = "Fernando Hernandez" });
             Estudiantes.Add(new Estudiante() { CI = "34252732", Nombre = "Mario Castillo" });
-            Estudiantes.Add(new Estudiante() { CI = "34302303", Nombre = "Marcos Fernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "34303357", Nombre = "Gabriel Vazquez" });
-            Estudiantes.Add(new Estudiante() { CI = "34347123", Nombre = "Jilmar Lafón" });
-            Estudiantes.Add(new Estudiante() { CI = "34397980", Nombre = "Adriana Pereyra" });
-            Estudiantes.Add(new Estudiante() { CI = "34417596", Nombre = "Rodrigo Cotelo" });
-            Estudiantes.Add(new Estudiante() { CI = "34498061", Nombre = "Hugo Zapatta" });
-            Estudiantes.Add(new Estudiante() { CI = "34500359", Nombre = "Pablo Valdez" });
-            Estudiantes.Add(new Estudiante() { CI = "34659910", Nombre = "Gonzalo Almiron" });
-            Estudiantes.Add(new Estudiante() { CI = "34795178", Nombre = "Edgardo Gonzalez" });
-            Estudiantes.Add(new Estudiante() { CI = "34823331", Nombre = "Federico Sanchez" });
-            Estudiantes.Add(new Estudiante() { CI = "35165996", Nombre = "Nicolas Sosa" });
-            Estudiantes.Add(new Estudiante() { CI = "35268291", Nombre = "Fernando Molina" });
-            Estudiantes.Add(new Estudiante() { CI = "35725532", Nombre = "Esteban Carballo" });
-            Estudiantes.Add(new Estudiante() { CI = "35806899", Nombre = "Jesús Gonzalo Nuñez" });
-            Estudiantes.Add(new Estudiante() { CI = "35832911", Nombre = "Manuel Vazquez" });
-            Estudiantes.Add(new Estudiante() { CI = "35841954", Nombre = "Gaston Cane" });
-            Estudiantes.Add(new Estudiante() { CI = "35881962", Nombre = "Manuel Gomez" });
-            Estudiantes.Add(new Estudiante() { CI = "36131469", Nombre = "Fabian Pastorelli" });
-            Estudiantes.Add(new Estudiante() { CI = "36171574", Nombre = "Javier Valiente" });
-            Estudiantes.Add(new Estudiante() { CI = "36462634", Nombre = "Osmar Fernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "36479801", Nombre = "Lujan Tejeira" });
-            Estudiantes.Add(new Estudiante() { CI = "36579546", Nombre = "Thevenet, German" });
-            Estudiantes.Add(new Estudiante() { CI = "36849509", Nombre = "Alfredo Artus" });
-            Estudiantes.Add(new Estudiante() { CI = "37087768", Nombre = "Luis Fernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "37142257", Nombre = "Daniel Folonier" });
-            Estudiantes.Add(new Estudiante() { CI = "37180007", Nombre = "German De Leon" });
-            Estudiantes.Add(new Estudiante() { CI = "37228633", Nombre = "David Garcia" });
-            Estudiantes.Add(new Estudiante() { CI = "37289481", Nombre = "Julio Ribas" });
-            Estudiantes.Add(new Estudiante() { CI = "37431513", Nombre = "Fernando Olmedo" });
-            Estudiantes.Add(new Estudiante() { CI = "37704722", Nombre = "David Carsin" });
-            Estudiantes.Add(new Estudiante() { CI = "37887344", Nombre = "Leandro Gonzalez" });
-            Estudiantes.Add(new Estudiante() { CI = "37983340", Nombre = "Gustavo Ismael Lopez" });
-            Estudiantes.Add(new Estudiante() { CI = "38134770", Nombre = "Pedro D`aloia" });
-            Estudiantes.Add(new Estudiante() { CI = "38147480", Nombre = "Pablo Bulla" });
-            Estudiantes.Add(new Estudiante() { CI = "38159942", Nombre = "Rodrigo Sosa" });
-            Estudiantes.Add(new Estudiante() { CI = "38754079", Nombre = "Diego Montado" });
-            Estudiantes.Add(new Estudiante() { CI = "38915821", Nombre = "Gabriel D´ Atri" });
-            Estudiantes.Add(new Estudiante() { CI = "38927270", Nombre = "Jorger Barattini" });
-            Estudiantes.Add(new Estudiante() { CI = "38955077", Nombre = "Victor Graña" });
-            Estudiantes.Add(new Estudiante() { CI = "38992055", Nombre = "Federico Garrido" });
-            Estudiantes.Add(new Estudiante() { CI = "39241536", Nombre = "Getulio Dias" });
-            Estudiantes.Add(new Estudiante() { CI = "39257680", Nombre = "Fernando Alvez" });
-            Estudiantes.Add(new Estudiante() { CI = "39280487", Nombre = "Gonzalo Pirez" });
-            Estudiantes.Add(new Estudiante() { CI = "39343144", Nombre = "Jorge Roman" });
-            Estudiantes.Add(new Estudiante() { CI = "39713375", Nombre = "Santiago Orihuela" });
-            Estudiantes.Add(new Estudiante() { CI = "39741398", Nombre = "Alejandro Nuñez" });
-            Estudiantes.Add(new Estudiante() { CI = "39781516", Nombre = "Rossana Nuñez" });
-            Estudiantes.Add(new Estudiante() { CI = "39881900", Nombre = "Mauricio Rios" });
-            Estudiantes.Add(new Estudiante() { CI = "39911553", Nombre = "Eduardo Quintana" });
-            Estudiantes.Add(new Estudiante() { CI = "39941370", Nombre = "Christian Benelli" });
-            Estudiantes.Add(new Estudiante() { CI = "40023298", Nombre = "Jorge Figueredo" });
-            Estudiantes.Add(new Estudiante() { CI = "40024026", Nombre = "Daniel Perez" });
-            Estudiantes.Add(new Estudiante() { CI = "40045480", Nombre = "Gabriel Perez" });
-            Estudiantes.Add(new Estudiante() { CI = "40125793", Nombre = "Nicolas Pereira" });
-            Estudiantes.Add(new Estudiante() { CI = "40131201", Nombre = "Pablo Mouriño" });
-            Estudiantes.Add(new Estudiante() { CI = "40204886", Nombre = "Marcelo Acosta" });
-            Estudiantes.Add(new Estudiante() { CI = "40256237", Nombre = "Miguel Burgos" });
-            Estudiantes.Add(new Estudiante() { CI = "40505513", Nombre = "Nicolas Garcia" });
-            Estudiantes.Add(new Estudiante() { CI = "40620862", Nombre = "Daniel Bueno" });
-            Estudiantes.Add(new Estudiante() { CI = "40678386", Nombre = "Adrian Bonfrisco" });
-            Estudiantes.Add(new Estudiante() { CI = "40700454", Nombre = "Juan Odella" });
-            Estudiantes.Add(new Estudiante() { CI = "40762325", Nombre = "Gonzalo Sanchez" });
-            Estudiantes.Add(new Estudiante() { CI = "40796665", Nombre = "Pablo Sanchez" });
-            Estudiantes.Add(new Estudiante() { CI = "40844880", Nombre = "Eduardo Gonzalez" });
-            Estudiantes.Add(new Estudiante() { CI = "40851411", Nombre = "Peter Esquivo" });
-            Estudiantes.Add(new Estudiante() { CI = "40949525", Nombre = "Rafael Gutierrez" });
-            Estudiantes.Add(new Estudiante() { CI = "41019905", Nombre = "Pablo Guillen" });
-            Estudiantes.Add(new Estudiante() { CI = "41128100", Nombre = "Miguel Brune" });
-            Estudiantes.Add(new Estudiante() { CI = "41131791", Nombre = "Juan Pablo Longo" });
-            Estudiantes.Add(new Estudiante() { CI = "41195121", Nombre = "Sebastian Sacra" });
-            Estudiantes.Add(new Estudiante() { CI = "41294599", Nombre = "Martin Miranda" });
-            Estudiantes.Add(new Estudiante() { CI = "41416393", Nombre = "Michael Acosta" });
-            Estudiantes.Add(new Estudiante() { CI = "41542586", Nombre = "Pablo Ascione" });
-            Estudiantes.Add(new Estudiante() { CI = "41624320", Nombre = "Ricardo Ortiz" });
+
             Estudiantes.Add(new Estudiante() { CI = "41706904", Nombre = "Andres Archond" });
             Estudiantes.Add(new Estudiante() { CI = "41880401", Nombre = "Pablo Medero" });
             Estudiantes.Add(new Estudiante() { CI = "41950589", Nombre = "Fernando Mila" });
@@ -602,254 +273,197 @@ namespace Instituto_Britanico.Controlador
             Estudiantes.Add(new Estudiante() { CI = "45909932", Nombre = "Santiago Rey" });
             Estudiantes.Add(new Estudiante() { CI = "45954727", Nombre = "Andres Villalba" });
             Estudiantes.Add(new Estudiante() { CI = "45968544", Nombre = "Octavio Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "46102064", Nombre = "Alberto Pagano" });
-            Estudiantes.Add(new Estudiante() { CI = "46231293", Nombre = "Bernardo Diaz" });
-            Estudiantes.Add(new Estudiante() { CI = "46266565", Nombre = "Alfredo Da Souza" });
-            Estudiantes.Add(new Estudiante() { CI = "46305521", Nombre = "Jorge Ferrari" });
-            Estudiantes.Add(new Estudiante() { CI = "46307193", Nombre = "Damian Ubriaco" });
-            Estudiantes.Add(new Estudiante() { CI = "46308147", Nombre = "Jhon Albarenque" });
-            Estudiantes.Add(new Estudiante() { CI = "46438665", Nombre = "Pablo Diaz" });
-            Estudiantes.Add(new Estudiante() { CI = "46461694", Nombre = "Sebastian Lerena" });
-            Estudiantes.Add(new Estudiante() { CI = "46467610", Nombre = "Michel Reboledo" });
-            Estudiantes.Add(new Estudiante() { CI = "46481979", Nombre = "Nahuel Pratto" });
-            Estudiantes.Add(new Estudiante() { CI = "46587072", Nombre = "Diego Citera" });
-            Estudiantes.Add(new Estudiante() { CI = "46638421", Nombre = "Cesar Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "46680634", Nombre = "Gaston Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "46689630", Nombre = "Sebastian Cruz" });
-            Estudiantes.Add(new Estudiante() { CI = "46696540", Nombre = "Fernando Sosa" });
-            Estudiantes.Add(new Estudiante() { CI = "46746086", Nombre = "Anahi Viera" });
-            Estudiantes.Add(new Estudiante() { CI = "46782430", Nombre = "Martin Barth" });
-            Estudiantes.Add(new Estudiante() { CI = "46878176", Nombre = "Walter Olmedo" });
-            Estudiantes.Add(new Estudiante() { CI = "46968664", Nombre = "Sergio Da Costa" });
-            Estudiantes.Add(new Estudiante() { CI = "46980765", Nombre = "Javier Caceres" });
-            Estudiantes.Add(new Estudiante() { CI = "47008926", Nombre = "Diego Jackson" });
-            Estudiantes.Add(new Estudiante() { CI = "47097559", Nombre = "Christian Dios" });
-            Estudiantes.Add(new Estudiante() { CI = "47177470", Nombre = "Corujo, nicolas" });
-            Estudiantes.Add(new Estudiante() { CI = "47229641", Nombre = "Walter Correa" });
-            Estudiantes.Add(new Estudiante() { CI = "47260136", Nombre = "Rubens Galarraga" });
-            Estudiantes.Add(new Estudiante() { CI = "47265631", Nombre = "Renzo Faggiani" });
-            Estudiantes.Add(new Estudiante() { CI = "47303364", Nombre = "Cristian Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "47395165", Nombre = "Nicolas Ortiz" });
-            Estudiantes.Add(new Estudiante() { CI = "47408281", Nombre = "Sebastian Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "47563861", Nombre = "Sebastian Cortazzo" });
-            Estudiantes.Add(new Estudiante() { CI = "47609944", Nombre = "Gabriel Mendez" });
-            Estudiantes.Add(new Estudiante() { CI = "47612983", Nombre = "Vanessa Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "47638961", Nombre = "Juan Santos" });
-            Estudiantes.Add(new Estudiante() { CI = "47644106", Nombre = "Ignacio Pirez" });
-            Estudiantes.Add(new Estudiante() { CI = "47876113", Nombre = "Maximiliano Ferrari" });
-            Estudiantes.Add(new Estudiante() { CI = "48031263", Nombre = "Denisse Suarez" });
-            Estudiantes.Add(new Estudiante() { CI = "48040820", Nombre = "Ignacio Fernandez" });
-            Estudiantes.Add(new Estudiante() { CI = "48303177", Nombre = "German Foglino" });
-            Estudiantes.Add(new Estudiante() { CI = "48364470", Nombre = "Javier Arijon" });
-            Estudiantes.Add(new Estudiante() { CI = "48401416", Nombre = "Tatianna Nieves" });
-            Estudiantes.Add(new Estudiante() { CI = "48494584", Nombre = "Franco Rodriguez" });
-            Estudiantes.Add(new Estudiante() { CI = "48499255", Nombre = "Marcelo Diaz" });
-            Estudiantes.Add(new Estudiante() { CI = "48641547", Nombre = "Mathias Alpuy" });
-            Estudiantes.Add(new Estudiante() { CI = "48748230", Nombre = "Camila Colomar" });
-            Estudiantes.Add(new Estudiante() { CI = "48786513", Nombre = "Augusto Braica" });
-            Estudiantes.Add(new Estudiante() { CI = "49658583", Nombre = "Gerardo Arguello" });
-            Estudiantes.Add(new Estudiante() { CI = "49968231", Nombre = "Michael Paleo" });
-            Estudiantes.Add(new Estudiante() { CI = "50757621", Nombre = "Luis Silva" });
-            Estudiantes.Add(new Estudiante() { CI = "50800175", Nombre = "Nicolas Morena" });
-            Estudiantes.Add(new Estudiante() { CI = "51045489", Nombre = "Martin Figeras" });
-            Estudiantes.Add(new Estudiante() { CI = "51261734", Nombre = "Pablo Keller" });
-            Estudiantes.Add(new Estudiante() { CI = "52267886", Nombre = "Carolina Lopez" });
-            Estudiantes.Add(new Estudiante() { CI = "53375925", Nombre = "Nahuel Rigoleto" });
-            Estudiantes.Add(new Estudiante() { CI = "53599802", Nombre = "Marcelo Suarez" });
-            Estudiantes.Add(new Estudiante() { CI = "53974898", Nombre = "Jonathan Tejera" });
-            Estudiantes.Add(new Estudiante() { CI = "54511249", Nombre = "Jeronimo Traverso" });
             Estudiantes.Add(new Estudiante() { CI = "55093220", Nombre = "Alejandro Tonelli" });
             Estudiantes.Add(new Estudiante() { CI = "55094371", Nombre = "Marcela Marichal" });
             Estudiantes.Add(new Estudiante() { CI = "7691549", Nombre = "Ruben Alvarez" });
             Estudiantes.Add(new Estudiante() { CI = "7896270", Nombre = "Horacio Villar" });
 
-            int i = 0;
-            int ii = 0;
-            foreach (Estudiante es in Estudiantes)
-            {
-                es.Email = es.Nombre.Trim() + "@gmail.com";
-                es.ID = i;
-                i++;
-                if (ii == 11) ii = 0;
-                if (ii == 0)
-                {
-                    es.Grupo = ga;
-                    ga.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = sa, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 20), Grupo = ga, ID = i, Precio = mata.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 1)
-                {
-                    es.Grupo = gb;
-                    gb.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = matb.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 21), Grupo = gb, ID = i, Precio = matb.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 2)
-                {
-                    es.Grupo = gc;
-                    gc.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = matc.Sucursal, Matricula = matc, Descuento = 0, FechaHora = new DateTime(2019, 02, 22), Grupo = gc, ID = i, Precio = matc.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 3)
-                {
-                    es.Grupo = gd;
-                    gd.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = matd.Sucursal, Matricula = matd, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = matd.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 4)
-                {
-                    es.Grupo = ge;
-                    ge.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = mate.Sucursal, Matricula = mate, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = mate.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 5)
-                {
-                    es.Grupo = gf;
-                    gf.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = mate.Sucursal, Matricula = mate, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = mate.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 6)
-                {
-                    es.Grupo = gg;
-                    gg.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = matf.Sucursal, Matricula = matf, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = matf.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 7)
-                {
-                    es.Grupo = gh;
-                    gh.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = mata.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gd, ID = i, Precio = mata.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 8)
-                {
-                    es.Grupo = gi;
-                    gi.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = mata.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = ge, ID = i, Precio = mata.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 9)
-                {
-                    es.Grupo = gj;
-                    gj.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = mata.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gf, ID = i, Precio = mata.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 10)
-                {
-                    es.Grupo = gk;
-                    gk.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = matc.Sucursal, Matricula = matc, Descuento = 0, FechaHora = new DateTime(2018, 02, 23), Grupo = gg, ID = i, Precio = matc.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
-                if (ii == 11)
-                {
-                    es.Grupo = gl;
-                    gl.LstEstudiantes.Add(es);
-                    MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fuc, Sucursal = matd.Sucursal, Matricula = matd, Descuento = 0, FechaHora = new DateTime(2018, 03, 10), Grupo = gh, ID = i, Precio = matd.Precio };
-                    MatriculasEstudiante.Add(m);
-                }
+            //int i = 0;
+            //int ii = 0;
+            //foreach (Estudiante es in Estudiantes)
+            //{
+            //    es.Email = es.Nombre.Trim() + "@gmail.com";
+            //    es.ID = i;
+            //    i++;
+            //    if (ii == 11) ii = 0;
+            //    if (ii == 0)
+            //    {
+            //        es.Grupo = ga;
+            //        ga.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = sa, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 20), Grupo = ga, ID = i, Precio = mata.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 1)
+            //    {
+            //        es.Grupo = gb;
+            //        gb.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = matb.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 21), Grupo = gb, ID = i, Precio = matb.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 2)
+            //    {
+            //        es.Grupo = gc;
+            //        gc.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = matc.Sucursal, Matricula = matc, Descuento = 0, FechaHora = new DateTime(2019, 02, 22), Grupo = gc, ID = i, Precio = matc.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 3)
+            //    {
+            //        es.Grupo = gd;
+            //        gd.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = matd.Sucursal, Matricula = matd, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = matd.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 4)
+            //    {
+            //        es.Grupo = ge;
+            //        ge.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = mate.Sucursal, Matricula = mate, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = mate.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 5)
+            //    {
+            //        es.Grupo = gf;
+            //        gf.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fua, Sucursal = mate.Sucursal, Matricula = mate, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = mate.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 6)
+            //    {
+            //        es.Grupo = gg;
+            //        gg.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = matf.Sucursal, Matricula = matf, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gc, ID = i, Precio = matf.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 7)
+            //    {
+            //        es.Grupo = gh;
+            //        gh.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = mata.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gd, ID = i, Precio = mata.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 8)
+            //    {
+            //        es.Grupo = gi;
+            //        gi.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = mata.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = ge, ID = i, Precio = mata.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 9)
+            //    {
+            //        es.Grupo = gj;
+            //        gj.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = mata.Sucursal, Matricula = mata, Descuento = 0, FechaHora = new DateTime(2019, 02, 23), Grupo = gf, ID = i, Precio = mata.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 10)
+            //    {
+            //        es.Grupo = gk;
+            //        gk.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fub, Sucursal = matc.Sucursal, Matricula = matc, Descuento = 0, FechaHora = new DateTime(2018, 02, 23), Grupo = gg, ID = i, Precio = matc.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
+            //    if (ii == 11)
+            //    {
+            //        es.Grupo = gl;
+            //        gl.LstEstudiantes.Add(es);
+            //        MatriculaEstudiante m = new MatriculaEstudiante() { Estudiante = es, Funcionario = fuc, Sucursal = matd.Sucursal, Matricula = matd, Descuento = 0, FechaHora = new DateTime(2018, 03, 10), Grupo = gh, ID = i, Precio = matd.Precio };
+            //        MatriculasEstudiante.Add(m);
+            //    }
 
-                ii++;
-            }
+            //    ii++;
+            //}
             #endregion
 
             #region ingreso libros
 
-            Libro la = new Libro() { ID = 25, Materia = ma, Nombre = "Aprender ingles 101", Precio = 500 };
-            Libro lb = new Libro() { ID = 26, Materia = mb, Nombre = "English For Dummies", Precio = 1500 };
-            Libro lc = new Libro() { ID = 27, Materia = mc, Nombre = "Educando imberbes", Precio = 500 };
-            Libro ld = new Libro() { ID = 28, Materia = md, Nombre = "Sepa la diferencia entre your y your'e", Precio = 500 };
-            Libro le = new Libro() { ID = 29, Materia = me, Nombre = "Throwing horse shit for fun", Precio = 500 };
-            Libro lf = new Libro() { ID = 30, Materia = mf, Nombre = "Nunca voy a aprender", Precio = 500 };
-            Libro lg = new Libro() { ID = 31, Materia = ma, Nombre = "Pa que quiero ingles", Precio = 500 };
-            Libro lh = new Libro() { ID = 32, Materia = ma, Nombre = "Frances en 4 simples pasos", Precio = 500 };
+            //Libro la = new Libro() { ID = 25, Materia = ma, Nombre = "Aprender ingles 101", Precio = 500 };
+            //Libro lb = new Libro() { ID = 26, Materia = mb, Nombre = "English For Dummies", Precio = 1500 };
+            //Libro lc = new Libro() { ID = 27, Materia = mc, Nombre = "Educando imberbes", Precio = 500 };
+            //Libro ld = new Libro() { ID = 28, Materia = md, Nombre = "Sepa la diferencia entre your y your'e", Precio = 500 };
+            //Libro le = new Libro() { ID = 29, Materia = me, Nombre = "Throwing horse shit for fun", Precio = 500 };
+            //Libro lf = new Libro() { ID = 30, Materia = mf, Nombre = "Nunca voy a aprender", Precio = 500 };
+            //Libro lg = new Libro() { ID = 31, Materia = ma, Nombre = "Pa que quiero ingles", Precio = 500 };
+            //Libro lh = new Libro() { ID = 32, Materia = ma, Nombre = "Frances en 4 simples pasos", Precio = 500 };
 
-            Libros.Add(la);
-            Libros.Add(lb);
-            Libros.Add(lc);
-            Libros.Add(ld);
-            Libros.Add(le);
-            Libros.Add(lf);
-            Libros.Add(lg);
-            Libros.Add(lh);
+            //Libros.Add(la);
+            //Libros.Add(lb);
+            //Libros.Add(lc);
+            //Libros.Add(ld);
+            //Libros.Add(le);
+            //Libros.Add(lf);
+            //Libros.Add(lg);
+            //Libros.Add(lh);
             #endregion
 
             #region ingreso examenes
-            Examen exa = new Examen() { AnioAsociado = 2019, Grupo = ga, ID = 1, NotaMinima = 80, Precio = 5500, FechaHora = new DateTime(2019, 12, 24) };
-            Examen exb = new Examen() { AnioAsociado = 2019, Grupo = gb, ID = 2, NotaMinima = 60, Precio = 6500, FechaHora = new DateTime(2019, 11, 12) };
-            Examen exc = new Examen() { AnioAsociado = 2019, Grupo = gc, ID = 3, NotaMinima = 60, Precio = 3500, FechaHora = new DateTime(2019, 12, 28) };
-            Examen exd = new Examen() { AnioAsociado = 2019, Grupo = gd, ID = 4, NotaMinima = 70, Precio = 2500, FechaHora = new DateTime(2019, 12, 25) };
-            Examen exe = new Examen() { AnioAsociado = 2019, Grupo = ge, ID = 5, NotaMinima = 80, Precio = 5800, FechaHora = new DateTime(2019, 10, 2) };
-            Examen exf = new Examen() { AnioAsociado = 2019, Grupo = gf, ID = 6, NotaMinima = 70, Precio = 9500, FechaHora = new DateTime(2019, 12, 31) };
-            Examen exg = new Examen() { AnioAsociado = 2018, Grupo = ga, ID = 7, NotaMinima = 76, Precio = 7500, FechaHora = new DateTime(2018, 12, 24) };
-            Examen exh = new Examen() { AnioAsociado = 2018, Grupo = gb, ID = 8, NotaMinima = 65, Precio = 8500, FechaHora = new DateTime(2018, 10, 2) };
-            Examen exi = new Examen() { AnioAsociado = 2018, Grupo = gc, ID = 9, NotaMinima = 70, Precio = 4200, FechaHora = new DateTime(2018, 12, 25) };
-            Examen exj = new Examen() { AnioAsociado = 2018, Grupo = gd, ID = 10, NotaMinima = 70, Precio = 15000, FechaHora = new DateTime(2018, 1, 20) };
-            Examen exk = new Examen() { AnioAsociado = 2018, Grupo = ge, ID = 11, NotaMinima = 80, Precio = 2500, FechaHora = new DateTime(2018, 11, 7) };
-            Examenes.Add(exa);
-            Examenes.Add(exb);
-            Examenes.Add(exc);
-            Examenes.Add(exd);
-            Examenes.Add(exe);
-            Examenes.Add(exf);
-            Examenes.Add(exg);
-            Examenes.Add(exh);
-            Examenes.Add(exj);
-            Examenes.Add(exk);
+            //Examen exa = new Examen() { AnioAsociado = 2019, Grupo = ga, ID = 1, NotaMinima = 80, Precio = 5500, FechaHora = new DateTime(2019, 12, 24) };
+            //Examen exb = new Examen() { AnioAsociado = 2019, Grupo = gb, ID = 2, NotaMinima = 60, Precio = 6500, FechaHora = new DateTime(2019, 11, 12) };
+            //Examen exc = new Examen() { AnioAsociado = 2019, Grupo = gc, ID = 3, NotaMinima = 60, Precio = 3500, FechaHora = new DateTime(2019, 12, 28) };
+            //Examen exd = new Examen() { AnioAsociado = 2019, Grupo = gd, ID = 4, NotaMinima = 70, Precio = 2500, FechaHora = new DateTime(2019, 12, 25) };
+            //Examen exe = new Examen() { AnioAsociado = 2019, Grupo = ge, ID = 5, NotaMinima = 80, Precio = 5800, FechaHora = new DateTime(2019, 10, 2) };
+            //Examen exf = new Examen() { AnioAsociado = 2019, Grupo = gf, ID = 6, NotaMinima = 70, Precio = 9500, FechaHora = new DateTime(2019, 12, 31) };
+            //Examen exg = new Examen() { AnioAsociado = 2018, Grupo = ga, ID = 7, NotaMinima = 76, Precio = 7500, FechaHora = new DateTime(2018, 12, 24) };
+            //Examen exh = new Examen() { AnioAsociado = 2018, Grupo = gb, ID = 8, NotaMinima = 65, Precio = 8500, FechaHora = new DateTime(2018, 10, 2) };
+            //Examen exi = new Examen() { AnioAsociado = 2018, Grupo = gc, ID = 9, NotaMinima = 70, Precio = 4200, FechaHora = new DateTime(2018, 12, 25) };
+            //Examen exj = new Examen() { AnioAsociado = 2018, Grupo = gd, ID = 10, NotaMinima = 70, Precio = 15000, FechaHora = new DateTime(2018, 1, 20) };
+            //Examen exk = new Examen() { AnioAsociado = 2018, Grupo = ge, ID = 11, NotaMinima = 80, Precio = 2500, FechaHora = new DateTime(2018, 11, 7) };
+            //Examenes.Add(exa);
+            //Examenes.Add(exb);
+            //Examenes.Add(exc);
+            //Examenes.Add(exd);
+            //Examenes.Add(exe);
+            //Examenes.Add(exf);
+            //Examenes.Add(exg);
+            //Examenes.Add(exh);
+            //Examenes.Add(exj);
+            //Examenes.Add(exk);
             #endregion
-
 
             #region ingreso de pagos
 
-            Pago pa = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2019, 02, 24), Funcionario = fua, ID = 1, Monto = 3000, Sucursal = sa };
-            Pago pb = new Pago() { Concepto = "OSE", FechaHora = new DateTime(2019, 02, 25), Funcionario = fua, ID = 2, Monto = 4000, Sucursal = sa };
-            Pago pc = new Pago() { Concepto = "Antel", FechaHora = new DateTime(2019, 02, 20), Funcionario = fub, ID = 3, Monto = 2000, Sucursal = sa };
-            Pago pd = new Pago() { Concepto = "Papel Higienico", FechaHora = new DateTime(2019, 01, 24), Funcionario = fub, ID = 4, Monto = 83000, Sucursal = sa };
-            Pago pe = new Pago() { Concepto = "Sueldos", FechaHora = new DateTime(2019, 02, 10), Funcionario = fub, ID = 5, Monto = 1000, Sucursal = sa };
-            Pago pf = new Pago() { Concepto = "Hojas A4", FechaHora = new DateTime(2019, 01, 15), Funcionario = fub, ID = 6, Monto = 4500, Sucursal = sc };
-            Pago pg = new Pago() { Concepto = "Cafe", FechaHora = new DateTime(2019, 03, 24), Funcionario = fua, ID = 7, Monto = 30000, Sucursal = sc };
-            Pago ph = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2019, 03, 24), Funcionario = fua, ID = 8, Monto = 2000, Sucursal = sc };
-            Pago pi = new Pago() { Concepto = "OSE", FechaHora = new DateTime(2019, 03, 24), Funcionario = fub, ID = 9, Monto = 2100, Sucursal = sc };
-            Pago pj = new Pago() { Concepto = "Alquiler", FechaHora = new DateTime(2019, 04, 2), Funcionario = fub, ID = 10, Monto = 23000, Sucursal = sa };
-            Pago pk = new Pago() { Concepto = "Lapiceras", FechaHora = new DateTime(2019, 04, 24), Funcionario = fuc, ID = 11, Monto = 6000, Sucursal = sb };
-            Pago pl = new Pago() { Concepto = "Mesas", FechaHora = new DateTime(2019, 05, 24), Funcionario = fuc, ID = 12, Monto = 500, Sucursal = sb };
-            Pago pm = new Pago() { Concepto = "Azucar", FechaHora = new DateTime(2019, 05, 24), Funcionario = fud, ID = 13, Monto = 800, Sucursal = sb };
-            Pago pn = new Pago() { Concepto = "Jabon", FechaHora = new DateTime(2019, 05, 24), Funcionario = fud, ID = 14, Monto = 1000, Sucursal = sb };
-            Pago po = new Pago() { Concepto = "Sueldos", FechaHora = new DateTime(2019, 03, 24), Funcionario = fub, ID = 15, Monto = 700, Sucursal = sb };
-            Pago pp = new Pago() { Concepto = "Antel", FechaHora = new DateTime(2019, 01, 24), Funcionario = fub, ID = 16, Monto = 1200, Sucursal = sa };
-            Pago pq = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2018, 01, 24), Funcionario = fub, ID = 17, Monto = 4500, Sucursal = sa };
-            Pago pr = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2018, 04, 24), Funcionario = fub, ID = 18, Monto = 4600, Sucursal = sa };
+            //Pago pa = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2019, 02, 24), Funcionario = fua, ID = 1, Monto = 3000, Sucursal = sa };
+            //Pago pb = new Pago() { Concepto = "OSE", FechaHora = new DateTime(2019, 02, 25), Funcionario = fua, ID = 2, Monto = 4000, Sucursal = sa };
+            //Pago pc = new Pago() { Concepto = "Antel", FechaHora = new DateTime(2019, 02, 20), Funcionario = fub, ID = 3, Monto = 2000, Sucursal = sa };
+            //Pago pd = new Pago() { Concepto = "Papel Higienico", FechaHora = new DateTime(2019, 01, 24), Funcionario = fub, ID = 4, Monto = 83000, Sucursal = sa };
+            //Pago pe = new Pago() { Concepto = "Sueldos", FechaHora = new DateTime(2019, 02, 10), Funcionario = fub, ID = 5, Monto = 1000, Sucursal = sa };
+            //Pago pf = new Pago() { Concepto = "Hojas A4", FechaHora = new DateTime(2019, 01, 15), Funcionario = fub, ID = 6, Monto = 4500, Sucursal = sc };
+            //Pago pg = new Pago() { Concepto = "Cafe", FechaHora = new DateTime(2019, 03, 24), Funcionario = fua, ID = 7, Monto = 30000, Sucursal = sc };
+            //Pago ph = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2019, 03, 24), Funcionario = fua, ID = 8, Monto = 2000, Sucursal = sc };
+            //Pago pi = new Pago() { Concepto = "OSE", FechaHora = new DateTime(2019, 03, 24), Funcionario = fub, ID = 9, Monto = 2100, Sucursal = sc };
+            //Pago pj = new Pago() { Concepto = "Alquiler", FechaHora = new DateTime(2019, 04, 2), Funcionario = fub, ID = 10, Monto = 23000, Sucursal = sa };
+            //Pago pk = new Pago() { Concepto = "Lapiceras", FechaHora = new DateTime(2019, 04, 24), Funcionario = fuc, ID = 11, Monto = 6000, Sucursal = sb };
+            //Pago pl = new Pago() { Concepto = "Mesas", FechaHora = new DateTime(2019, 05, 24), Funcionario = fuc, ID = 12, Monto = 500, Sucursal = sb };
+            //Pago pm = new Pago() { Concepto = "Azucar", FechaHora = new DateTime(2019, 05, 24), Funcionario = fud, ID = 13, Monto = 800, Sucursal = sb };
+            //Pago pn = new Pago() { Concepto = "Jabon", FechaHora = new DateTime(2019, 05, 24), Funcionario = fud, ID = 14, Monto = 1000, Sucursal = sb };
+            //Pago po = new Pago() { Concepto = "Sueldos", FechaHora = new DateTime(2019, 03, 24), Funcionario = fub, ID = 15, Monto = 700, Sucursal = sb };
+            //Pago pp = new Pago() { Concepto = "Antel", FechaHora = new DateTime(2019, 01, 24), Funcionario = fub, ID = 16, Monto = 1200, Sucursal = sa };
+            //Pago pq = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2018, 01, 24), Funcionario = fub, ID = 17, Monto = 4500, Sucursal = sa };
+            //Pago pr = new Pago() { Concepto = "UTE", FechaHora = new DateTime(2018, 04, 24), Funcionario = fub, ID = 18, Monto = 4600, Sucursal = sa };
 
-            Pagos.Add(pa);
-            Pagos.Add(pb);
-            Pagos.Add(pc);
-            Pagos.Add(pd);
-            Pagos.Add(pe);
-            Pagos.Add(pf);
-            Pagos.Add(pg);
-            Pagos.Add(ph);
-            Pagos.Add(pi);
-            Pagos.Add(pj);
-            Pagos.Add(pk);
-            Pagos.Add(pl);
-            Pagos.Add(pm);
-            Pagos.Add(pn);
-            Pagos.Add(po);
-            Pagos.Add(pp);
-            Pagos.Add(pq);
-            Pagos.Add(pr);
+            //Pagos.Add(pa);
+            //Pagos.Add(pb);
+            //Pagos.Add(pc);
+            //Pagos.Add(pd);
+            //Pagos.Add(pe);
+            //Pagos.Add(pf);
+            //Pagos.Add(pg);
+            //Pagos.Add(ph);
+            //Pagos.Add(pi);
+            //Pagos.Add(pj);
+            //Pagos.Add(pk);
+            //Pagos.Add(pl);
+            //Pagos.Add(pm);
+            //Pagos.Add(pn);
+            //Pagos.Add(po);
+            //Pagos.Add(pp);
+            //Pagos.Add(pq);
+            //Pagos.Add(pr);
 
             #endregion
 
-
             #region ingreso convenios
+
             Convenio cona = new Convenio() { Anio = 2019, AsociadoNombre = "Alberto S.A.", ID = 1, Descuento = 10, Nombre = "Albertito 2019" };
             Convenio conb = new Convenio() { Anio = 2019, AsociadoNombre = "Antel", ID = 2, Descuento = 60, Nombre = "informes Antel" };
             Convenio conc = new Convenio() { Anio = 2019, AsociadoNombre = "Cementos De Rivera", ID = 3, Descuento = 15, Nombre = "Secretaria Cementos" };
@@ -872,9 +486,9 @@ namespace Instituto_Britanico.Controlador
 
 
             #endregion
-
-
+            
             #region Orden de listas
+
             Libros = Libros.OrderBy(l => l.Nombre).ToList();
             Estudiantes = Estudiantes.OrderBy(es => es.Nombre).ToList();
             lstGrupos = lstGrupos.OrderBy(g => g.ID).ToList();
@@ -890,6 +504,7 @@ namespace Instituto_Britanico.Controlador
             TimeSpan tiempoTotal = FinDeIngresos - InicioDeIngresos;
             string tiempo = tiempoTotal.TotalMilliseconds + " milisegundos";
         }
+
 
         // ---------- Busquedas en listas locales ----------//
 
@@ -1440,6 +1055,23 @@ namespace Instituto_Britanico.Controlador
             }
         }
 
+        public async Task<List<Matricula>> GetListaMatriculasByAnio(int anio)
+        {
+            try
+            {
+                List<Matricula> lstMatriculas = await MatriculaController.GetAllByAnio(anio);
+                foreach (Matricula matricula in lstMatriculas)
+                {
+                    matricula.Sucursal = this.GetSucursalByID(matricula.SucursalID);
+                }
+                return lstMatriculas;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
         public async Task<Matricula> CrearMatricula(Matricula pMatricula)
         {
             try

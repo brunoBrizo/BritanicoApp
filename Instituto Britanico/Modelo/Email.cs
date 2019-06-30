@@ -22,6 +22,55 @@ namespace BibliotecaBritanico.Modelo
 
         public Email() { }
 
+        public static bool ValidarEmailInsert(Email email)
+        {
+            string errorMsg = String.Empty;
+            if (email.DestinatarioEmail.Equals(String.Empty))
+            {
+                errorMsg = "Destinatario no puede ser vacio \n";
+            }
+            if (email.Asunto.Equals(String.Empty))
+            {
+                errorMsg += "Asunto no puede ser vacio \n";
+            }
+            if (email.CuerpoHTML.Equals(String.Empty))
+            {
+                errorMsg += "Contenido del email no puede ser vacio \n";
+            }
+            if (errorMsg != String.Empty)
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarEmailModificar(Email email)
+        {
+            string errorMsg = String.Empty;
+            if (email.DestinatarioEmail.Equals(String.Empty))
+            {
+                errorMsg = "Destinatario no puede ser vacio \n";
+            }
+            if (email.ID < 1)
+            {
+                errorMsg += "Debe asignar ID al email \n";
+            }
+            if (email.Asunto.Equals(String.Empty))
+            {
+                errorMsg += "Asunto no puede ser vacio \n";
+            }
+            if (email.CuerpoHTML.Equals(String.Empty))
+            {
+                errorMsg += "Contenido del email no puede ser vacio \n";
+            }
+            if (errorMsg != String.Empty)
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+
 
     }
 }

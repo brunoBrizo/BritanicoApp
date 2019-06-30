@@ -22,6 +22,36 @@ namespace BibliotecaBritanico.Utilidad
             this.Valor = Valor;
         }
 
+        public static bool ValidarParametroInsert(Parametro parametro)
+        {
+            string errorMsg = String.Empty;
+            if (parametro.Nombre.Equals(String.Empty) || parametro.Valor.Equals(String.Empty))
+            {
+                errorMsg = "Debe ingresar Nombre y Valor del parametro";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarParametroModificar(Parametro parametro)
+        {
+            string errorMsg = String.Empty;
+            if (parametro.ID < 1)
+                errorMsg = "Debe asignar un ID al parametro \n";
+            if (parametro.Nombre.Equals(String.Empty) || parametro.Valor.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar Nombre y Valor del parametro";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
 
     }
 }

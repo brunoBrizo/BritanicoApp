@@ -60,7 +60,7 @@ namespace BibliotecaBritanico.Utilidad
 
         public static bool ValidarPassword(string password)
         {
-            if (password.Length < 5)
+            if (password.Length <= 5)
             {
                 return false;
             }

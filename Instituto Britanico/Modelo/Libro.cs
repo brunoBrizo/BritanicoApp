@@ -19,5 +19,54 @@ namespace BibliotecaBritanico.Modelo
         public string Editorial { get; set; }
 
 
+        public static bool ValidarInsertLibro(Libro libro)
+        {
+            string errorMsg = String.Empty;
+            if (libro.Nombre.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar el nombre del libro \n";
+            }
+            if (libro.Precio <= 0)
+            {
+                errorMsg += "Debe ingresar el precio del libro \n";
+            }
+            if (libro.Materia.ID < 1)
+            {
+                errorMsg += "Debe asociar una materia al libro \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarModificarLibro(Libro libro)
+        {
+            string errorMsg = String.Empty;
+            if (libro.ID < 1)
+            {
+                errorMsg = "Debe asignar un ID al libro \n";
+            }
+            if (libro.Nombre == String.Empty)
+            {
+                errorMsg += "Debe ingresar el nombre del libro \n";
+            }
+            if (libro.Precio <= 0)
+            {
+                errorMsg += "Debe ingresar el precio del libro \n";
+            }
+            if (libro.Materia.ID < 1)
+            {
+                errorMsg += "Debe asociar una materia al libro \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+
     }
 }

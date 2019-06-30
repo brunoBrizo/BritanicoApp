@@ -31,10 +31,58 @@ namespace BibliotecaBritanico.Modelo
             this.Funcionario = new Funcionario();
         }
 
-        public string FechaPago { get
+        public string FechaPago
+        {
+            get
             {
                 return FechaHora.ToShortDateString();
-            } }
+            }
+        }
+
+        public static bool ValidarPagoInsert(Pago pago)
+        {
+            string errorMsg = String.Empty;
+            if (pago.Concepto.Equals(String.Empty))
+            {
+                errorMsg = "Debe ingresar el Concepto del pago \n";
+            }
+            if (pago.Monto < 1)
+            {
+                errorMsg += "Debe ingresar el Monto del pago \n";
+            }
+            if (pago.FuncionarioID < 1)
+            {
+                errorMsg += "Debe asociar el pago a un funcionario";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarPagoModificar(Pago pago)
+        {
+            string errorMsg = String.Empty;
+            if (pago.ID < 1)
+            {
+                errorMsg = "Debe asignar un ID al pago \n";
+            }
+            if (pago.Concepto.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar el Concepto del pago \n";
+            }
+            if (pago.Monto < 1)
+            {
+                errorMsg += "Debe ingresar el Monto del pago \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
 
     }
 }

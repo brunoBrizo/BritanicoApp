@@ -44,7 +44,7 @@ namespace Instituto_Britanico.Vistas
             Ancho = (int)fachada.Tamano.Width;
             Alto = (int)fachada.Tamano.Height ;
             borde.Height = Alto-20 ;
-            listaMaterias = fachada.GetMateriasTotal();
+            listaMaterias = fachada.GetMaterias();
             dgMaterias.ItemsSource = null;
             dgMaterias.ItemsSource = listaMaterias;
         }

@@ -43,7 +43,7 @@ namespace Instituto_Britanico.Vistas
         {
             try
             {
-                cbMaterias.ItemsSource = fachada.GetMateriasTotal();
+                cbMaterias.ItemsSource = fachada.GetMaterias();
                 cbProfesor.ItemsSource = fachada.GetProfesoresTotal();
                 cbSucursal.ItemsSource = fachada.GetSucursalesTotal();
             }catch(Exception ex)

@@ -63,6 +63,30 @@ namespace Instituto_Britanico.Controlador.Controladores
             }
         }
 
+        public static async Task<List<Matricula>> GetAllByAnio(int anio)
+        {
+            string url = $"{ MatriculaController.Url }/getallbyanio/{ anio }";
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    List<Matricula> lstMatriculas = await response.Content.ReadAsAsync<List<Matricula>>();
+                    return lstMatriculas;
+                }
+                else
+                {
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                        throw new Exception("Buscar matriculas por año | No se encuentra la Url: " + url);
+                    else
+                    {
+                        string error = response.Content.ReadAsStringAsync().Result;
+                        error = Herramientas.QuitarComillasDobles(error);
+                        throw new Exception(error);
+                    }
+                }
+            }
+        }
+        
         public static async Task<Matricula> Crear(Matricula pMatricula)
         {
             string url = $"{ MatriculaController.Url }/crear";

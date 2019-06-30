@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BibliotecaBritanico.Utilidad;
 using Newtonsoft.Json;
 
 namespace BibliotecaBritanico.Modelo
@@ -31,11 +32,11 @@ namespace BibliotecaBritanico.Modelo
         public override string ToString()
         {
             string dias = "";
-            foreach(GrupoDia s in LstDias)
+            foreach (GrupoDia s in LstDias)
             {
                 dias += s.Dia;
             }
-            dias +=" "+ HoraInicio +", " + Materia.Nombre;
+            dias += " " + HoraInicio + ", " + Materia.Nombre;
             return dias;
         }
 
@@ -48,11 +49,121 @@ namespace BibliotecaBritanico.Modelo
                 {
                     dias += s.Dia;
                 }
-                
+
                 return dias;
             }
         }
 
         public string Nombre { get { return this.ToString(); } }
+
+        public static bool ValidarGrupoInsert(Grupo grupo)
+        {
+            try
+            {
+                string errorMsg = String.Empty;
+                if (grupo.MateriaID < 1)
+                {
+                    errorMsg = "Debe asignar el grupo a una materia \n";
+                }
+                if (grupo.SucursalID < 1)
+                {
+                    errorMsg += "Debe asociar una sucursal al grupo \n";
+                }
+                if (grupo.HoraInicio.Equals(String.Empty) || grupo.HoraFin.Equals(String.Empty))
+                {
+                    errorMsg += "Debe ingresar hora de inicio y fin \n";
+                }
+                if (grupo.Precio < 1)
+                {
+                    errorMsg += "Debe ingresar precio \n";
+                }
+                if (grupo.LstDias.Count > 0)
+                {
+                    bool errorEnDias = false;
+                    foreach (GrupoDia dia in grupo.LstDias)
+                    {
+                        if (dia.Dia.Equals(String.Empty))
+                        {
+                            errorEnDias = true;
+                        }
+                    }
+                    if (errorEnDias)
+                    {
+                        errorMsg += "Debe ingresar los dias del grupo \n";
+                    }
+                }
+                else
+                {
+                    errorMsg += "Debe ingresar los dias del grupo \n";
+                }
+                if (!errorMsg.Equals(String.Empty))
+                {
+                    throw new ValidacionException(errorMsg);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static bool ValidarGrupoModificar(Grupo grupo)
+        {
+            try
+            {
+                string errorMsg = String.Empty;
+                if (grupo.ID < 1)
+                {
+                    errorMsg = "Debe asignar un ID al grupo \n";
+                }
+                if (grupo.MateriaID < 1)
+                {
+                    errorMsg += "Debe asignar el grupo a una materia \n";
+                }
+                if (grupo.SucursalID < 1)
+                {
+                    errorMsg += "Debe asociar una sucursal al grupo \n";
+                }
+                if (grupo.HoraInicio.Equals(String.Empty) || grupo.HoraFin.Equals(String.Empty))
+                {
+                    errorMsg += "Debe ingresar hora de inicio y fin \n";
+                }
+                if (grupo.Precio < 1)
+                {
+                    errorMsg += "Debe ingresar precio \n";
+                }
+                if (grupo.LstDias.Count > 0)
+                {
+                    bool errorEnDias = false;
+                    foreach (GrupoDia dia in grupo.LstDias)
+                    {
+                        if (dia.Dia.Equals(String.Empty))
+                        {
+                            errorEnDias = true;
+                        }
+                    }
+                    if (errorEnDias)
+                    {
+                        errorMsg += "Debe ingresar los dias del grupo \n";
+                    }
+                }
+                else
+                {
+                    errorMsg += "Debe ingresar los dias del grupo \n";
+                }
+                if (!errorMsg.Equals(String.Empty))
+                {
+                    throw new ValidacionException(errorMsg);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }

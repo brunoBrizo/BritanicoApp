@@ -23,9 +23,60 @@ namespace BibliotecaBritanico.Modelo
 
 
 
+        public static bool ValidarMateriaInsert(Materia materia)
+        {
+            string errorMsg = String.Empty;
+            if (materia.Nombre.Equals(String.Empty))
+            {
+                errorMsg = "Debe ingresar el nombre de la materia \n";
+            }
+            if (materia.Precio < 1)
+            {
+                errorMsg += "Debe ingresar el precio de la materia \n";
+            }
+            if (materia.Sucursal.ID < 1)
+            {
+                errorMsg += "Debe ingresar la sucursal de la materia \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarMateriaModificar(Materia materia)
+        {
+            string errorMsg = String.Empty;
+            if (materia.ID < 1)
+            {
+                errorMsg = "Debe asignar un ID a la materia \n";
+            }
+            if (materia.Nombre.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar el nombre de la materia \n";
+            }
+            if (materia.Precio < 1)
+            {
+                errorMsg += "Debe ingresar el precio de la materia \n";
+            }
+            if (materia.Sucursal.ID < 1)
+            {
+                errorMsg += "Debe ingresar la sucursal de la materia \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+       
         public override string ToString()
         {
             return this.Nombre;
         }
+
+
+
     }
 }

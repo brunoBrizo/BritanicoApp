@@ -34,20 +34,42 @@ namespace BibliotecaBritanico.Modelo
             this.Encargado = Encargado;
         }
 
-        public static bool ValidarSucursal(string Nombre, string Direccion, string Email)
+        public static bool ValidarSucursalInsert(Sucursal sucursal)
         {
             string errorMsg = "";
-            if (Nombre.Equals(String.Empty))
+            if (sucursal.Nombre.Equals(String.Empty))
             {
-                errorMsg = "Nombre es obligatorio!";
+                errorMsg = "Debe ingresar nombre de la sucursal \n";
             }
-            if (!Email.Equals(String.Empty) && !Herramientas.ValidarMail(Email))
+            if (!sucursal.Email.Equals(String.Empty) && !Herramientas.ValidarMail(sucursal.Email))
             {
-                errorMsg += "Email inválido!";
+                errorMsg += "Email inválido";
             }
             if (errorMsg != "")
             {
-                throw new ValidacionException(errorMsg, "Sucursal");
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+        public static bool ValidarSucursalModificar(Sucursal sucursal)
+        {
+            string errorMsg = "";
+            if (sucursal.ID < 1)
+            {
+                errorMsg = "Debe asignar un ID a la sucursal \n";
+            }
+            if (sucursal.Nombre.Equals(String.Empty))
+            {
+                errorMsg += "Debe ingresar nombre de la sucursal \n";
+            }
+            if (!sucursal.Email.Equals(String.Empty) && !Herramientas.ValidarMail(sucursal.Email))
+            {
+                errorMsg += "Email inválido";
+            }
+            if (errorMsg != "")
+            {
+                throw new ValidacionException(errorMsg);
             }
             return true;
         }

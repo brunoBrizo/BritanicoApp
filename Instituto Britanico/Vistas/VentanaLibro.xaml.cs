@@ -55,7 +55,7 @@ namespace Instituto_Britanico.Vistas
 
         private void CargarCombobox()
         {
-            List<Materia> lista = fachada.GetMateriasTotal();
+            List<Materia> lista = fachada.GetMaterias();
             cbMaterias.ItemsSource = lista;
             cbMaterias.SelectedIndex = 1;
             

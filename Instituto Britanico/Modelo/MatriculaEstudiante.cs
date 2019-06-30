@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BibliotecaBritanico.Utilidad;
 using Newtonsoft.Json;
 
 namespace BibliotecaBritanico.Modelo
@@ -34,6 +35,85 @@ namespace BibliotecaBritanico.Modelo
             this.Grupo = new Grupo();
             this.Funcionario = new Funcionario();
         }
+
+        public static bool ValidarMatriculaEstudianteInsert(MatriculaEstudiante matriculaEstudiante)
+        {
+            try
+            {
+                string errorMsg = String.Empty;
+                if (matriculaEstudiante.Matricula.ID < 1)
+                {
+                    errorMsg = "Debe asociar a una matricula \n";
+                }
+                if (matriculaEstudiante.Estudiante.ID < 1)
+                {
+                    errorMsg += "Debe asociar la matricula a un estudiante \n";
+                }
+                if (matriculaEstudiante.GrupoID < 1 || matriculaEstudiante.MateriaID < 1)
+                {
+                    errorMsg += "Debe asociar la matricula a un grupo \n";
+                }
+                if (matriculaEstudiante.FuncionarioID < 1)
+                {
+                    errorMsg += "Debe asociar la matricula a un funcionario \n";
+                }
+                if (matriculaEstudiante.Precio < 1)
+                {
+                    errorMsg += "Debe ingresar precio \n";
+                }
+                if (!errorMsg.Equals(String.Empty))
+                {
+                    throw new ValidacionException(errorMsg);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static bool ValidarMatriculaEstudianteModificar(MatriculaEstudiante matriculaEstudiante)
+        {
+            try
+            {
+                string errorMsg = String.Empty;
+                if (matriculaEstudiante.ID < 1)
+                {
+                    errorMsg = "Debe asignar ID a la matricula del estudiante \n";
+                }
+                if (matriculaEstudiante.Matricula.ID < 1)
+                {
+                    errorMsg += "Debe asociar a una matricula \n";
+                }
+                if (matriculaEstudiante.Estudiante.ID < 1)
+                {
+                    errorMsg += "Debe asociar la matricula a un estudiante \n";
+                }
+                if (matriculaEstudiante.GrupoID < 1 || matriculaEstudiante.MateriaID < 1)
+                {
+                    errorMsg += "Debe asociar la matricula a un grupo \n";
+                }
+                if (matriculaEstudiante.FuncionarioID < 1)
+                {
+                    errorMsg += "Debe asociar la matricula a un funcionario \n";
+                }
+                if (matriculaEstudiante.Precio < 1)
+                {
+                    errorMsg += "Debe ingresar precio \n";
+                }
+                if (!errorMsg.Equals(String.Empty))
+                {
+                    throw new ValidacionException(errorMsg);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
 
     }

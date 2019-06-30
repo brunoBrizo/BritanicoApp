@@ -78,18 +78,18 @@ namespace Instituto_Britanico.Modelo
                     Nombre = nombre,
                     Precio = precio
                 };
+                Materia.ValidarMateriaInsert(materia);
                 materia = await cApi.CrearMateria(materia);
                 return materia;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
-
-        public List<Materia> GetMateriasTotal()
-        {
-            return cApi.GetMateriasTotal();
         }
 
         public async Task<bool> ModificarMateria(int id, int sucursalID, string nombre, decimal precio)
@@ -103,8 +103,13 @@ namespace Instituto_Britanico.Modelo
                     Nombre = nombre,
                     Precio = precio
                 };
+                Materia.ValidarMateriaModificar(materia);
                 bool res = await cApi.ModificarMateria(materia);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -116,6 +121,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar un ID a la materia");
                 Materia materia = new Materia
                 {
                     ID = id
@@ -140,6 +147,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar un ID al convenio");
                 Convenio convenio = new Convenio
                 {
                     ID = id
@@ -181,8 +190,13 @@ namespace Instituto_Britanico.Modelo
                     AsociadoTel = asociadoTel,
                     Descuento = descuento
                 };
+                Convenio.ValidarConvenioInsert(convenio);
                 convenio = await cApi.CrearConvenio(convenio);
                 return convenio;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -206,8 +220,13 @@ namespace Instituto_Britanico.Modelo
                     AsociadoTel = asociadoTel,
                     Descuento = descuento
                 };
+                Convenio.ValidarConvenioModificar(convenio);
                 bool res = await cApi.ModificarConvenio(convenio);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -219,6 +238,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar un ID al convenio");
                 Convenio convenio = new Convenio
                 {
                     ID = id
@@ -243,6 +264,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar ID al email");
                 Email email = new Email
                 {
                     ID = id
@@ -294,8 +317,13 @@ namespace Instituto_Britanico.Modelo
                     FechaHora = DateTime.Now,
                     Enviado = false
                 };
+                Email.ValidarEmailInsert(email);
                 email = await cApi.CrearEmail(email);
                 return email;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -317,8 +345,13 @@ namespace Instituto_Britanico.Modelo
                     FechaHora = fechaHora,
                     Enviado = enviado
                 };
+                Email.ValidarEmailModificar(email);
                 bool res = await cApi.ModificarEmail(email);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -330,6 +363,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar ID al email");
                 Email email = new Email
                 {
                     ID = id
@@ -354,6 +389,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar un ID al parametro");
                 Parametro parametro = new Parametro
                 {
                     ID = id
@@ -379,18 +416,23 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<Parametro> CrearParametro(int id, string nombre, string valor)
+        public async Task<Parametro> CrearParametro(string nombre, string valor)
         {
             try
             {
                 Parametro parametro = new Parametro
                 {
-                    ID = id,
+                    ID = 0,
                     Nombre = nombre,
                     Valor = valor
                 };
+                Parametro.ValidarParametroInsert(parametro);
                 parametro = await cApi.CrearParametro(parametro);
                 return parametro;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -408,8 +450,13 @@ namespace Instituto_Britanico.Modelo
                     Nombre = nombre,
                     Valor = valor
                 };
+                Parametro.ValidarParametroModificar(parametro);
                 bool res = await cApi.ModificarParametro(parametro);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -421,6 +468,8 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                    throw new ValidacionException("Debe asignar un ID al parametro");
                 Parametro parametro = new Parametro
                 {
                     ID = id
@@ -445,6 +494,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || materia == null || materia.ID < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID y una materia al libro");
+                }
                 Libro libro = new Libro
                 {
                     ID = id,
@@ -484,8 +537,13 @@ namespace Instituto_Britanico.Modelo
                     Autor = autor,
                     Editorial = editorial
                 };
+                Libro.ValidarInsertLibro(libro);
                 libro = await cApi.CrearLibro(libro);
                 return libro;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -506,8 +564,13 @@ namespace Instituto_Britanico.Modelo
                     Autor = autor,
                     Editorial = editorial
                 };
+                Libro.ValidarModificarLibro(libro);
                 bool res = await cApi.ModificarLibro(libro);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -519,6 +582,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || materia == null || materia.ID < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID y una materia al libro");
+                }
                 Libro libro = new Libro
                 {
                     ID = id,
@@ -544,6 +611,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (ci.Equals(String.Empty) || password.Equals(String.Empty))
+                {
+                    throw new ValidacionException("CI y clave no pueden ser vacios");
+                }
                 Funcionario funcionario = new Funcionario
                 {
                     CI = ci,
@@ -562,6 +633,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al funcionario");
+                }
                 Funcionario funcionario = new Funcionario
                 {
                     ID = id
@@ -607,8 +682,13 @@ namespace Instituto_Britanico.Modelo
                     Activo = activo,
                     TipoFuncionario = tipo
                 };
+                Funcionario.ValidarFuncionarioInsert(funcionario);
                 funcionario = await cApi.CrearFuncionario(funcionario);
                 return funcionario;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -636,8 +716,13 @@ namespace Instituto_Britanico.Modelo
                     Activo = activo,
                     TipoFuncionario = tipo
                 };
+                Funcionario.ValidarFuncionarioModificar(funcionario);
                 bool res = await cApi.ModificarFuncionario(funcionario);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -649,6 +734,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al funcionario");
+                }
                 Funcionario funcionario = new Funcionario
                 {
                     ID = id
@@ -673,6 +762,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un a la matricula");
+                }
                 Matricula matricula = new Matricula
                 {
                     ID = id
@@ -710,8 +803,13 @@ namespace Instituto_Britanico.Modelo
                     FechaHora = DateTime.Now,
                     Precio = precio
                 };
+                Matricula.ValidarMatriculaInsert(matricula);
                 matricula = await cApi.CrearMatricula(matricula);
                 return matricula;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -731,8 +829,13 @@ namespace Instituto_Britanico.Modelo
                     FechaHora = fechaHora,
                     Precio = precio
                 };
+                Matricula.ValidarMatriculaModificar(matricula);
                 bool res = await cApi.ModificarMatricula(matricula);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -744,6 +847,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un a la matricula");
+                }
                 Matricula matricula = new Matricula
                 {
                     ID = id
@@ -771,8 +878,10 @@ namespace Instituto_Britanico.Modelo
                 Empresa empresa = new Empresa();
                 if (id > 0)
                     empresa.ID = id;
-                else
+                else if (!rut.Equals(String.Empty))
                     empresa.Rut = rut;
+                else
+                    throw new ValidacionException("Debe asignar ID o RUT a la empresa");
                 empresa = await cApi.GetEmpresa(empresa);
                 return empresa;
             }
@@ -810,8 +919,13 @@ namespace Instituto_Britanico.Modelo
                     Logo = logo,
                     LogoImagen = logoImagen
                 };
+                Empresa.ValidarEmpresaInsert(empresa);
                 empresa = await cApi.CrearEmpresa(empresa);
                 return empresa;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -835,8 +949,13 @@ namespace Instituto_Britanico.Modelo
                     Logo = logo,
                     LogoImagen = logoImagen
                 };
+                Empresa.ValidarEmpresaModificar(empresa);
                 bool res = await cApi.ModificarEmpresa(empresa);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -848,6 +967,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID a la empresa");
+                }
                 Empresa empresa = new Empresa
                 {
                     ID = id
@@ -872,6 +995,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al pago");
+                }
                 Pago pago = new Pago
                 {
                     ID = id
@@ -911,8 +1038,13 @@ namespace Instituto_Britanico.Modelo
                     FuncionarioID = funcionarioID,
                     Observacion = observacion
                 };
+                Pago.ValidarPagoInsert(pago);
                 pago = await cApi.CrearPago(pago);
                 return pago;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -934,8 +1066,13 @@ namespace Instituto_Britanico.Modelo
                     FuncionarioID = funcionarioID,
                     Observacion = observacion
                 };
+                Pago.ValidarPagoModificar(pago);
                 bool res = await cApi.ModificarPago(pago);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -947,6 +1084,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al pago");
+                }
                 Pago pago = new Pago
                 {
                     ID = id
@@ -971,6 +1112,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al pago");
+                }
                 Sucursal sucursal = new Sucursal
                 {
                     ID = id
@@ -1010,8 +1155,13 @@ namespace Instituto_Britanico.Modelo
                     Ciudad = ciudad,
                     Encargado = encargado
                 };
+                Sucursal.ValidarSucursalInsert(sucursal);
                 sucursal = await cApi.CrearSucursal(sucursal);
                 return sucursal;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1033,8 +1183,13 @@ namespace Instituto_Britanico.Modelo
                     Ciudad = ciudad,
                     Encargado = encargado
                 };
+                Sucursal.ValidarSucursalModificar(sucursal);
                 bool res = await cApi.ModificarSucursal(sucursal);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1046,6 +1201,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al pago");
+                }
                 Sucursal sucursal = new Sucursal
                 {
                     ID = id
@@ -1070,6 +1229,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al estudiante");
+                }
                 Estudiante estudiante = new Estudiante
                 {
                     ID = id
@@ -1121,8 +1284,13 @@ namespace Instituto_Britanico.Modelo
                     GrupoID = grupoID,
                     MateriaID = materiaID
                 };
+                Estudiante.ValidarEstudianteInsert(estudiante);
                 estudiante = await cApi.CrearEstudiante(estudiante);
                 return estudiante;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1138,7 +1306,7 @@ namespace Instituto_Britanico.Modelo
             {
                 Estudiante estudiante = new Estudiante
                 {
-                    ID = 0,
+                    ID = id,
                     Nombre = nombre,
                     TipoDocumento = tipoDocumento,
                     CI = ci,
@@ -1156,8 +1324,13 @@ namespace Instituto_Britanico.Modelo
                     GrupoID = grupoID,
                     MateriaID = materiaID
                 };
+                Estudiante.ValidarEstudianteModificar(estudiante);
                 bool res = await cApi.ModificarEstudiante(estudiante);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1169,6 +1342,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar un ID al estudiante");
+                }
                 Estudiante estudiante = new Estudiante
                 {
                     ID = id
@@ -1193,6 +1370,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || grupoID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y grupo al examen");
+                }
                 Examen examen = new Examen
                 {
                     ID = id,
@@ -1233,8 +1414,13 @@ namespace Instituto_Britanico.Modelo
                     Precio = precio,
                     FechaHora = DateTime.Now
                 };
+                Examen.ValidarExamenInsert(examen);
                 examen = await cApi.CrearExamen(examen);
                 return examen;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1256,8 +1442,13 @@ namespace Instituto_Britanico.Modelo
                     Precio = precio,
                     FechaHora = fechaHora
                 };
+                Examen.ValidarExamenModificar(examen);
                 bool res = await cApi.ModificarExamen(examen);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1269,6 +1460,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || grupoID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y grupo al examen");
+                }
                 Examen examen = new Examen
                 {
                     ID = id,
@@ -1294,6 +1489,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || materiaID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y una materia al grupo");
+                }
                 Grupo grupo = new Grupo
                 {
                     ID = id,
@@ -1336,8 +1535,13 @@ namespace Instituto_Britanico.Modelo
                     Activo = activo,
                     LstDias = dias
                 };
+                Grupo.ValidarGrupoInsert(grupo);
                 grupo = await cApi.CrearGrupo(grupo);
                 return grupo;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1361,8 +1565,13 @@ namespace Instituto_Britanico.Modelo
                     Activo = activo,
                     LstDias = dias
                 };
+                Grupo.ValidarGrupoModificar(grupo);
                 bool res = await cApi.ModificarGrupo(grupo);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1374,6 +1583,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || materiaID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y una materia al grupo");
+                }
                 Grupo grupo = new Grupo
                 {
                     ID = id,
@@ -1399,6 +1612,14 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || matriculaID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y una matricula");
+                }
+                if (estudianteID < 1 || grupoID < 1)
+                {
+                    throw new ValidacionException("Debe asignar un estudiante y un grupo");
+                }
                 MatriculaEstudiante matriculaEstudiante = new MatriculaEstudiante
                 {
                     ID = id,
@@ -1459,8 +1680,13 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 matriculaEstudiante.Estudiante = estudiante;
+                MatriculaEstudiante.ValidarMatriculaEstudianteInsert(matriculaEstudiante);
                 matriculaEstudiante = await cApi.CrearMatriculaEstudiante(matriculaEstudiante);
                 return matriculaEstudiante;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1492,8 +1718,13 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 matriculaEstudiante.Estudiante = estudiante;
+                MatriculaEstudiante.ValidarMatriculaEstudianteModificar(matriculaEstudiante);
                 bool res = await cApi.ModificarMatriculaEstudiante(matriculaEstudiante);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1505,6 +1736,14 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || matriculaID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y una matricula");
+                }
+                if (estudianteID < 1 || grupoID < 1)
+                {
+                    throw new ValidacionException("Debe asignar un estudiante y un grupo");
+                }
                 MatriculaEstudiante matriculaEstudiante = new MatriculaEstudiante
                 {
                     ID = id,
@@ -1540,6 +1779,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID a la mensualidad");
+                }
                 Mensualidad mensualidad = new Mensualidad
                 {
                     ID = id
@@ -1586,8 +1829,13 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 mensualidad.Estudiante = estudiante;
+                Mensualidad.ValidarMensualidadInsert(mensualidad);
                 mensualidad = await cApi.CrearMensualidad(mensualidad);
                 return mensualidad;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1616,8 +1864,13 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 mensualidad.Estudiante = estudiante;
+                Mensualidad.ValidarMensualidadModificar(mensualidad);
                 bool res = await cApi.ModificarMensualidad(mensualidad);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1629,6 +1882,10 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID a la mensualidad");
+                }
                 Mensualidad mensualidad = new Mensualidad
                 {
                     ID = id
@@ -1653,6 +1910,14 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || libroId < 1 || materiaId < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y un libro");
+                }
+                if (estudianteId < 1)
+                {
+                    throw new ValidacionException("Debe asignar un estudiante");
+                }
                 VentaLibro venta = new VentaLibro
                 {
                     ID = id
@@ -1719,8 +1984,13 @@ namespace Instituto_Britanico.Modelo
                 };
                 venta.Libro = libro;
                 venta.Estudiante = estudiante;
+                VentaLibro.ValidarVentaLibroInsert(venta);
                 venta = await cApi.CrearVentaLibro(venta);
                 return venta;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1754,8 +2024,13 @@ namespace Instituto_Britanico.Modelo
                 };
                 venta.Libro = libro;
                 venta.Estudiante = estudiante;
+                VentaLibro.ValidarVentaLibroModificar(venta);
                 bool res = await cApi.ModificarVentaLibro(venta);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1767,6 +2042,14 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || libroId < 1 || materiaId < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y un libro");
+                }
+                if (estudianteId < 1)
+                {
+                    throw new ValidacionException("Debe asignar un estudiante");
+                }
                 VentaLibro venta = new VentaLibro
                 {
                     ID = id
@@ -1806,6 +2089,14 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || examenID < 1 || grupoID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y un examen");
+                }
+                if (estudianteID < 1)
+                {
+                    throw new ValidacionException("Debe asignar un estudiante");
+                }
                 ExamenEstudiante examenEstudiante = new ExamenEstudiante
                 {
                     ID = id
@@ -1868,8 +2159,13 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = estudianteID
                 };
+                ExamenEstudiante.ValidarExamenEstudianteInsert(examenEstudiante);
                 examenEstudiante = await cApi.CrearExamenEstudiante(examenEstudiante);
                 return examenEstudiante;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1905,8 +2201,13 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = estudianteID
                 };
+                ExamenEstudiante.ValidarExamenEstudianteModificar(examenEstudiante);
                 bool res = await cApi.ModificarExamenEstudiante(examenEstudiante);
                 return res;
+            }
+            catch (ValidacionException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -1918,6 +2219,14 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
+                if (id < 1 || examenID < 1 || grupoID < 1)
+                {
+                    throw new ValidacionException("Debe asignar ID y un examen");
+                }
+                if (estudianteID < 1)
+                {
+                    throw new ValidacionException("Debe asignar un estudiante");
+                }
                 ExamenEstudiante examenEstudiante = new ExamenEstudiante
                 {
                     ID = id

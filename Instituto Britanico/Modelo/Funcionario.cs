@@ -44,6 +44,67 @@ namespace BibliotecaBritanico.Modelo
             this.Activo = Activo;
         }
 
+        public static bool ValidarFuncionarioInsert(Funcionario funcionario)
+        {
+            string errorMsg = String.Empty;
+            if (funcionario.CI.Equals(String.Empty) || funcionario.Nombre.Equals(String.Empty) || funcionario.Clave.Equals(String.Empty) || funcionario.Telefono.Equals(String.Empty))
+            {
+                errorMsg = "Nombre, cedula, clave y telefono son obligatorios \n";
+            }
+            if (funcionario.FechaNac >= DateTime.Today || funcionario.FechaNac <= DateTime.MinValue)
+            {
+                errorMsg += "Fecha de nacimiento invalida \n";
+            }
+            if (!funcionario.CI.Equals(String.Empty) && !Herramientas.ValidarCedula(funcionario.CI))
+            {
+                errorMsg += "Cedula invalida \n";
+            }
+            if (!funcionario.Email.Equals(String.Empty) && !Herramientas.ValidarMail(funcionario.Email))
+            {
+                errorMsg += "Email inválido \n";
+            }
+            if (!Herramientas.ValidarPassword(funcionario.Clave))
+            {
+                errorMsg += "La contraseña debe tener más de 5 caracteres  \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg, "Funcionario");
+            }
+            return true;
+        }
+
+        public static bool ValidarFuncionarioModificar(Funcionario funcionario)
+        {
+            string errorMsg = String.Empty;
+            if (funcionario.ID < 1)
+            {
+                errorMsg = "Debe asignar un ID al funcionario \n";
+            }
+            if (funcionario.CI.Equals(String.Empty) || funcionario.Nombre.Equals(String.Empty) || funcionario.Clave.Equals(String.Empty) || funcionario.Telefono.Equals(String.Empty))
+            {
+                errorMsg += "Nombre, cedula, clave y telefono son obligatorios \n";
+            }
+            if (funcionario.FechaNac >= DateTime.Today || funcionario.FechaNac <= DateTime.MinValue)
+            {
+                errorMsg += "Fecha de nacimiento invalida \n";
+            }
+            if (!funcionario.Email.Equals(String.Empty) && !Herramientas.ValidarMail(funcionario.Email))
+            {
+                errorMsg += "Email inválido \n";
+            }
+            if (!Herramientas.ValidarPassword(funcionario.Clave))
+            {
+                errorMsg += "La contraseña debe tener más de 5 caracteres  \n";
+            }
+            if (!errorMsg.Equals(String.Empty))
+            {
+                throw new ValidacionException(errorMsg);
+            }
+            return true;
+        }
+
+
         public override string ToString()
         {
             return Nombre;
