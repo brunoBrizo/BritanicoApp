@@ -23,9 +23,9 @@ namespace BibliotecaBritanico.Modelo
         public string ContactoAlternativoUnoTel { get; set; }
         public string ContactoAlternativoDos { get; set; }
         public string ContactoAlternativoDosTel { get; set; }
-        public Convenio Convenio { get; set; }
+        public Convenio Convenio { get; set; } = new Convenio();
         [JsonIgnore]
-        public Grupo Grupo { get; set; }
+        public Grupo Grupo { get; set; } = new Grupo();
         public int GrupoID { get; set; }
         public int MateriaID { get; set; }
 

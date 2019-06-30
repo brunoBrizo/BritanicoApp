@@ -11,13 +11,13 @@ namespace BibliotecaBritanico.Modelo
     {
         public int ID { get; set; }
         [JsonIgnore]
-        public Sucursal Sucursal { get; set; }
+        public Sucursal Sucursal { get; set; } = new Sucursal();
         public int SucursalID { get; set; }
         [JsonIgnore]
-        public Materia Materia { get; set; }
+        public Materia Materia { get; set; } = new Materia();
         public int MateriaID { get; set; }
         [JsonIgnore]
-        public Funcionario Funcionario { get; set; }
+        public Funcionario Funcionario { get; set; } = new Funcionario();
         public int FuncionarioID { get; set; }
         public string HoraInicio { get; set; }
         public string HoraFin { get; set; }

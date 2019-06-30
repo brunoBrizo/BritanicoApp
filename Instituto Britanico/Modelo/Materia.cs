@@ -14,12 +14,12 @@ namespace BibliotecaBritanico.Modelo
     {
         public int ID { get; set; }
         [JsonIgnore]
-        public Sucursal Sucursal { get; set; }
+        public Sucursal Sucursal { get; set; } = new Sucursal();
         public int SucursalID { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
         [JsonIgnore]
-        public List<Libro> LstLibros { get; set; }
+        public List<Libro> LstLibros { get; set; } = new List<Libro>();
 
 
 

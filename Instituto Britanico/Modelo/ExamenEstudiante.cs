@@ -10,8 +10,8 @@ namespace BibliotecaBritanico.Modelo
     public class ExamenEstudiante
     {
         public int ID { get; set; }
-        public Examen Examen { get; set; } //Examen tiene la lista tambien
-        public Estudiante Estudiante { get; set; }
+        public Examen Examen { get; set; } = new Examen();
+        public Estudiante Estudiante { get; set; } = new Estudiante();
         public DateTime FechaInscripcion { get; set; }
         public decimal NotaFinal { get; set; }
         public string NotaFinalLetra { get; set; }
@@ -21,7 +21,7 @@ namespace BibliotecaBritanico.Modelo
         public bool Pago { get; set; }
         public decimal Precio { get; set; }
         [JsonIgnore]
-        public Funcionario Funcionario { get; set; }
+        public Funcionario Funcionario { get; set; } = new Funcionario();
         public int FuncionarioID { get; set; }
         public List<ExamenEstudianteCuota> LstCuotas { get; set; } = new List<ExamenEstudianteCuota>();
 

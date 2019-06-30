@@ -9,8 +9,8 @@ namespace BibliotecaBritanico.Modelo
     public class VentaLibro
     {
         public int ID { get; set; }
-        public Libro Libro { get; set; }
-        public Estudiante Estudiante { get; set; } //Estudiante tiene la lista
+        public Libro Libro { get; set; } = new Libro();
+        public Estudiante Estudiante { get; set; } = new Estudiante(); //Estudiante tiene la lista
         public DateTime FechaHora { get; set; }
         public decimal Precio { get; set; }
         public VentaLibroEstado Estado { get; set; }

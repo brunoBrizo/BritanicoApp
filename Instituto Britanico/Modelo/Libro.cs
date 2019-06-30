@@ -13,7 +13,7 @@ namespace BibliotecaBritanico.Modelo
     {
         public int ID { get; set; }
         public string Nombre { get; set; }
-        public Materia Materia { get; set; } //la materia tiene una lista de libros
+        public Materia Materia { get; set; } = new Materia();
         public decimal Precio { get; set; }
         public string Autor { get; set; }
         public string Editorial { get; set; }

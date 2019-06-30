@@ -920,7 +920,7 @@ namespace Instituto_Britanico.Controlador
             }
             return null;
         }
-        
+
         public Sucursal GetSucursalByID(int id)
         {
             if (id > 0)
@@ -1732,7 +1732,7 @@ namespace Instituto_Britanico.Controlador
             try
             {
                 List<Estudiante> lstEstudiantes = await EstudianteController.GetAll();
-                foreach(Estudiante estudiante in lstEstudiantes)
+                foreach (Estudiante estudiante in lstEstudiantes)
                 {
                     estudiante.Grupo = this.GetGrupoByID(estudiante.GrupoID, estudiante.MateriaID);
                 }
@@ -1810,7 +1810,7 @@ namespace Instituto_Britanico.Controlador
             try
             {
                 List<Examen> lstExamenes = await ExamenController.GetAll();
-                foreach(Examen examen in lstExamenes)
+                foreach (Examen examen in lstExamenes)
                 {
                     examen.Grupo = this.GetGrupoByID(examen.GrupoID, examen.MateriaID);
                 }
@@ -2032,6 +2032,244 @@ namespace Instituto_Britanico.Controlador
 
 
         #endregion
+
+
+        #region Mensualidad
+
+
+        public async Task<Mensualidad> GetMensualidad(Mensualidad pMensualidad)
+        {
+            try
+            {
+                pMensualidad = await MensualidadController.Get(pMensualidad);
+                pMensualidad.Sucursal = this.GetSucursalByID(pMensualidad.SucursalID);
+                pMensualidad.Grupo = this.GetGrupoByID(pMensualidad.GrupoID, pMensualidad.MateriaID);
+                pMensualidad.Funcionario = this.GetFuncionarioByID(pMensualidad.FuncionarioID);
+                return pMensualidad;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Mensualidad>> GetListaMensualidades()
+        {
+            try
+            {
+                List<Mensualidad> lstMensualidades = await MensualidadController.GetAll();
+                foreach (Mensualidad mensualidad in lstMensualidades)
+                {
+                    mensualidad.Sucursal = this.GetSucursalByID(mensualidad.SucursalID);
+                    mensualidad.Grupo = this.GetGrupoByID(mensualidad.GrupoID, mensualidad.MateriaID);
+                    mensualidad.Funcionario = this.GetFuncionarioByID(mensualidad.FuncionarioID);
+                }
+                return lstMensualidades;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Mensualidad> CrearMensualidad(Mensualidad pMensualidad)
+        {
+            try
+            {
+                pMensualidad = await MensualidadController.Crear(pMensualidad);
+                pMensualidad.Sucursal = this.GetSucursalByID(pMensualidad.SucursalID);
+                pMensualidad.Grupo = this.GetGrupoByID(pMensualidad.GrupoID, pMensualidad.MateriaID);
+                pMensualidad.Funcionario = this.GetFuncionarioByID(pMensualidad.FuncionarioID);
+                return pMensualidad;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarMensualidad(Mensualidad pMensualidad)
+        {
+            try
+            {
+                bool res = await MensualidadController.Modificar(pMensualidad);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarMensualidad(Mensualidad pMensualidad)
+        {
+            try
+            {
+                bool res = await MensualidadController.Eliminar(pMensualidad);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region VentaLibro
+
+
+        public async Task<VentaLibro> GetVentaLibro(VentaLibro pVentaLibro)
+        {
+            try
+            {
+                pVentaLibro = await VentaLibroController.Get(pVentaLibro);
+                return pVentaLibro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<VentaLibro>> GetListaVentaLibro()
+        {
+            try
+            {
+                return await VentaLibroController.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<VentaLibro> CrearVentaLibro(VentaLibro pVentaLibro)
+        {
+            try
+            {
+                pVentaLibro = await VentaLibroController.Crear(pVentaLibro);
+                return pVentaLibro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarVentaLibro(VentaLibro pVentaLibro)
+        {
+            try
+            {
+                bool res = await VentaLibroController.Modificar(pVentaLibro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarVentaLibro(VentaLibro pVentaLibro)
+        {
+            try
+            {
+                bool res = await VentaLibroController.Eliminar(pVentaLibro);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
+        #region ExamenEstudiante
+
+
+        public async Task<ExamenEstudiante> GetExamenEstudiante(ExamenEstudiante pExamenEstudiante)
+        {
+            try
+            {
+                pExamenEstudiante = await ExamenEstudianteController.Get(pExamenEstudiante);
+                pExamenEstudiante.Funcionario = this.GetFuncionarioByID(pExamenEstudiante.FuncionarioID);
+                pExamenEstudiante.Examen.Grupo = this.GetGrupoByID(pExamenEstudiante.Examen.GrupoID, pExamenEstudiante.Examen.MateriaID);
+                return pExamenEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<ExamenEstudiante>> GetListaExamenEstudiante()
+        {
+            try
+            {
+                List<ExamenEstudiante> lstExamenEstudiante = await ExamenEstudianteController.GetAll();
+                foreach (ExamenEstudiante examenEstudiante in lstExamenEstudiante)
+                {
+                    examenEstudiante.Funcionario = this.GetFuncionarioByID(examenEstudiante.FuncionarioID);
+                    examenEstudiante.Examen.Grupo = this.GetGrupoByID(examenEstudiante.Examen.GrupoID, examenEstudiante.Examen.MateriaID);
+                }
+                return lstExamenEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<ExamenEstudiante> CrearExamenEstudiante(ExamenEstudiante pExamenEstudiante)
+        {
+            try
+            {
+                pExamenEstudiante = await ExamenEstudianteController.Crear(pExamenEstudiante);
+                pExamenEstudiante.Funcionario = this.GetFuncionarioByID(pExamenEstudiante.FuncionarioID);
+                pExamenEstudiante.Examen.Grupo = this.GetGrupoByID(pExamenEstudiante.Examen.GrupoID, pExamenEstudiante.Examen.MateriaID);
+                return pExamenEstudiante;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> ModificarExamenEstudiante(ExamenEstudiante pExamenEstudiante)
+        {
+            try
+            {
+                bool res = await ExamenEstudianteController.Modificar(pExamenEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> EliminarExamenEstudiante(ExamenEstudiante pExamenEstudiante)
+        {
+            try
+            {
+                bool res = await ExamenEstudianteController.Eliminar(pExamenEstudiante);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
+
+
 
 
 

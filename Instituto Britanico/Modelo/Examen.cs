@@ -12,7 +12,7 @@ namespace BibliotecaBritanico.Modelo
 
         public int ID { get; set; }
         [JsonIgnore]
-        public Grupo Grupo { get; set; }
+        public Grupo Grupo { get; set; } = new Grupo();
         public int GrupoID { get; set; }
         public int MateriaID { get; set; }
         public DateTime FechaHora { get; set; }
@@ -24,7 +24,6 @@ namespace BibliotecaBritanico.Modelo
 
         public Examen()
         {
-            this.Grupo = new Grupo();
         }
 
     }
