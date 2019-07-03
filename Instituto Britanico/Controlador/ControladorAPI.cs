@@ -13,11 +13,12 @@ namespace Instituto_Britanico.Controlador
 {
     public class ControladorAPI
     {
-        public List<Grupo> lstGrupos { get; set; }
-        public List<Sucursal> lstSucursales { get; set; }
-        public List<Materia> lstMaterias { get; set; }
-        public List<Funcionario> lstFuncionarios { get; set; }
-        public List<Matricula> lstMatriculas { get; set; } //es la matricula que corresponde al año, siempre es la misma
+        private static ControladorAPI instancia = null;
+        public List<Grupo> lstGrupos { get; set; } = new List<Grupo>();
+        public List<Sucursal> lstSucursales { get; set; } = new List<Sucursal>();
+        public List<Materia> lstMaterias { get; set; } = new List<Materia>();
+        public List<Funcionario> lstFuncionarios { get; set; } = new List<Funcionario>();
+        public List<Matricula> lstMatriculas { get; set; } = new List<Matricula>(); //es la matricula que corresponde al año, siempre es la misma
 
 
         List<Libro> Libros { get; set; }
@@ -44,9 +45,17 @@ namespace Instituto_Britanico.Controlador
 
         List<Convenio> Convenios { get; set; }
 
+        public static async Task<ControladorAPI> getInstancia()
+        {
+            if (instancia == null)
+            {
+                instancia = new ControladorAPI();
+                await instancia.CargarListas();
+            }
+            return instancia;
+        }
 
-
-        public ControladorAPI()
+        private ControladorAPI()
         {
         }
 
@@ -55,8 +64,8 @@ namespace Instituto_Britanico.Controlador
             DateTime InicioDeIngresos = DateTime.Now;
             lstMaterias = await MateriaController.GetAll();
             lstSucursales = await this.GetListaSucursales();
-            lstFuncionarios = await this.GetListaFuncionarios();            
-            lstGrupos = await this.GetListaGrupos();
+            lstFuncionarios = await this.GetListaFuncionarios();
+            lstGrupos = await this.GetListaGruposApi();
             lstMatriculas = await this.GetListaMatriculasByAnio(DateTime.Today.Year);
 
 
@@ -586,6 +595,10 @@ namespace Instituto_Britanico.Controlador
             try
             {
                 pMateria = await MateriaController.Crear(pMateria);
+                if (pMateria != null)
+                {
+                    this.lstMaterias.Add(pMateria);
+                }
                 return pMateria;
             }
             catch (Exception ex)
@@ -982,6 +995,10 @@ namespace Instituto_Britanico.Controlador
             {
                 pFuncionario = await FuncionarioController.Crear(pFuncionario);
                 pFuncionario.Sucursal = this.GetSucursalByID(pFuncionario.SucursalID);
+                if (pFuncionario != null)
+                {
+                    this.lstFuncionarios.Add(pFuncionario);
+                }
                 return pFuncionario;
             }
             catch (Exception ex)
@@ -1304,6 +1321,10 @@ namespace Instituto_Britanico.Controlador
             try
             {
                 pSucursal = await SucursalController.Crear(pSucursal);
+                if (pSucursal != null)
+                {
+                    this.lstSucursales.Add(pSucursal);
+                }
                 return pSucursal;
             }
             catch (Exception ex)
@@ -1517,7 +1538,7 @@ namespace Instituto_Britanico.Controlador
             }
         }
 
-        public async Task<List<Grupo>> GetListaGrupos()
+        private async Task<List<Grupo>> GetListaGruposApi()
         {
             try
             {
@@ -1536,6 +1557,11 @@ namespace Instituto_Britanico.Controlador
             }
         }
 
+        public List<Grupo> GetListaGrupos()
+        {
+            return this.lstGrupos;
+        }
+
         public async Task<Grupo> CrearGrupo(Grupo pGrupo)
         {
             try
@@ -1544,6 +1570,7 @@ namespace Instituto_Britanico.Controlador
                 pGrupo.Materia = this.GetMateriaByID(pGrupo.MateriaID);
                 pGrupo.Sucursal = this.GetSucursalByID(pGrupo.SucursalID);
                 pGrupo.Funcionario = this.GetFuncionarioByID(pGrupo.FuncionarioID);
+                this.lstGrupos.Add(pGrupo);
                 return pGrupo;
             }
             catch (Exception ex)

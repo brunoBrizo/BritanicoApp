@@ -38,9 +38,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Vertical">
                         <Label>Mensaje</Label>
-                        <TextBox Width="600" Height="300" Background="White" BorderBrush="White" HorizontalAlignment="Left" BorderThickness="1" />
+                        <TextBox x:Name="txtCuerpoEmail" Width="600" Height="300" Background="White" BorderBrush="White" HorizontalAlignment="Left" BorderThickness="1" />
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="Enviar" Width="100" Margin="20" Height="40"></Button>
+                            <Button Content="Enviar" Width="100" Margin="20" Height="40" Click="Button_Click"></Button>
                             <Button Content="Cancelar" Width="100" Height="40"></Button>
                         </StackPanel>
                     </StackPanel>

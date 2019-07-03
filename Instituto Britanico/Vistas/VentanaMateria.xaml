@@ -204,7 +204,8 @@
                             x:Name="btnGuardar"
                             Width="100"
                             Margin="20,0"
-                            Content="Guardar" />
+                            Content="Guardar"
+                            Click="BtnGuardar_Click"/>
                         <Button
                             x:Name="btnEditar"
                             Width="100"

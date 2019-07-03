@@ -37,18 +37,25 @@ namespace Instituto_Britanico.Vistas
         public VistaEstudiantes(Window w)
         {
             InitializeComponent();
-            fachada = Fachada.getInstancia();
-            CargarLista();
             Loaded += Estudiantes_Loaded;
             ventana = w;
             brillo = (IBrillo)w;
         }
 
-
-        private void CargarLista()
+        private async void Estudiantes_Loaded(object sender, RoutedEventArgs e)
         {
-            listaEstudiantes = fachada.GetEstudiantesTotal();
-            List<Grupo> listaGrupos = fachada.GetGruposTotalb();
+            fachada = await Fachada.getInstanciaAsync();
+            CargarLista();
+            Ancho = (int)fachada.Tamano.Width;
+            Alto = (int)fachada.Tamano.Height;
+            borde.Height = Alto - 20;
+            borde.Width = Ancho - 20;
+        }
+
+        private async void CargarLista()
+        {
+            listaEstudiantes = await fachada.GetEstudiantes();
+            List<Grupo> listaGrupos = fachada.GetGrupos();
             cbGrupo.ItemsSource = listaGrupos;
             pagina = 0;
             EnviarListaAPantalla(0);
@@ -58,9 +65,7 @@ namespace Instituto_Britanico.Vistas
         {
 
         }
-
-
-
+               
         private void ClickEnCorreo(object sender, RoutedEventArgs e)
         {
             Estudiante est = (Estudiante)dgEstudiantes.SelectedCells[0].Item;
@@ -84,9 +89,7 @@ namespace Instituto_Britanico.Vistas
             pagina = 0;
             EnviarListaAPantalla(0);
         }
-
-
-
+               
         public void RecibirEstudiante(Estudiante e, TipoTransferencia tt)
         {
             if (tt == TipoTransferencia.Borrar)
@@ -114,14 +117,7 @@ namespace Instituto_Britanico.Vistas
 
         #region metodos comunes
 
-        private void Estudiantes_Loaded(object sender, RoutedEventArgs e)
-        {
-            Ancho = (int)fachada.Tamano.Width;
-            Alto = (int)fachada.Tamano.Height;
-            borde.Height = Alto - 20;
-            borde.Width = Ancho - 20;
-        }
-
+        
         private void dobleClick(object sender, MouseButtonEventArgs e)
         {
             Estudiante est = (Estudiante)dgEstudiantes.SelectedCells[0].Item;
@@ -134,7 +130,6 @@ namespace Instituto_Britanico.Vistas
 
         private void ClickEnEditar(object sender, RoutedEventArgs e)
         {
-
             Estudiante est = (Estudiante)dgEstudiantes.SelectedCells[0].Item;
             VentanaEstudiante v = new VentanaEstudiante(ventana, est, TipoTransferencia.Edicion, this);
             v.Owner = ventana;
@@ -148,16 +143,16 @@ namespace Instituto_Britanico.Vistas
         {
             brillo.Aclarar();
         }
-
-
+        
         private void BtnIngresoEstudiante_Click(object sender, RoutedEventArgs e)
         {
-            VentanaEstudiante v = new VentanaEstudiante(ventana, null, TipoTransferencia.Edicion, this);
+            VentanaEstudiante v = new VentanaEstudiante(ventana, null, TipoTransferencia.Nuevo, this);
             brillo.Oscurecer();
             v.Closed += AclararBrillo;
             v.Owner = ventana;
             v.Show();
         }
+
         private void TeclaEnNombre(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
@@ -177,6 +172,7 @@ namespace Instituto_Britanico.Vistas
             v.Closed += AclararBrillo;
             v.ShowDialog();
         }
+
         private void BtnAtras_Click(object sender, RoutedEventArgs e)
         {
             EnviarListaAPantalla(-1);
@@ -186,6 +182,7 @@ namespace Instituto_Britanico.Vistas
         {
             EnviarListaAPantalla(1);
         }
+
         internal void EnviarListaAPantalla(int i)
         {
             int saltear = 0;
@@ -209,6 +206,8 @@ namespace Instituto_Britanico.Vistas
             dgEstudiantes.ItemsSource = lista;
 
         }
+
+
         #endregion
 
     }

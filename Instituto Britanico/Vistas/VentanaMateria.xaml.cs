@@ -24,7 +24,7 @@ namespace Instituto_Britanico.Vistas
     {
         Fachada fachada;
         Materia materia;
-        List<Libro> listaLibros=new List<Libro>();
+        List<Libro> listaLibros = new List<Libro>();
         Window ventana;
         TransferenciaObjeto to;
         TipoTransferencia tt;
@@ -39,8 +39,6 @@ namespace Instituto_Britanico.Vistas
             this.tt = tt;
             materia = mat;
             Loaded += VentanaMateria_Loaded;
-            
-
         }
 
         private void VentanaMateria_Loaded(object sender, RoutedEventArgs e)
@@ -73,7 +71,6 @@ namespace Instituto_Britanico.Vistas
                     }
                     i++;
                 }
-                string texto = "";
                 if (materia.LstLibros != null)
                 {
                     if (materia.LstLibros.Count > 0)
@@ -89,7 +86,7 @@ namespace Instituto_Britanico.Vistas
                 }
             }
             cambioDatos = false;
-  
+
         }
 
         private void DeshabilitarBotonesYCampos()
@@ -118,9 +115,9 @@ namespace Instituto_Britanico.Vistas
             listaLibros.Clear();
         }
 
-        private void CargarSucursales()
+        private async Task CargarSucursales()
         {
-            List<Sucursal> listaSucursales = fachada.GetSucursalesTotal();
+            List<Sucursal> listaSucursales = await fachada.GetSucursales();
             cbSucursal.ItemsSource = listaSucursales;
         }
 
@@ -131,7 +128,6 @@ namespace Instituto_Britanico.Vistas
             dgLibros.ItemsSource = lista;
         }
 
-      
         private void CerrarVentana(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -139,7 +135,7 @@ namespace Instituto_Britanico.Vistas
 
         private void TeclaEnVentana(object sender, KeyEventArgs e)
         {
-            if(e.Key==Key.Escape)  this.Close();
+            if (e.Key == Key.Escape) this.Close();
         }
 
         private void AgregarLibro(object sender, MouseButtonEventArgs e)
@@ -156,7 +152,7 @@ namespace Instituto_Britanico.Vistas
                 }
             }
 
-            
+
 
 
         }
@@ -179,6 +175,7 @@ namespace Instituto_Britanico.Vistas
 
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
         {
+            this.tt = TipoTransferencia.Edicion;
             HabilitarBotonesYCampos();
         }
 
@@ -199,7 +196,7 @@ namespace Instituto_Britanico.Vistas
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            if(cambioDatos)
+            if (cambioDatos)
             {
                 if (MessageBox.Show("Desea cancelar edicion?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
@@ -216,11 +213,10 @@ namespace Instituto_Britanico.Vistas
             {
                 DeshabilitarBotonesYCampos();
                 CargarDatosMateria();
-               
+
             }
         }
 
-        
         private void CambioTexto(object sender, TextChangedEventArgs e)
         {
             cambioDatos = true;
@@ -231,30 +227,79 @@ namespace Instituto_Britanico.Vistas
             cambioDatos = true;
         }
 
-        private void BtnEliminar_Click(object sender, RoutedEventArgs e)
+        private async void BtnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Desea eliminar esta materia?", "Eliminar Materia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            try
             {
-                
-                bool eliminado = true;//aqui logica para eliminar materia
-
-                if (eliminado)
-                {//se pudo borrar
-                    to.RecibirObjeto(materia, TipoTransferencia.Borrar);
-                    LevantarPopUp(TipoMensaje.Info, "La materia " + materia.Nombre + " de la sucursal " + materia.Sucursal.Nombre + " se ha eliminado correctamente");
-                    this.Close();
+                if (MessageBox.Show("Desea eliminar esta materia?", "Eliminar Materia", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    bool eliminado = false;
+                    eliminado = await fachada.EliminarMateria(this.materia.ID);
+                    if (eliminado)
+                    {
+                        to.RecibirObjeto(materia, TipoTransferencia.Borrar);
+                        LevantarPopUp(TipoMensaje.Info, "La materia " + materia.Nombre + " de la sucursal " + materia.Sucursal.Nombre + " se ha eliminado correctamente");
+                        this.Close();
+                    }
+                    else
+                    {
+                        LevantarPopUp(TipoMensaje.Error, "No fue posible eliminar esta materia");
+                    }
                 }
-                else
-                {//no se pudo borrar
-                    LevantarPopUp(TipoMensaje.Error, "No fue posible eliminar esta materia");
-                }
-                
+            }
+            catch (Exception ex)
+            {
+                this.LevantarPopUp(TipoMensaje.Error, "No fue posible eliminar esta materia");
             }
         }
+
         private void LevantarPopUp(TipoMensaje tm, string mensaje)
         {
             PopUpVentana pv = new PopUpVentana(mensaje, tm, 2000, 40, (((int)fachada.Tamano.Width) + 160), (int)fachada.Tamano.Height);
             pv.Show();
+        }
+
+        private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string errorMsg = String.Empty;
+                decimal precio = 0;
+                Decimal.TryParse(txtPrecio.Text, out precio);
+                if (precio <= 0)
+                {
+                    errorMsg = "Ingrese el precio \n";
+                }
+                if (txtNombre.Text.Equals(String.Empty))
+                {
+                    errorMsg += "Ingrese el nombre \n";
+                }
+                if ((Sucursal)cbSucursal.SelectedItem == null)
+                {
+                    errorMsg += "Seleccione una sucursal \n";
+                }
+                if (!errorMsg.Equals(String.Empty))
+                {
+                    this.LevantarPopUp(TipoMensaje.Error, errorMsg);
+                }
+                else
+                {
+                    if (tt.Equals(TipoTransferencia.Edicion))
+                    {
+                        await fachada.ModificarMateria(this.materia.ID, ((Sucursal)cbSucursal.SelectedItem).ID, txtNombre.Text, precio);
+                    }
+                    else if (tt.Equals(TipoTransferencia.Nuevo))
+                    {
+                        await fachada.CrearMateria(((Sucursal)cbSucursal.SelectedItem).ID, txtNombre.Text, precio);
+                        this.LevantarPopUp(TipoMensaje.Info, "Se creó la materia!");
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.LevantarPopUp(TipoMensaje.Error, ex.Message);
+            }
         }
     }
 }

@@ -28,19 +28,12 @@ namespace Instituto_Britanico
         {
             InitializeComponent();
             ApiHelper.InicializarCliente();
-            fachada = Fachada.getInstancia();
-            this.CargarDatosAPI(); //ESTO SE DEBE HACER AL MOMENTO DE LOGIN PARA QUE EL METODO SEA ASYNC Y TASK
             Loaded += MainWindow_Loaded;
         }
 
-        private async Task CargarDatosAPI()
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            ControladorAPI cApi = new ControladorAPI();
-            await cApi.CargarListas();
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
+            fachada = await Fachada.getInstanciaAsync();
             ObtenerResolucion();
             System.Windows.Size tamano = new System.Windows.Size(ancho, alto);
             fachada.SetResolucion(tamano);
@@ -50,10 +43,6 @@ namespace Instituto_Britanico
             stackContenido.Height = alto;
             stackContenido.Width = ancho;
             stackContenido.Children.Clear();
-          //  stackContenido.Children.Add(new VistaEstudiantes(this));
-
-            BorrarBoton alberto = new BorrarBoton();
-            alberto.Show();
         }
 
         private void BtnEstudiantes_Click(object sender, RoutedEventArgs e)

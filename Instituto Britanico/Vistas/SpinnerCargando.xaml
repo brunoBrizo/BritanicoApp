@@ -10,7 +10,7 @@
         WindowStyle="None"
         KeyDown="Window_KeyDown"
         WindowStartupLocation="CenterScreen"
-        Title="MenuBORRAR" Height="80" Width="80">
+        Title="MenuBORRAR" Height="120" Width="120">
     <Grid Background="Transparent">
         <Button
             Background="LightGray"

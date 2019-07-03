@@ -34,7 +34,7 @@ namespace BibliotecaBritanico.Modelo
             {
                 errorMsg += "Debe ingresar el precio de la materia \n";
             }
-            if (materia.Sucursal.ID < 1)
+            if (materia.SucursalID < 1)
             {
                 errorMsg += "Debe ingresar la sucursal de la materia \n";
             }

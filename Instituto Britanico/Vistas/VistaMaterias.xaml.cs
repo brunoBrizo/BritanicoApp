@@ -32,15 +32,15 @@ namespace Instituto_Britanico.Vistas
         public VistaMaterias(Window v)
         {
             InitializeComponent();
-            fachada = Fachada.getInstancia();
+            
             this.Ventana = v;
             brillo = (IBrillo)v;
             Loaded += VistaMaterias_Loaded;
         }
 
-        private void VistaMaterias_Loaded(object sender, RoutedEventArgs e)
+        private async void VistaMaterias_Loaded(object sender, RoutedEventArgs e)
         {
-
+            fachada = await Fachada.getInstanciaAsync();
             Ancho = (int)fachada.Tamano.Width;
             Alto = (int)fachada.Tamano.Height ;
             borde.Height = Alto-20 ;

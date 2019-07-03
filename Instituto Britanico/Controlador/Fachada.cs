@@ -15,26 +15,40 @@ namespace Instituto_Britanico.Modelo
     public class Fachada
     {
         private static Fachada instancia = null;
-        private ControladorAPI cApi = new ControladorAPI();
+
         public Size Tamano { get; set; }
 
-
+        public static ControladorAPI CApi = null;
 
         public static Fachada getInstancia()
         {
             if (instancia == null)
             {
                 instancia = new Fachada();
-
             }
             return instancia;
+        }
+
+        public static async Task<Fachada> getInstanciaAsync()
+        {
+            if (instancia == null)
+            {
+                instancia = new Fachada();
+                CApi = await GetControladorAPI();
+            }
+            return instancia;
+        }
+
+        private static async Task<ControladorAPI> GetControladorAPI()
+        {
+            return await ControladorAPI.getInstancia();
         }
 
         public List<Funcionario> GetProfesoresTotal()
         {
             try
             {
-                return cApi.GetProfesoresTotal();
+                return CApi.GetProfesoresTotal();
             }
             catch (Exception ex)
             {
@@ -52,14 +66,14 @@ namespace Instituto_Britanico.Modelo
 
         public Materia GetMateria(int id)
         {
-            return cApi.GetMateriaByID(id);
+            return CApi.GetMateriaByID(id);
         }
 
         public List<Materia> GetMaterias()
         {
             try
             {
-                return cApi.GetListaMaterias();
+                return CApi.GetListaMaterias();
             }
             catch (Exception ex)
             {
@@ -79,7 +93,7 @@ namespace Instituto_Britanico.Modelo
                     Precio = precio
                 };
                 Materia.ValidarMateriaInsert(materia);
-                materia = await cApi.CrearMateria(materia);
+                materia = await CApi.CrearMateria(materia);
                 return materia;
             }
             catch (ValidacionException ex)
@@ -104,7 +118,7 @@ namespace Instituto_Britanico.Modelo
                     Precio = precio
                 };
                 Materia.ValidarMateriaModificar(materia);
-                bool res = await cApi.ModificarMateria(materia);
+                bool res = await CApi.ModificarMateria(materia);
                 return res;
             }
             catch (ValidacionException ex)
@@ -127,7 +141,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarMateria(materia);
+                bool res = await CApi.EliminarMateria(materia);
                 return res;
             }
             catch (Exception ex)
@@ -153,7 +167,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                convenio = await cApi.GetConvenio(convenio);
+                convenio = await CApi.GetConvenio(convenio);
                 return convenio;
             }
             catch (Exception ex)
@@ -166,7 +180,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaConvenios();
+                return await CApi.GetListaConvenios();
             }
             catch (Exception ex)
             {
@@ -191,7 +205,7 @@ namespace Instituto_Britanico.Modelo
                     Descuento = descuento
                 };
                 Convenio.ValidarConvenioInsert(convenio);
-                convenio = await cApi.CrearConvenio(convenio);
+                convenio = await CApi.CrearConvenio(convenio);
                 return convenio;
             }
             catch (ValidacionException ex)
@@ -221,7 +235,7 @@ namespace Instituto_Britanico.Modelo
                     Descuento = descuento
                 };
                 Convenio.ValidarConvenioModificar(convenio);
-                bool res = await cApi.ModificarConvenio(convenio);
+                bool res = await CApi.ModificarConvenio(convenio);
                 return res;
             }
             catch (ValidacionException ex)
@@ -244,7 +258,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarConvenio(convenio);
+                bool res = await CApi.EliminarConvenio(convenio);
                 return res;
             }
             catch (Exception ex)
@@ -270,7 +284,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                email = await cApi.GetEmail(email);
+                email = await CApi.GetEmail(email);
                 return email;
             }
             catch (Exception ex)
@@ -283,7 +297,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaEmails();
+                return await CApi.GetListaEmails();
             }
             catch (Exception ex)
             {
@@ -295,7 +309,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaEmailsEntreFechas(desde, hasta);
+                return await CApi.GetListaEmailsEntreFechas(desde, hasta);
             }
             catch (Exception ex)
             {
@@ -318,7 +332,7 @@ namespace Instituto_Britanico.Modelo
                     Enviado = false
                 };
                 Email.ValidarEmailInsert(email);
-                email = await cApi.CrearEmail(email);
+                email = await CApi.CrearEmail(email);
                 return email;
             }
             catch (ValidacionException ex)
@@ -346,7 +360,7 @@ namespace Instituto_Britanico.Modelo
                     Enviado = enviado
                 };
                 Email.ValidarEmailModificar(email);
-                bool res = await cApi.ModificarEmail(email);
+                bool res = await CApi.ModificarEmail(email);
                 return res;
             }
             catch (ValidacionException ex)
@@ -369,7 +383,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarEmail(email);
+                bool res = await CApi.EliminarEmail(email);
                 return res;
             }
             catch (Exception ex)
@@ -395,7 +409,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                parametro = await cApi.GetParametro(parametro);
+                parametro = await CApi.GetParametro(parametro);
                 return parametro;
             }
             catch (Exception ex)
@@ -408,7 +422,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaParametros();
+                return await CApi.GetListaParametros();
             }
             catch (Exception ex)
             {
@@ -427,7 +441,7 @@ namespace Instituto_Britanico.Modelo
                     Valor = valor
                 };
                 Parametro.ValidarParametroInsert(parametro);
-                parametro = await cApi.CrearParametro(parametro);
+                parametro = await CApi.CrearParametro(parametro);
                 return parametro;
             }
             catch (ValidacionException ex)
@@ -451,7 +465,7 @@ namespace Instituto_Britanico.Modelo
                     Valor = valor
                 };
                 Parametro.ValidarParametroModificar(parametro);
-                bool res = await cApi.ModificarParametro(parametro);
+                bool res = await CApi.ModificarParametro(parametro);
                 return res;
             }
             catch (ValidacionException ex)
@@ -474,7 +488,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarParametro(parametro);
+                bool res = await CApi.EliminarParametro(parametro);
                 return res;
             }
             catch (Exception ex)
@@ -503,7 +517,7 @@ namespace Instituto_Britanico.Modelo
                     ID = id,
                     Materia = materia
                 };
-                libro = await cApi.GetLibro(libro);
+                libro = await CApi.GetLibro(libro);
                 return libro;
             }
             catch (Exception ex)
@@ -516,7 +530,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaLibros();
+                return await CApi.GetListaLibros();
             }
             catch (Exception ex)
             {
@@ -538,7 +552,7 @@ namespace Instituto_Britanico.Modelo
                     Editorial = editorial
                 };
                 Libro.ValidarInsertLibro(libro);
-                libro = await cApi.CrearLibro(libro);
+                libro = await CApi.CrearLibro(libro);
                 return libro;
             }
             catch (ValidacionException ex)
@@ -565,7 +579,7 @@ namespace Instituto_Britanico.Modelo
                     Editorial = editorial
                 };
                 Libro.ValidarModificarLibro(libro);
-                bool res = await cApi.ModificarLibro(libro);
+                bool res = await CApi.ModificarLibro(libro);
                 return res;
             }
             catch (ValidacionException ex)
@@ -591,7 +605,7 @@ namespace Instituto_Britanico.Modelo
                     ID = id,
                     Materia = materia
                 };
-                bool res = await cApi.EliminarLibro(libro);
+                bool res = await CApi.EliminarLibro(libro);
                 return res;
             }
             catch (Exception ex)
@@ -620,7 +634,7 @@ namespace Instituto_Britanico.Modelo
                     CI = ci,
                     Clave = password
                 };
-                funcionario = await cApi.LoginFuncionario(funcionario);
+                funcionario = await CApi.LoginFuncionario(funcionario);
                 return funcionario;
             }
             catch (Exception ex)
@@ -641,7 +655,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                funcionario = await cApi.GetFuncionario(funcionario);
+                funcionario = await CApi.GetFuncionario(funcionario);
                 return funcionario;
             }
             catch (Exception ex)
@@ -654,7 +668,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaFuncionarios();
+                return await CApi.GetListaFuncionarios();
             }
             catch (Exception ex)
             {
@@ -683,7 +697,7 @@ namespace Instituto_Britanico.Modelo
                     TipoFuncionario = tipo
                 };
                 Funcionario.ValidarFuncionarioInsert(funcionario);
-                funcionario = await cApi.CrearFuncionario(funcionario);
+                funcionario = await CApi.CrearFuncionario(funcionario);
                 return funcionario;
             }
             catch (ValidacionException ex)
@@ -717,7 +731,7 @@ namespace Instituto_Britanico.Modelo
                     TipoFuncionario = tipo
                 };
                 Funcionario.ValidarFuncionarioModificar(funcionario);
-                bool res = await cApi.ModificarFuncionario(funcionario);
+                bool res = await CApi.ModificarFuncionario(funcionario);
                 return res;
             }
             catch (ValidacionException ex)
@@ -742,7 +756,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarFuncionario(funcionario);
+                bool res = await CApi.EliminarFuncionario(funcionario);
                 return res;
             }
             catch (Exception ex)
@@ -770,7 +784,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                matricula = await cApi.GetMatricula(matricula);
+                matricula = await CApi.GetMatricula(matricula);
                 return matricula;
             }
             catch (Exception ex)
@@ -783,7 +797,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaMatriculas();
+                return await CApi.GetListaMatriculas();
             }
             catch (Exception ex)
             {
@@ -804,7 +818,7 @@ namespace Instituto_Britanico.Modelo
                     Precio = precio
                 };
                 Matricula.ValidarMatriculaInsert(matricula);
-                matricula = await cApi.CrearMatricula(matricula);
+                matricula = await CApi.CrearMatricula(matricula);
                 return matricula;
             }
             catch (ValidacionException ex)
@@ -830,7 +844,7 @@ namespace Instituto_Britanico.Modelo
                     Precio = precio
                 };
                 Matricula.ValidarMatriculaModificar(matricula);
-                bool res = await cApi.ModificarMatricula(matricula);
+                bool res = await CApi.ModificarMatricula(matricula);
                 return res;
             }
             catch (ValidacionException ex)
@@ -855,7 +869,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarMatricula(matricula);
+                bool res = await CApi.EliminarMatricula(matricula);
                 return res;
             }
             catch (Exception ex)
@@ -882,7 +896,7 @@ namespace Instituto_Britanico.Modelo
                     empresa.Rut = rut;
                 else
                     throw new ValidacionException("Debe asignar ID o RUT a la empresa");
-                empresa = await cApi.GetEmpresa(empresa);
+                empresa = await CApi.GetEmpresa(empresa);
                 return empresa;
             }
             catch (Exception ex)
@@ -895,7 +909,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaEmpresas();
+                return await CApi.GetListaEmpresas();
             }
             catch (Exception ex)
             {
@@ -920,7 +934,7 @@ namespace Instituto_Britanico.Modelo
                     LogoImagen = logoImagen
                 };
                 Empresa.ValidarEmpresaInsert(empresa);
-                empresa = await cApi.CrearEmpresa(empresa);
+                empresa = await CApi.CrearEmpresa(empresa);
                 return empresa;
             }
             catch (ValidacionException ex)
@@ -950,7 +964,7 @@ namespace Instituto_Britanico.Modelo
                     LogoImagen = logoImagen
                 };
                 Empresa.ValidarEmpresaModificar(empresa);
-                bool res = await cApi.ModificarEmpresa(empresa);
+                bool res = await CApi.ModificarEmpresa(empresa);
                 return res;
             }
             catch (ValidacionException ex)
@@ -975,7 +989,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarEmpresa(empresa);
+                bool res = await CApi.EliminarEmpresa(empresa);
                 return res;
             }
             catch (Exception ex)
@@ -1003,7 +1017,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                pago = await cApi.GetPago(pago);
+                pago = await CApi.GetPago(pago);
                 return pago;
             }
             catch (Exception ex)
@@ -1016,7 +1030,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaPagos();
+                return await CApi.GetListaPagos();
             }
             catch (Exception ex)
             {
@@ -1039,7 +1053,7 @@ namespace Instituto_Britanico.Modelo
                     Observacion = observacion
                 };
                 Pago.ValidarPagoInsert(pago);
-                pago = await cApi.CrearPago(pago);
+                pago = await CApi.CrearPago(pago);
                 return pago;
             }
             catch (ValidacionException ex)
@@ -1067,7 +1081,7 @@ namespace Instituto_Britanico.Modelo
                     Observacion = observacion
                 };
                 Pago.ValidarPagoModificar(pago);
-                bool res = await cApi.ModificarPago(pago);
+                bool res = await CApi.ModificarPago(pago);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1092,7 +1106,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarPago(pago);
+                bool res = await CApi.EliminarPago(pago);
                 return res;
             }
             catch (Exception ex)
@@ -1120,7 +1134,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                sucursal = await cApi.GetSucursal(sucursal);
+                sucursal = await CApi.GetSucursal(sucursal);
                 return sucursal;
             }
             catch (Exception ex)
@@ -1133,7 +1147,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaSucursales();
+                return await CApi.GetListaSucursales();
             }
             catch (Exception ex)
             {
@@ -1156,7 +1170,7 @@ namespace Instituto_Britanico.Modelo
                     Encargado = encargado
                 };
                 Sucursal.ValidarSucursalInsert(sucursal);
-                sucursal = await cApi.CrearSucursal(sucursal);
+                sucursal = await CApi.CrearSucursal(sucursal);
                 return sucursal;
             }
             catch (ValidacionException ex)
@@ -1184,7 +1198,7 @@ namespace Instituto_Britanico.Modelo
                     Encargado = encargado
                 };
                 Sucursal.ValidarSucursalModificar(sucursal);
-                bool res = await cApi.ModificarSucursal(sucursal);
+                bool res = await CApi.ModificarSucursal(sucursal);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1209,7 +1223,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarSucursal(sucursal);
+                bool res = await CApi.EliminarSucursal(sucursal);
                 return res;
             }
             catch (Exception ex)
@@ -1237,7 +1251,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                estudiante = await cApi.GetEstudiante(estudiante);
+                estudiante = await CApi.GetEstudiante(estudiante);
                 return estudiante;
             }
             catch (Exception ex)
@@ -1250,7 +1264,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaEstudiantes();
+                return await CApi.GetListaEstudiantes();
             }
             catch (Exception ex)
             {
@@ -1285,7 +1299,7 @@ namespace Instituto_Britanico.Modelo
                     MateriaID = materiaID
                 };
                 Estudiante.ValidarEstudianteInsert(estudiante);
-                estudiante = await cApi.CrearEstudiante(estudiante);
+                estudiante = await CApi.CrearEstudiante(estudiante);
                 return estudiante;
             }
             catch (ValidacionException ex)
@@ -1325,7 +1339,7 @@ namespace Instituto_Britanico.Modelo
                     MateriaID = materiaID
                 };
                 Estudiante.ValidarEstudianteModificar(estudiante);
-                bool res = await cApi.ModificarEstudiante(estudiante);
+                bool res = await CApi.ModificarEstudiante(estudiante);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1350,7 +1364,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarEstudiante(estudiante);
+                bool res = await CApi.EliminarEstudiante(estudiante);
                 return res;
             }
             catch (Exception ex)
@@ -1379,7 +1393,7 @@ namespace Instituto_Britanico.Modelo
                     ID = id,
                     GrupoID = grupoID
                 };
-                examen = await cApi.GetExamen(examen);
+                examen = await CApi.GetExamen(examen);
                 return examen;
             }
             catch (Exception ex)
@@ -1392,7 +1406,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaExamenes();
+                return await CApi.GetListaExamenes();
             }
             catch (Exception ex)
             {
@@ -1415,7 +1429,7 @@ namespace Instituto_Britanico.Modelo
                     FechaHora = DateTime.Now
                 };
                 Examen.ValidarExamenInsert(examen);
-                examen = await cApi.CrearExamen(examen);
+                examen = await CApi.CrearExamen(examen);
                 return examen;
             }
             catch (ValidacionException ex)
@@ -1443,7 +1457,7 @@ namespace Instituto_Britanico.Modelo
                     FechaHora = fechaHora
                 };
                 Examen.ValidarExamenModificar(examen);
-                bool res = await cApi.ModificarExamen(examen);
+                bool res = await CApi.ModificarExamen(examen);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1469,7 +1483,7 @@ namespace Instituto_Britanico.Modelo
                     ID = id,
                     GrupoID = grupoID
                 };
-                bool res = await cApi.EliminarExamen(examen);
+                bool res = await CApi.EliminarExamen(examen);
                 return res;
             }
             catch (Exception ex)
@@ -1498,7 +1512,7 @@ namespace Instituto_Britanico.Modelo
                     ID = id,
                     MateriaID = materiaID
                 };
-                grupo = await cApi.GetGrupo(grupo);
+                grupo = await CApi.GetGrupo(grupo);
                 return grupo;
             }
             catch (Exception ex)
@@ -1507,11 +1521,11 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<List<Grupo>> GetGrupos()
+        public List<Grupo> GetGrupos()
         {
             try
             {
-                return await cApi.GetListaGrupos();
+                return CApi.GetListaGrupos();
             }
             catch (Exception ex)
             {
@@ -1536,7 +1550,7 @@ namespace Instituto_Britanico.Modelo
                     LstDias = dias
                 };
                 Grupo.ValidarGrupoInsert(grupo);
-                grupo = await cApi.CrearGrupo(grupo);
+                grupo = await CApi.CrearGrupo(grupo);
                 return grupo;
             }
             catch (ValidacionException ex)
@@ -1566,7 +1580,7 @@ namespace Instituto_Britanico.Modelo
                     LstDias = dias
                 };
                 Grupo.ValidarGrupoModificar(grupo);
-                bool res = await cApi.ModificarGrupo(grupo);
+                bool res = await CApi.ModificarGrupo(grupo);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1592,7 +1606,7 @@ namespace Instituto_Britanico.Modelo
                     ID = id,
                     MateriaID = materiaID
                 };
-                bool res = await cApi.EliminarGrupo(grupo);
+                bool res = await CApi.EliminarGrupo(grupo);
                 return res;
             }
             catch (Exception ex)
@@ -1635,7 +1649,7 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 matriculaEstudiante.Estudiante = estudiante;
-                matriculaEstudiante = await cApi.GetMatriculaEstudiante(matriculaEstudiante);
+                matriculaEstudiante = await CApi.GetMatriculaEstudiante(matriculaEstudiante);
                 return matriculaEstudiante;
             }
             catch (Exception ex)
@@ -1648,7 +1662,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaMatriculaEstudiante();
+                return await CApi.GetListaMatriculaEstudiante();
             }
             catch (Exception ex)
             {
@@ -1681,7 +1695,7 @@ namespace Instituto_Britanico.Modelo
                 };
                 matriculaEstudiante.Estudiante = estudiante;
                 MatriculaEstudiante.ValidarMatriculaEstudianteInsert(matriculaEstudiante);
-                matriculaEstudiante = await cApi.CrearMatriculaEstudiante(matriculaEstudiante);
+                matriculaEstudiante = await CApi.CrearMatriculaEstudiante(matriculaEstudiante);
                 return matriculaEstudiante;
             }
             catch (ValidacionException ex)
@@ -1719,7 +1733,7 @@ namespace Instituto_Britanico.Modelo
                 };
                 matriculaEstudiante.Estudiante = estudiante;
                 MatriculaEstudiante.ValidarMatriculaEstudianteModificar(matriculaEstudiante);
-                bool res = await cApi.ModificarMatriculaEstudiante(matriculaEstudiante);
+                bool res = await CApi.ModificarMatriculaEstudiante(matriculaEstudiante);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1759,7 +1773,7 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 matriculaEstudiante.Estudiante = estudiante;
-                bool res = await cApi.EliminarMatriculaEstudiante(matriculaEstudiante);
+                bool res = await CApi.EliminarMatriculaEstudiante(matriculaEstudiante);
                 return res;
             }
             catch (Exception ex)
@@ -1787,7 +1801,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                mensualidad = await cApi.GetMensualidad(mensualidad);
+                mensualidad = await CApi.GetMensualidad(mensualidad);
                 return mensualidad;
             }
             catch (Exception ex)
@@ -1800,7 +1814,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaMensualidades();
+                return await CApi.GetListaMensualidades();
             }
             catch (Exception ex)
             {
@@ -1830,7 +1844,7 @@ namespace Instituto_Britanico.Modelo
                 };
                 mensualidad.Estudiante = estudiante;
                 Mensualidad.ValidarMensualidadInsert(mensualidad);
-                mensualidad = await cApi.CrearMensualidad(mensualidad);
+                mensualidad = await CApi.CrearMensualidad(mensualidad);
                 return mensualidad;
             }
             catch (ValidacionException ex)
@@ -1865,7 +1879,7 @@ namespace Instituto_Britanico.Modelo
                 };
                 mensualidad.Estudiante = estudiante;
                 Mensualidad.ValidarMensualidadModificar(mensualidad);
-                bool res = await cApi.ModificarMensualidad(mensualidad);
+                bool res = await CApi.ModificarMensualidad(mensualidad);
                 return res;
             }
             catch (ValidacionException ex)
@@ -1890,7 +1904,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = id
                 };
-                bool res = await cApi.EliminarMensualidad(mensualidad);
+                bool res = await CApi.EliminarMensualidad(mensualidad);
                 return res;
             }
             catch (Exception ex)
@@ -1937,7 +1951,7 @@ namespace Instituto_Britanico.Modelo
                 };
                 venta.Libro = libro;
                 venta.Estudiante = estudiante;
-                venta = await cApi.GetVentaLibro(venta);
+                venta = await CApi.GetVentaLibro(venta);
                 return venta;
             }
             catch (Exception ex)
@@ -1950,7 +1964,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaVentaLibro();
+                return await CApi.GetListaVentaLibro();
             }
             catch (Exception ex)
             {
@@ -1985,7 +1999,7 @@ namespace Instituto_Britanico.Modelo
                 venta.Libro = libro;
                 venta.Estudiante = estudiante;
                 VentaLibro.ValidarVentaLibroInsert(venta);
-                venta = await cApi.CrearVentaLibro(venta);
+                venta = await CApi.CrearVentaLibro(venta);
                 return venta;
             }
             catch (ValidacionException ex)
@@ -2025,7 +2039,7 @@ namespace Instituto_Britanico.Modelo
                 venta.Libro = libro;
                 venta.Estudiante = estudiante;
                 VentaLibro.ValidarVentaLibroModificar(venta);
-                bool res = await cApi.ModificarVentaLibro(venta);
+                bool res = await CApi.ModificarVentaLibro(venta);
                 return res;
             }
             catch (ValidacionException ex)
@@ -2069,7 +2083,7 @@ namespace Instituto_Britanico.Modelo
                 };
                 venta.Libro = libro;
                 venta.Estudiante = estudiante;
-                bool res = await cApi.EliminarVentaLibro(venta);
+                bool res = await CApi.EliminarVentaLibro(venta);
                 return res;
             }
             catch (Exception ex)
@@ -2110,7 +2124,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = estudianteID
                 };
-                examenEstudiante = await cApi.GetExamenEstudiante(examenEstudiante);
+                examenEstudiante = await CApi.GetExamenEstudiante(examenEstudiante);
                 return examenEstudiante;
             }
             catch (Exception ex)
@@ -2123,7 +2137,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return await cApi.GetListaExamenEstudiante();
+                return await CApi.GetListaExamenEstudiante();
             }
             catch (Exception ex)
             {
@@ -2160,7 +2174,7 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 ExamenEstudiante.ValidarExamenEstudianteInsert(examenEstudiante);
-                examenEstudiante = await cApi.CrearExamenEstudiante(examenEstudiante);
+                examenEstudiante = await CApi.CrearExamenEstudiante(examenEstudiante);
                 return examenEstudiante;
             }
             catch (ValidacionException ex)
@@ -2202,7 +2216,7 @@ namespace Instituto_Britanico.Modelo
                     ID = estudianteID
                 };
                 ExamenEstudiante.ValidarExamenEstudianteModificar(examenEstudiante);
-                bool res = await cApi.ModificarExamenEstudiante(examenEstudiante);
+                bool res = await CApi.ModificarExamenEstudiante(examenEstudiante);
                 return res;
             }
             catch (ValidacionException ex)
@@ -2240,7 +2254,7 @@ namespace Instituto_Britanico.Modelo
                 {
                     ID = estudianteID
                 };
-                bool res = await cApi.EliminarExamenEstudiante(examenEstudiante);
+                bool res = await CApi.EliminarExamenEstudiante(examenEstudiante);
                 return res;
             }
             catch (Exception ex)
@@ -2268,12 +2282,12 @@ namespace Instituto_Britanico.Modelo
 
         public List<Estudiante> GetEstudiantesTotal()
         {
-            return cApi.GetEstudiantesTotal();
+            return CApi.GetEstudiantesTotal();
         }
 
         public List<Libro> GetLibrosTotal()
         {
-            return cApi.GetLibrosTotal();
+            return CApi.GetLibrosTotal();
         }
 
         internal void SetResolucion(Size tamano)
@@ -2283,73 +2297,73 @@ namespace Instituto_Britanico.Modelo
 
         internal List<Convenio> GetConveniosTotal()
         {
-            return cApi.GetConveniosTotal();
+            return CApi.GetConveniosTotal();
         }
 
 
         public List<Pago> GetPagosTotal()
         {
-            return cApi.GetPagosTotal();
+            return CApi.GetPagosTotal();
         }
 
         public List<Sucursal> GetSucursalesTotal()
         {
-            return cApi.GetSucursalesTotal();
+            return CApi.GetSucursalesTotal();
         }
 
 
         internal List<Examen> GetExamenesTotal()
         {
-            return cApi.GetExamenesTotal();
+            return CApi.GetExamenesTotal();
         }
 
         internal List<Grupo> GetGruposTotalb()
         {
-            return cApi.GetGruposTotalb();
+            return CApi.GetGruposTotalb();
         }
 
         internal List<Funcionario> GetFuncionariosTotal()
         {
-            return cApi.GetFuncionariosTotal();
+            return CApi.GetFuncionariosTotal();
         }
 
         public List<Estudiante> GetEstudiantesPorGrupo(Grupo g)
         {
-            return cApi.GetEstudiantesPorGrupo(g);
+            return CApi.GetEstudiantesPorGrupo(g);
         }
 
         internal List<Estudiante> GetEstudiantesPorNombre(string texto)
         {
-            return cApi.GetEstudiantesPorNombre(texto);
+            return CApi.GetEstudiantesPorNombre(texto);
         }
 
         internal List<Estudiante> GetEstudiantesPorCedula(string cedula)
         {
-            return cApi.GetEstudiantesPorCedula(cedula);
+            return CApi.GetEstudiantesPorCedula(cedula);
         }
 
         internal List<Funcionario> GetFuncionariosActivos()
         {
-            return cApi.GetFuncionariosActivos();
+            return CApi.GetFuncionariosActivos();
         }
 
         internal List<Funcionario> GetFuncionariosNoActivos()
         {
-            return cApi.GetFuncionariosNoActivos();
+            return CApi.GetFuncionariosNoActivos();
         }
 
 
 
         internal List<Pago> GetPagosPorFiltro(string concepto, Sucursal suc, decimal minimo, decimal maximo, DateTime fechaInicial, DateTime fechaFinal)
         {
-            return cApi.GetPagosPorFiltros(concepto, suc, minimo, maximo, fechaInicial, fechaFinal, null);
+            return CApi.GetPagosPorFiltros(concepto, suc, minimo, maximo, fechaInicial, fechaFinal, null);
         }
 
         internal List<Grupo> GetGruposPorNombre(string text)
         {
             try
             {
-                return cApi.GetGruposPorNombre(text);
+                return CApi.GetGruposPorNombre(text);
             }
             catch (Exception ex)
             {
@@ -2361,7 +2375,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.AltaEstudiante(nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
+                return CApi.AltaEstudiante(nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
             }
             catch (Exception ex)
             {
@@ -2374,7 +2388,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.AltaLibro(titulo, materia, precio, autor, editorial);
+                return CApi.AltaLibro(titulo, materia, precio, autor, editorial);
             }
             catch (Exception ex)
             {
@@ -2386,7 +2400,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.ModificarEstudiante(ID, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
+                return CApi.ModificarEstudiante(ID, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
             }
             catch (Exception ex)
             {
@@ -2400,7 +2414,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.ModificarLibro(ID, titulo, materia, precio, autor, editorial);
+                return CApi.ModificarLibro(ID, titulo, materia, precio, autor, editorial);
             }
             catch (Exception ex)
             {
@@ -2412,7 +2426,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.AltaGrupo(listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                return CApi.AltaGrupo(listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
             }
             catch (Exception ex)
             {
@@ -2424,7 +2438,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.ModificarGrupo(ID, listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                return CApi.ModificarGrupo(ID, listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
             }
             catch (Exception ex)
             {
@@ -2437,7 +2451,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.EliminarGrupo(ID);
+                return CApi.EliminarGrupo(ID);
             }
             catch (Exception ex)
             {
@@ -2449,7 +2463,7 @@ namespace Instituto_Britanico.Modelo
         {
             try
             {
-                return cApi.EliminarLibro(ID);
+                return CApi.EliminarLibro(ID);
             }
             catch (Exception ex)
             {
