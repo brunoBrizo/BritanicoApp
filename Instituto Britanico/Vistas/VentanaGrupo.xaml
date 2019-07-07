@@ -95,49 +95,43 @@
                 </Label>
                 <Border
                     Grid.Row="2"
+                    Margin="0,2"
                     Grid.Column="2"
                     Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
                     CornerRadius="10" />
                 <Border
                     Grid.Row="3"
+                    Margin="0,2"
                     Grid.Column="2"
                     Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
                     CornerRadius="10" />
                 <Border
+                    Margin="0,2"
                     Grid.Row="4"
                     Grid.Column="2"
                     Width="70"
                     HorizontalAlignment="Right"
                     Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
                     CornerRadius="10" />
                 <Border
+                    Margin="0,2"                    
                     Grid.Row="4"
                     Grid.Column="2"
                     Width="70"
                     HorizontalAlignment="Left"
                     Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
                     CornerRadius="10" />
                 <Border
+                    Margin="0,2"
                     Grid.Row="5"
                     Grid.Column="2"
                     Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
                     CornerRadius="10" />
                 <Border
+                    Margin="0,2"
                     Grid.Row="6"
                     Grid.Column="2"
                     Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
                     CornerRadius="10" />
                 <ComboBox
                     x:Name="cbMaterias"

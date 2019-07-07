@@ -85,6 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ajustes al programa\ajustes.cs" />
     <Compile Include="Controlador\ApiHelper.cs" />
     <Compile Include="Controlador\ControladorAPI.cs" />
     <Compile Include="Controlador\Controladores\ConvenioController.cs" />

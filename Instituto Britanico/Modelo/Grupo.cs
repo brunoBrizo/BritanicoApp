@@ -23,7 +23,7 @@ namespace BibliotecaBritanico.Modelo
         public string HoraInicio { get; set; }
         public string HoraFin { get; set; }
         public decimal Precio { get; set; } //deberia ser el precio de la materia, pero puede variar
-        public bool Activo { get; set; }
+        public int Anio { get; set; }
         public List<GrupoDia> LstDias { get; set; } = new List<GrupoDia>();
         public List<Estudiante> LstEstudiantes { get; set; } = new List<Estudiante>();
 
@@ -31,10 +31,10 @@ namespace BibliotecaBritanico.Modelo
 
         public override string ToString()
         {
-            string dias = "";
+            string dias = Sucursal.Nombre+" ";
             foreach (GrupoDia s in LstDias)
             {
-                dias += s.Dia;
+                dias += s.Dia.Substring(0,1);
             }
             dias += " " + HoraInicio + ", " + Materia.Nombre;
             return dias;
@@ -47,7 +47,7 @@ namespace BibliotecaBritanico.Modelo
                 string dias = "";
                 foreach (GrupoDia s in LstDias)
                 {
-                    dias += s.Dia;
+                    dias += s.Dia+" ";
                 }
 
                 return dias;
@@ -61,6 +61,10 @@ namespace BibliotecaBritanico.Modelo
             try
             {
                 string errorMsg = String.Empty;
+                if (grupo.Anio < 2000 || grupo.Anio > 3000)
+                {
+                    errorMsg += "Año del grupo incorrecto \n";
+                }
                 if (grupo.MateriaID < 1)
                 {
                     errorMsg = "Debe asignar el grupo a una materia \n";
@@ -113,6 +117,10 @@ namespace BibliotecaBritanico.Modelo
             try
             {
                 string errorMsg = String.Empty;
+                if (grupo.Anio < 2000 || grupo.Anio > 3000)
+                {
+                    errorMsg += "Año del grupo incorrecto \n";
+                }
                 if (grupo.ID < 1)
                 {
                     errorMsg = "Debe asignar un ID al grupo \n";

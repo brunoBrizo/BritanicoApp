@@ -68,6 +68,12 @@ namespace Instituto_Britanico.Controlador
             lstGrupos = await this.GetListaGruposApi();
             lstMatriculas = await this.GetListaMatriculasByAnio(DateTime.Today.Year);
 
+            foreach(Materia m in lstMaterias)
+            {
+                m.Sucursal = GetSucursalByID(m.SucursalID);
+            }
+
+
 
             Estudiantes = new List<Estudiante>();
             Libros = new List<Libro>();
@@ -386,14 +392,23 @@ namespace Instituto_Britanico.Controlador
 
             #region ingreso libros
 
-            //Libro la = new Libro() { ID = 25, Materia = ma, Nombre = "Aprender ingles 101", Precio = 500 };
-            //Libro lb = new Libro() { ID = 26, Materia = mb, Nombre = "English For Dummies", Precio = 1500 };
-            //Libro lc = new Libro() { ID = 27, Materia = mc, Nombre = "Educando imberbes", Precio = 500 };
-            //Libro ld = new Libro() { ID = 28, Materia = md, Nombre = "Sepa la diferencia entre your y your'e", Precio = 500 };
-            //Libro le = new Libro() { ID = 29, Materia = me, Nombre = "Throwing horse shit for fun", Precio = 500 };
-            //Libro lf = new Libro() { ID = 30, Materia = mf, Nombre = "Nunca voy a aprender", Precio = 500 };
-            //Libro lg = new Libro() { ID = 31, Materia = ma, Nombre = "Pa que quiero ingles", Precio = 500 };
-            //Libro lh = new Libro() { ID = 32, Materia = ma, Nombre = "Frances en 4 simples pasos", Precio = 500 };
+            //Libro la = new Libro() { ID = 25, Autor = "Alberto Paredes", Editorial= "Awkward Books LLC", Materia = lstMaterias[0], Nombre = "Aprender ingles 101", Precio = 500 };
+            //Libro lb = new Libro() { ID = 26, Autor = "Juan Espindola", Editorial = "Awkward Books LLC", Materia = lstMaterias[1], Nombre = "English For Dummies", Precio = 1500 };
+            //Libro lc = new Libro() { ID = 27, Autor = "Colin Stevens", Editorial = "Awkward Books LLC", Materia = lstMaterias[2], Nombre = "Educando imberbes", Precio = 500 };
+            //Libro ld = new Libro() { ID = 28, Autor = "Tekito Lakarie", Editorial = "Awkward Books LLC", Materia = lstMaterias[3], Nombre = "Sepa la diferencia entre your y your'e", Precio = 500 };
+            //Libro le = new Libro() { ID = 29, Autor = "Hermenegildo Washington", Editorial = "Planetoide", Materia = lstMaterias[4], Nombre = "Throwing horse shit for fun", Precio = 500 };
+            //Libro lf = new Libro() { ID = 30, Autor = "Esteban Quito", Editorial = "Planetoide", Materia = lstMaterias[5], Nombre = "Nunca voy a aprender", Precio = 500 };
+            //Libro lg = new Libro() { ID = 31, Autor = "Ruso Perez", Editorial = "Planetoide", Materia = lstMaterias[6], Nombre = "Pa que quiero ingles", Precio = 500 };
+            //Libro lh = new Libro() { ID = 32, Autor = "Carlos Tevez", Editorial = "Planetoide", Materia = lstMaterias[7], Nombre = "Frances en 4 simples pasos", Precio = 500 };
+
+            //Libro elLibro1=  await CrearLibro(la);
+            //Libro elLibro2 = await CrearLibro(lb);
+            //Libro elLibro3 = await CrearLibro(lc);
+            //Libro elLibro4 = await CrearLibro(ld);
+            //Libro elLibro5 = await CrearLibro(le);
+            //Libro elLibro6 = await CrearLibro(lf);
+            //Libro elLibro7 = await CrearLibro(lg);
+            //Libro elLibro8 = await CrearLibro(lh);
 
             //Libros.Add(la);
             //Libros.Add(lb);
@@ -473,30 +488,46 @@ namespace Instituto_Britanico.Controlador
 
             #region ingreso convenios
 
-            Convenio cona = new Convenio() { Anio = 2019, AsociadoNombre = "Alberto S.A.", ID = 1, Descuento = 10, Nombre = "Albertito 2019" };
-            Convenio conb = new Convenio() { Anio = 2019, AsociadoNombre = "Antel", ID = 2, Descuento = 60, Nombre = "informes Antel" };
-            Convenio conc = new Convenio() { Anio = 2019, AsociadoNombre = "Cementos De Rivera", ID = 3, Descuento = 15, Nombre = "Secretaria Cementos" };
-            Convenio cond = new Convenio() { Anio = 2018, AsociadoNombre = "Antel", ID = 4, Descuento = 10, Nombre = "Directorio Antel" };
-            Convenio cone = new Convenio() { Anio = 2018, AsociadoNombre = "Serruchos Deformes S.R.L.", ID = 5, Descuento = 20, Nombre = "El Sierra Alegre" };
-            Convenio conf = new Convenio() { Anio = 2017, AsociadoNombre = "El Formon Desafilado S.A.", ID = 6, Descuento = 30, Nombre = "Formones" };
-            Convenio cong = new Convenio() { Anio = 2017, AsociadoNombre = "Antel", ID = 7, Descuento = 10, Nombre = "tecnicos Antel" };
-            Convenio conh = new Convenio() { Anio = 2016, AsociadoNombre = "La Gubia Loca", ID = 8, Descuento = 20, Nombre = "gubias" };
-            Convenio coni = new Convenio() { Anio = 2015, AsociadoNombre = "Cepillos Jaime", ID = 9, Descuento = 10, Nombre = "cepillos" };
-            Convenios.Add(cona);
-            Convenios.Add(conb);
-            Convenios.Add(conc);
-            Convenios.Add(cond);
-            Convenios.Add(cone);
-            Convenios.Add(conf);
-            Convenios.Add(cong);
-            Convenios.Add(conh);
-            Convenios.Add(coni);
+            //Convenio cona = new Convenio() { Anio = 2019, AsociadoNombre = "Alberto S.A.", ID = 1, Descuento = 10, Nombre = "Albertito 2019" };
+            //Convenio conb = new Convenio() { Anio = 2019, AsociadoNombre = "Antel", ID = 2, Descuento = 60, Nombre = "informes Antel" };
+            //Convenio conc = new Convenio() { Anio = 2019, AsociadoNombre = "Cementos De Rivera", ID = 3, Descuento = 15, Nombre = "Secretaria Cementos" };
+            //Convenio cond = new Convenio() { Anio = 2018, AsociadoNombre = "Antel", ID = 4, Descuento = 10, Nombre = "Directorio Antel" };
+            //Convenio cone = new Convenio() { Anio = 2018, AsociadoNombre = "Serruchos Deformes S.R.L.", ID = 5, Descuento = 20, Nombre = "El Sierra Alegre" };
+            //Convenio conf = new Convenio() { Anio = 2017, AsociadoNombre = "El Formon Desafilado S.A.", ID = 6, Descuento = 30, Nombre = "Formones" };
+            //Convenio cong = new Convenio() { Anio = 2017, AsociadoNombre = "Antel", ID = 7, Descuento = 10, Nombre = "tecnicos Antel" };
+            //Convenio conh = new Convenio() { Anio = 2016, AsociadoNombre = "La Gubia Loca", ID = 8, Descuento = 20, Nombre = "gubias" };
+            //Convenio coni = new Convenio() { Anio = 2015, AsociadoNombre = "Cepillos Jaime", ID = 9, Descuento = 10,
+            //    Nombre = "cepillos" };
+
+
+
+
+
+            //Convenios.Add(cona);
+            //Convenios.Add(conb);
+            //Convenios.Add(conc);
+            //Convenios.Add(cond);
+            //Convenios.Add(cone);
+            //Convenios.Add(conf);
+            //Convenios.Add(cong);
+            //Convenios.Add(conh);
+            //Convenios.Add(coni);
+            //foreach(Convenio conveniente in Convenios)
+            //{
+            //    conveniente.AsociadoDireccion = "aaa";
+            //    conveniente.AsociadoMail = "alberto@alberto.alberto";
+            //    conveniente.FechaHora = new DateTime(2015, 05, 05);
+            //    conveniente.AsociadoTel = "09090909";
+            //    conveniente.LstEstudiantes = new List<Estudiante>();
+            //    Convenio jacinto=await CrearConvenio(conveniente);
+            //}
 
 
 
             #endregion
-            
+
             #region Orden de listas
+            
 
             Libros = Libros.OrderBy(l => l.Nombre).ToList();
             Estudiantes = Estudiantes.OrderBy(es => es.Nombre).ToList();
@@ -516,6 +547,77 @@ namespace Instituto_Britanico.Controlador
 
 
         // ---------- Busquedas en listas locales ----------//
+
+        public List<Materia> GetMateriasPorSucursal(int id)
+        {
+            List<Materia> lista = new List<Materia>();
+            foreach(Materia m in lstMaterias)
+            {
+                if (m.SucursalID == id)
+                {
+                    lista.Add(m);
+                }
+            }
+            return lista;
+        }
+
+        public List<Grupo> GetGruposPorSucursal(int id)
+        {
+            List<Grupo> lista = new List<Grupo>();
+            foreach(Grupo g in lstGrupos)
+            {
+                if (g.SucursalID == id)
+                {
+                    lista.Add(g);
+                }
+            }
+            return lista;
+        }
+
+        public List<Grupo> GetGruposActivosPorSucursal(int id)
+        {
+            List<Grupo> lista = new List<Grupo>();
+            foreach (Grupo g in lstGrupos)
+            {
+                if (g.SucursalID == id && g.Anio==DateTime.Now.Year)
+                {
+                    lista.Add(g);
+                }
+            }
+            return lista;
+        }
+
+        public List<Funcionario> GetProfesores()
+        {
+            List<Funcionario> lista = new List<Funcionario>();
+            foreach(Funcionario f in lstFuncionarios)
+            {
+                if (f.TipoFuncionario == FuncionarioTipo.Profesor)
+                {
+                    lista.Add(f);
+                }
+            }
+            return lista;
+        }
+
+        public List<Funcionario> GetProfesoresActivos()
+        {
+            List<Funcionario> lista = new List<Funcionario>();
+            foreach (Funcionario f in lstFuncionarios)
+            {
+                if (f.TipoFuncionario == FuncionarioTipo.Profesor && f.Activo)
+                {
+                    lista.Add(f);
+                }
+            }
+            return lista;
+        }
+
+
+
+
+
+
 
         public Materia GetMateriaByID(int id)
         {
@@ -576,6 +678,8 @@ namespace Instituto_Britanico.Controlador
         }
 
         // ---------- Busquedas en listas locales ----------//
+
+
 
 
 
@@ -1401,8 +1505,11 @@ namespace Instituto_Britanico.Controlador
         {
             try
             {
-                pEstudiante = await EstudianteController.Crear(pEstudiante);
+                Convenio pepe = new Convenio() { ID = 0 } ;
+                pEstudiante.Convenio = pepe;
                 pEstudiante.Grupo = this.GetGrupoByID(pEstudiante.GrupoID, pEstudiante.MateriaID);
+                pEstudiante = await EstudianteController.Crear(pEstudiante);
+           
                 return pEstudiante;
             }
             catch (Exception ex)

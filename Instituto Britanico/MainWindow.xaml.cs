@@ -29,6 +29,7 @@ namespace Instituto_Britanico
             InitializeComponent();
             ApiHelper.InicializarCliente();
             Loaded += MainWindow_Loaded;
+            string hola = "";
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -43,6 +44,9 @@ namespace Instituto_Britanico
             stackContenido.Height = alto;
             stackContenido.Width = ancho;
             stackContenido.Children.Clear();
+            VentanaFuncionario vf= new VentanaFuncionario(this, null, TipoTransferencia.Nuevo);
+            vf.ShowDialog();
+
         }
 
         private void BtnEstudiantes_Click(object sender, RoutedEventArgs e)

@@ -73,18 +73,23 @@ namespace Instituto_Britanico.Vistas
 
         private void ClickEnEditar(object sender, RoutedEventArgs e)
         {
-            Materia materia = (Materia)dgMaterias.SelectedItems[0];
-            VentanaMateria vm = new VentanaMateria(Ventana, null, TipoTransferencia.Edicion, this);
-            vm.Owner = Ventana;
-            brillo.Oscurecer();
-            vm.Closed += Vm_Closed;
+            if (dgMaterias.SelectedIndex != -1)
+            {
+                Materia materia = (Materia)dgMaterias.SelectedItems[0];
+                VentanaMateria vm = new VentanaMateria(Ventana, materia, TipoTransferencia.Edicion, this);
+                vm.Owner = Ventana;
+                brillo.Oscurecer();
+                vm.Closed += Vm_Closed;
+                vm.ShowDialog();
+            }
 
 
-            vm.ShowDialog();
+           
         }
 
         private void BtnIngresarMateria_Click(object sender, RoutedEventArgs e)
         {
+            
             VentanaMateria vm = new VentanaMateria(Ventana, null, TipoTransferencia.Nuevo, this);
             vm.Owner = Ventana;
             brillo.Oscurecer();

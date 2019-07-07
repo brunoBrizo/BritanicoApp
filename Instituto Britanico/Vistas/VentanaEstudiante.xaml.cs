@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using Instituto_Britanico.Interfaces;
 using Instituto_Britanico.Modelo;
 using System;
@@ -33,9 +34,7 @@ namespace Instituto_Britanico.Vistas
         public VentanaEstudiante(Window v, Estudiante est, TipoTransferencia tt, IEstudiante ie)
         {
             InitializeComponent();
-            fachada = Fachada.getInstancia();
-            CargarConvenios();
-            CargarTiposDocumento();
+            Loaded += VentanaEstudiante_Loaded; 
             this.tt = tt;
             if (est != null)
             {
@@ -45,6 +44,25 @@ namespace Instituto_Britanico.Vistas
             this.ie = ie;
         }
 
+
+        private async void VentanaEstudiante_Loaded(object sender, RoutedEventArgs e)
+        {
+            fachada = await Fachada.getInstanciaAsync();
+            CargarConvenios();
+            CargarTiposDocumento();
+            CargarGrupos();
+            txtAlergias.IsEnabled = false;
+            cbConvenio.IsEnabled = false;
+            cambioDatos = false;
+
+        }
+
+        private void CargarGrupos()
+        {
+            List<Grupo> listaGrupos = fachada.GetGrupos();
+            cbGrupo.ItemsSource = listaGrupos;
+        }
+
         private void CargarTiposDocumento()
         {
 
@@ -52,11 +70,11 @@ namespace Instituto_Britanico.Vistas
             cbTipoDocumento.SelectedIndex = 0;
         }
 
-        private void CargarConvenios()
+        private async void CargarConvenios()
         {
             try
             {
-                List<Convenio> convenios = fachada.GetConveniosTotal();
+                List<Convenio> convenios = await fachada.GetConvenios();
                 cbConvenio.ItemsSource = convenios;
             }
             catch (Exception ex)
@@ -73,13 +91,13 @@ namespace Instituto_Britanico.Vistas
             txtDireccion.IsEnabled = true;
             txtFechaNac.IsEnabled = true;
             txtCorreo.IsEnabled = true;
-            txtAlergias.IsEnabled = true;
+            txtAlergias.IsEnabled = false;
             txtContacto1.IsEnabled = true;
             txtContacto1Tel.IsEnabled = true;
             txtContacto2.IsEnabled = true;
             txtContacto2Tel.IsEnabled = true;
             chkAlergias.IsEnabled = true;
-            cbConvenio.IsEnabled = true;
+            cbConvenio.IsEnabled = false;
             chkConvenio.IsEnabled = true;
             btnEditar.Visibility = Visibility.Collapsed;
             btnGuardar.Visibility = Visibility.Visible;
@@ -188,7 +206,7 @@ namespace Instituto_Britanico.Vistas
             cambioDatos = false;
         }
 
-        private void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             string nombre = txtNombre.Text;
             string CI = txtCI.Text;
@@ -205,15 +223,18 @@ namespace Instituto_Britanico.Vistas
             DateTime fechaNac = DateTime.MinValue;
             DateTime.TryParse(txtFechaNac.Text, out fechaNac);
             Convenio convenio = (Convenio)cbConvenio.SelectedItem;
+            Grupo gru = (Grupo)cbGrupo.SelectedItem;
+            int grupoID = gru.ID;
+            int materiaID = gru.MateriaID;
             if (!(bool)chkConvenio.IsChecked) convenio = null;
             if (!esAlergico) alergias = "";
-            bool sino = !(bool)chkCorrecto.IsChecked;
+           
             if (estudiante == null)
             {
                 try
                 {
-                    bool guardado = false;//fachada.AltaEstudiante(td, nombre, CI, telefono, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, direccion, correo, fechaNac, convenio, sino);
-                    if (guardado) LevantarPopUp(TipoMensaje.Info, "Los datos del estudiante se guardararon correctamente");
+                    Estudiante est= await fachada.CrearEstudiante(nombre, td, CI, telefono, correo, direccion, fechaNac, esAlergico, alergias, contactoUno, contactoUnoTel, contactoDos, contactoDosTel, convenio, grupoID, materiaID);
+                    if (est!=null) LevantarPopUp(TipoMensaje.Info, "Los datos del estudiante se guardararon correctamente");
                     else LevantarPopUp(TipoMensaje.Error, "Ocurrio un error al guardar los datos, no se guardaron");
 
                 }
@@ -256,15 +277,45 @@ namespace Instituto_Britanico.Vistas
             {
                 if (MessageBox.Show("Desea cancelar edicion?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    DeshabilitarCampos();
-                    CargarDatosEstudiante();
+
+                    if (estudiante == null)
+                    {
+                        LimpiarCampos();
+                        HabilitarCampos();
+                        btnEditar.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        DeshabilitarCampos();
+                        CargarDatosEstudiante();
+                    }
+                    
                     cambioDatos = false;
+
                 }
             }
-            else
-            {
-                DeshabilitarCampos();
-            }
+        }
+
+        private void LimpiarCampos()
+        {
+            txtNombre.Text = "";
+            txtCI.Text = "";
+            txtTelefono.Text = "";
+            txtDireccion.Text = "";
+            txtFechaNac.Text = "";
+            txtCorreo.Text = "";
+            txtAlergias.Text = "";
+            txtContacto1.Text = "";
+            txtContacto1Tel.Text = "";
+            txtContacto2.Text = "";
+            txtContacto2Tel.Text = "";
+            chkAlergias.IsEnabled = true;
+            cbConvenio.IsEnabled = true;
+            chkConvenio.IsEnabled = true;
+            chkAlergias.IsChecked = false;
+            chkConvenio.IsChecked = false;
+            cbGrupo.SelectedIndex = -1;
+            cbConvenio.SelectedIndex = -1;
         }
 
         private void TeclaEnVentana(object sender, KeyEventArgs e)
@@ -358,6 +409,19 @@ namespace Instituto_Britanico.Vistas
         private void CbConvenio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cambioDatos = true;
+        }
+
+        private void CambioDatosCombobox(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+
+        private void AsignarMayusculas(object sender, RoutedEventArgs e)
+        {
+            TextBox elTextBoxQueEnvia = (TextBox)sender;
+            string texto = elTextBoxQueEnvia.Text;
+            elTextBoxQueEnvia.Text = Herramientas.ColocarMayusculas(texto);
         }
     }
 }

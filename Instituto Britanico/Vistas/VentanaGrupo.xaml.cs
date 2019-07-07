@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using Instituto_Britanico.Interfaces;
 using Instituto_Britanico.Modelo;
 using System;
@@ -43,9 +44,13 @@ namespace Instituto_Britanico.Vistas
         {
             try
             {
-                cbMaterias.ItemsSource = fachada.GetMaterias();
-                cbProfesor.ItemsSource = fachada.GetProfesoresTotal();
                 cbSucursal.ItemsSource = fachada.GetSucursalesTotal();
+                cbSucursal.SelectedIndex = 0;
+                List<Materia> listaMaterias = fachada.GetMateriasPorSucursal(((Sucursal)cbSucursal.SelectedItem).ID);
+                cbMaterias.ItemsSource = null;
+                cbMaterias.ItemsSource = listaMaterias;
+                cbProfesor.ItemsSource = fachada.GetProfesoresActivos();
+              
             }catch(Exception ex)
             {
                 LevantarPopUp(TipoMensaje.Error, ex.Message);
@@ -171,7 +176,7 @@ namespace Instituto_Britanico.Vistas
             }
         }
 
-        private void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             string horaInicio = txtHoraInicio.Text;
             string horaFin = txtHoraFin.Text;
@@ -180,20 +185,23 @@ namespace Instituto_Britanico.Vistas
             Sucursal sucursal = (Sucursal)cbSucursal.SelectedItem;
             Funcionario funcionario = (Funcionario)cbProfesor.SelectedItem;
             Materia materia = (Materia)cbMaterias.SelectedItem;
-            List<string> listaDias = new List<string>();
-            bool activo = (bool)chkActivo.IsChecked;
-            if ((bool)chkLunes.IsChecked) listaDias.Add("Lunes");
-            if ((bool)chkMartes.IsChecked) listaDias.Add("Martes");
-            if ((bool)chkMiercoles.IsChecked) listaDias.Add("Miercoles");
-            if ((bool)chkJueves.IsChecked) listaDias.Add("Jueves");
-            if ((bool)chkViernes.IsChecked) listaDias.Add("Viernes");
-            if ((bool)chkSabado.IsChecked) listaDias.Add("Sabado");
-            if ((bool)chkDomingo.IsChecked) listaDias.Add("Domingo");
+            List<GrupoDia> listaDias = new List<GrupoDia>();
+            int anio = 2019;
+          //  bool activo = (bool)chkActivo.IsChecked;
+            if ((bool)chkLunes.IsChecked) listaDias.Add(new GrupoDia(1, "Lunes"));
+            if ((bool)chkMartes.IsChecked) listaDias.Add(new GrupoDia(2, "Martes"));
+            if ((bool)chkMiercoles.IsChecked) listaDias.Add(new GrupoDia(3, "Miercoles"));
+            if ((bool)chkJueves.IsChecked) listaDias.Add(new GrupoDia(4, "Jueves"));
+            if ((bool)chkViernes.IsChecked) listaDias.Add(new GrupoDia(5, "Viernes"));
+            if ((bool)chkSabado.IsChecked) listaDias.Add(new GrupoDia(6, "Sabado"));
+            if ((bool)chkDomingo.IsChecked) listaDias.Add(new GrupoDia(7, "Domingo"));
             if (tt == TipoTransferencia.Nuevo)
             {
-                Grupo g = fachada.AltaGrupo(listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                
                 try
                 {
+                    Grupo g = await fachada.CrearGrupo(materia.ID, sucursal.ID, funcionario.ID, horaInicio, horaFin, precio, anio, listaDias);
+
                     if (g == null)
                     {
                         LevantarPopUp(TipoMensaje.Alerta, "No fue posible ingresar grupo");
@@ -211,7 +219,8 @@ namespace Instituto_Britanico.Vistas
             {
                 try
                 {
-                    bool modificado = fachada.ModificarGrupo(grupo.ID, listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                    //   bool modificado = fachada.ModificarGrupo(grupo.ID, listaDias, sucursal, funcionario, horaInicio, horaFin, materia, activo, precio);
+                    bool modificado = true;
                     if (modificado)
                     {
                         LevantarPopUp(TipoMensaje.Info, "Los datos del grupo han sido modificados con exito");
@@ -297,6 +306,19 @@ namespace Instituto_Britanico.Vistas
         private void CambioDatos(object sender, SelectionChangedEventArgs e)
         {
             cambioDatos = true;
+            if ((((ComboBox)sender).Name).ToLower() == "cbsucursal")
+            {
+                try
+                {
+                    List<Materia> listaMaterias = fachada.GetMateriasPorSucursal(((Sucursal)cbSucursal.SelectedItem).ID);
+                    cbMaterias.ItemsSource = null;
+                    cbMaterias.ItemsSource = listaMaterias;
+                }
+                catch(ValidacionException ex)
+                {
+                    LevantarPopUp(TipoMensaje.Alerta, "Error al cargar las materias de la sucursal");
+                }
+            }
         }
 
         private void CambioDatosTexto(object sender, TextChangedEventArgs e)

@@ -58,7 +58,7 @@
 
         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="5" FontSize="40">Funcionario</Label>
         <Label Grid.Row="4" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Nombre"/>
-        <TextBox Width="180" Grid.Row="4" Grid.Column="2" Background="White" x:Name="txtNombre" />
+        <TextBox  LostFocus="AsignarMayusculas" Width="180" Grid.Row="4" Grid.Column="2" Background="White" x:Name="txtNombre" />
         <Label Grid.Row="4" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Cedula"/>
         <TextBox Width="180"  Grid.Row="4" Grid.Column="5" Background="White" x:Name="txtDocumento" />
         <Label Grid.Row="6" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Telefono"/>
@@ -66,7 +66,7 @@
         <Label Grid.Row="6" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Telefono 2"/>
         <TextBox Width="180"  Grid.Row="6" Grid.Column="5" Background="White" x:Name="txtTelefonoDos" />
         <Label Grid.Row="8" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Direccion"/>
-        <TextBox  Width="180" Grid.Row="8" Grid.Column="2" Background="White" x:Name="txtDireccion"/>
+        <TextBox LostFocus="AsignarMayusculas" Width="180" Grid.Row="8" Grid.Column="2" Background="White" x:Name="txtDireccion"/>
         <Label Grid.Row="8" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="4" Content="Correo"/>
         <TextBox  Width="180" Grid.Row="8" Grid.Column="5" Background="White" x:Name="txtCorreo"/>
         <Label Grid.Row="10" VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right" Grid.Column="1" Content="Fecha Nac."/>

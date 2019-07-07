@@ -41,13 +41,13 @@
                                     Background="White"
                                     CornerRadius="10">
                                     <TextBox
-                                        TextChanged="CambioTexto"
-                                        HorizontalContentAlignment="Center"
                                         x:Name="txtNombre"
                                         Width="250"
                                         Height="38"
                                         Margin="10,2"
-                                        Background="White" />
+                                        HorizontalContentAlignment="Center"
+                                        Background="White"
+                                        TextChanged="CambioTexto" />
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -63,13 +63,13 @@
                                     Background="White"
                                     CornerRadius="10">
                                     <ComboBox
-                                        SelectionChanged="CambioComboBox"
                                         x:Name="cbSucursal"
                                         Width="230"
                                         Height="38"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
-                                        Background="White" />
+                                        Background="White"
+                                        SelectionChanged="CambioComboBox" />
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -86,12 +86,12 @@
                                     CornerRadius="10">
                                     <TextBox
                                         x:Name="txtPrecio"
-                                        TextChanged="CambioTexto"
                                         Width="150"
                                         Height="38"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
-                                        Background="White" />
+                                        Background="White"
+                                        TextChanged="CambioTexto" />
                                 </Border>
                             </StackPanel>
                             <StackPanel x:Name="panelGrillaLibros" Orientation="Vertical">
@@ -125,7 +125,7 @@
                                             </DataGridTemplateColumn>
 
                                         </DataGrid.Columns>
-                                       
+
                                     </DataGrid>
                                 </Border>
                             </StackPanel>
@@ -149,9 +149,9 @@
                                         Width="290"
                                         Height="240"
                                         Margin="0,5"
-                                           AutoGenerateColumns="False"
-                        IsReadOnly="true"
+                                        AutoGenerateColumns="False"
                                         Background="White"
+                                        IsReadOnly="true"
                                         ScrollViewer.VerticalScrollBarVisibility="auto">
                                         <DataGrid.Resources>
                                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -160,28 +160,27 @@
                                         </DataGrid.Resources>
                                         <DataGrid.Columns>
                                             <DataGridTemplateColumn Width="220">
-                                               
+
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock FontSize="14" Text="{Binding Nombre}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn  Width="50" >
+                                            <DataGridTemplateColumn Width="50">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Button
-                                            Width="50"
+                                                            Width="50"
                                                             Height="22"
-                                            HorizontalAlignment="Center"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Click="ClickEnBorrarLibroDeLista">
+                                                            HorizontalAlignment="Center"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            Click="ClickEnBorrarLibroDeLista">
                                                             <materialDesign:PackIcon
-                                                                
-                                                FontSize="14"
-                                                Foreground="Black"
-                                                Kind="Delete" />
+                                                                FontSize="14"
+                                                                Foreground="Black"
+                                                                Kind="Delete" />
                                                         </Button>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -204,8 +203,8 @@
                             x:Name="btnGuardar"
                             Width="100"
                             Margin="20,0"
-                            Content="Guardar"
-                            Click="BtnGuardar_Click"/>
+                            Click="BtnGuardar_Click"
+                            Content="Guardar" />
                         <Button
                             x:Name="btnEditar"
                             Width="100"
@@ -213,13 +212,23 @@
                             Click="BtnEditar_Click"
                             Content="Editar" />
                         <Button
-                            Click="BtnCancelar_Click"
                             x:Name="btnCancelar"
                             Width="100"
                             Margin="20,0"
+                            Click="BtnCancelar_Click"
                             Content="Cancelar" />
-                        <Button x:Name="btnEliminar" Width="60" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="BtnEliminar_Click">
-                            <materialDesign:PackIcon Kind="Delete" Width="30" Height="30" Foreground="red"/>
+                        <Button
+                            x:Name="btnEliminar"
+                            Width="60"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="BtnEliminar_Click">
+                            <materialDesign:PackIcon
+                                Width="30"
+                                Height="30"
+                                Foreground="red"
+                                Kind="Delete" />
                         </Button>
                     </StackPanel>
 

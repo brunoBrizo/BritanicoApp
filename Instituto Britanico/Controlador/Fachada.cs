@@ -69,6 +69,17 @@ namespace Instituto_Britanico.Modelo
             return CApi.GetMateriaByID(id);
         }
 
+        internal IEnumerable GetProfesoresActivos()
+        {
+            try
+            {
+                return CApi.GetProfesoresActivos();
+            }catch(ValidacionException ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<Materia> GetMaterias()
         {
             try
@@ -413,6 +424,23 @@ namespace Instituto_Britanico.Modelo
                 return parametro;
             }
             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
+        /// nuevo en fachada 05/07/2019-04:29
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        internal List<Materia> GetMateriasPorSucursal(int id)
+        {
+            try
+            {
+                return CApi.GetMateriasPorSucursal(id);
+            }catch(ValidacionException ex)
             {
                 throw ex;
             }
@@ -1272,9 +1300,10 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<Estudiante> CrearEstudiante(string nombre, TipoDocumento tipoDocumento, string ci, string tel, string email, string direccion, DateTime fechaNac,
-            bool alergico, string alergias, string contactoAlternativoUno, string contactoAlternativoUnoTel, string contactoAlternativoDos, string contactoAlternativoDosTel,
-            Convenio convenio, int grupoID, int materiaID)
+        public async Task<Estudiante> CrearEstudiante
+            (string nombre, TipoDocumento tipoDocumento, string ci, string tel, string email, string direccion,
+            DateTime fechaNac, bool alergico, string alergias, string contactoAlternativoUno, string contactoAlternativoUnoTel, 
+            string contactoAlternativoDos, string contactoAlternativoDosTel, Convenio convenio, int grupoID, int materiaID)
         {
             try
             {
@@ -1296,6 +1325,7 @@ namespace Instituto_Britanico.Modelo
                     ContactoAlternativoDosTel = contactoAlternativoDosTel,
                     Convenio = convenio,
                     GrupoID = grupoID,
+                   
                     MateriaID = materiaID
                 };
                 Estudiante.ValidarEstudianteInsert(estudiante);
@@ -1533,7 +1563,7 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<Grupo> CrearGrupo(int materiaID, int sucursalID, int funcionarioID, string horaInicio, string horaFin, decimal precio, bool activo, List<GrupoDia> dias)
+        public async Task<Grupo> CrearGrupo(int materiaID, int sucursalID, int funcionarioID, string horaInicio, string horaFin, decimal precio, int anio, List<GrupoDia> dias)
         {
             try
             {
@@ -1546,7 +1576,7 @@ namespace Instituto_Britanico.Modelo
                     HoraInicio = horaInicio,
                     HoraFin = horaFin,
                     Precio = precio,
-                    Activo = activo,
+                    Anio = anio,
                     LstDias = dias
                 };
                 Grupo.ValidarGrupoInsert(grupo);
@@ -1563,7 +1593,7 @@ namespace Instituto_Britanico.Modelo
             }
         }
 
-        public async Task<bool> ModificarGrupo(int id, int materiaID, int sucursalID, int funcionarioID, string horaInicio, string horaFin, decimal precio, bool activo, List<GrupoDia> dias)
+        public async Task<bool> ModificarGrupo(int id, int materiaID, int sucursalID, int funcionarioID, string horaInicio, string horaFin, decimal precio, int anio, List<GrupoDia> dias)
         {
             try
             {
@@ -1576,7 +1606,7 @@ namespace Instituto_Britanico.Modelo
                     HoraInicio = horaInicio,
                     HoraFin = horaFin,
                     Precio = precio,
-                    Activo = activo,
+                    Anio = anio,
                     LstDias = dias
                 };
                 Grupo.ValidarGrupoModificar(grupo);

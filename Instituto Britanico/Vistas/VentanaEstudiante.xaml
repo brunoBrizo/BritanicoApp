@@ -164,6 +164,7 @@
                     Grid.Column="2"
                     Width="250"
                     Margin="2"
+                    LostFocus="AsignarMayusculas"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
                     Background="White"
@@ -345,6 +346,7 @@
                 </Label>
                 <TextBox
                     x:Name="txtContacto1"
+                     LostFocus="AsignarMayusculas"
                     Grid.Row="8"
                     Grid.Column="2"
                     Width="250"
@@ -380,6 +382,7 @@
                     Contacto 2
                 </Label>
                 <TextBox
+                     LostFocus="AsignarMayusculas"
                     x:Name="txtContacto2"
                     Grid.Row="9"
                     Grid.Column="2"
@@ -407,6 +410,25 @@
                     HorizontalContentAlignment="Center"
                     Background="White"
                     TextChanged="CambioDatos" />
+                <Label
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="15">
+                    Grupo
+                </Label>
+                <ComboBox
+                    x:Name="cbGrupo"
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Width="250"
+                    Margin="2"
+                    Height="40"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    Background="White"
+                    SelectionChanged="CambioDatosCombobox" />
                 <CheckBox
                     x:Name="chkAlergias"
                     Grid.Row="7"
@@ -415,14 +437,7 @@
                     Background="White"
                     Click="ChkAlergias_Click"
                     IsChecked="false" />
-                <CheckBox
-                    x:Name="chkCorrecto"
-                    Grid.Row="10"
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    Background="White"
-                    Content="emitir Error"
-                    IsChecked="false" />
+               
                 <Button
                     x:Name="btnGuardar"
                     Grid.Row="12"

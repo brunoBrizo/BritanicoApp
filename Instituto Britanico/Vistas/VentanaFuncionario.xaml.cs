@@ -1,4 +1,5 @@
 ﻿using BibliotecaBritanico.Modelo;
+using BibliotecaBritanico.Utilidad;
 using Instituto_Britanico.Modelo;
 using System;
 using System.Collections.Generic;
@@ -90,11 +91,34 @@ namespace Instituto_Britanico.Vistas
             cbSucursal.ItemsSource = listaSucursales;
             List<string> listaTipoFuncionarios= Enum.GetNames(typeof(FuncionarioTipo)).ToList();
             cbTipoFunc.ItemsSource = listaTipoFuncionarios;
-
+            cbTipoFunc.SelectedIndex = 0;
+            cbSucursal.SelectedIndex = 1;
         }
 
-        private void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        private  async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
+            string nombre = txtNombre.Text;
+            string telefono=txtTelefonoUno.Text;
+            string telefono2=txtTelefonoDos.Text;
+            string direccion=txtDireccion.Text;
+            string correo=txtCorreo.Text;
+            string cedula=txtDocumento.Text;
+            DateTime fechaNac = DateTime.MinValue;
+            DateTime.TryParse(dpFechaNac.Text, out fechaNac);
+            string clave = txtClave.Text;
+            FuncionarioTipo ft =(FuncionarioTipo)Enum.Parse(typeof(FuncionarioTipo), (cbTipoFunc.SelectedItem).ToString());
+
+
+            Sucursal suc = (Sucursal)cbSucursal.SelectedItem;
+            bool activo = (bool)chkActivo.IsChecked;
+            try
+            {
+                Funcionario f= await fachada.CrearFuncionario(suc.ID, nombre, cedula, correo, telefono, telefono2, direccion, fechaNac, clave, activo, ft);
+                LevantarPopUp(TipoMensaje.Info, "Se creo el funcionario correctamente");
+            }catch(ValidacionException ex)
+            {
+                LevantarPopUp(TipoMensaje.Error, "se produjo un error\n\n "+ex.Message);
+            }
 
         }
 
@@ -119,6 +143,20 @@ namespace Instituto_Britanico.Vistas
         private void CerrarVentana(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+
+        private void LevantarPopUp(TipoMensaje tm, string mensaje)
+        {
+            PopUpVentana pv = new PopUpVentana(mensaje, tm, 2000, 40, (((int)fachada.Tamano.Width) + 160), (int)fachada.Tamano.Height);
+            pv.Show();
+        }
+
+        private void AsignarMayusculas(object sender, RoutedEventArgs e)
+        {
+            TextBox elTextBoxQueEnvia = (TextBox)sender;
+            string texto = elTextBoxQueEnvia.Text;
+            elTextBoxQueEnvia.Text = Herramientas.ColocarMayusculas(texto);
         }
     }
 }

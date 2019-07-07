@@ -155,5 +155,34 @@ namespace BibliotecaBritanico.Utilidad
         {
             return input.Replace("\"", "");
         }
+
+        public static string ColocarMayusculas(string texto)
+        {
+            if (texto.Length > 0)
+            {
+                string t = "";
+                int i = 1;
+                texto = texto.Trim();
+                string aux = texto.Substring(0, 1);
+                aux = aux.ToUpper();
+                t += aux;
+                while (i < texto.Length)
+                {
+                    if (texto.Substring(i, 1) != " ") t += texto.Substring(i, 1);
+                    else
+                    {
+                        t += " ";
+                        i++;
+                        aux = texto.Substring(i, 1).ToUpper();
+                        t += aux;
+
+                    }
+                    i++;
+                }
+
+                return t;
+            }
+            return "";
+        }
     }
 }

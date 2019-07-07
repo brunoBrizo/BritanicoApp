@@ -33,7 +33,6 @@ namespace Instituto_Britanico.Vistas
         public VentanaMateria(Window v, Materia mat, TipoTransferencia tt, TransferenciaObjeto to)
         {
             InitializeComponent();
-            fachada = Fachada.getInstancia();
             this.to = to;
             this.ventana = v;
             this.tt = tt;
@@ -41,10 +40,11 @@ namespace Instituto_Britanico.Vistas
             Loaded += VentanaMateria_Loaded;
         }
 
-        private void VentanaMateria_Loaded(object sender, RoutedEventArgs e)
+        private async void VentanaMateria_Loaded(object sender, RoutedEventArgs e)
         {
+            fachada = await Fachada.getInstanciaAsync();
             CargarLibros();
-            CargarSucursales();
+            await CargarSucursales();
             if (materia != null)
             {
                 CargarDatosMateria();
